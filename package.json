@@ -1,0 +1,23 @@
+{
+  "name": "xbox-webapi-node",
+  "version": "0.1.0",
+  "description": "Xbox web api client in Node.JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc --reporter=html --reporter=lcov --reporter=text ./node_modules/mocha/bin/mocha tests/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unknownskl/xbox-webapi-node.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/unknownskl/xbox-webapi-node/issues"
+  },
+  "homepage": "https://github.com/unknownskl/xbox-webapi-node#readme",
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "nyc": "^13.3.0"
+  }
+}
