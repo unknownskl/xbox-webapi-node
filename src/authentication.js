@@ -14,6 +14,10 @@ module.exports = function()
         setUserAuth: function(email, password){
             this.email_address = email
             this.password = password
+        },
+
+        authenticate: function(){
+            return true
         }
     }
 }
