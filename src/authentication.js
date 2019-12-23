@@ -14,6 +14,7 @@ module.exports = function()
 
         access_token: false,
         refresh_token: false,
+        xsts_token: false,
         user_token: false,
         user_id: false,
 
@@ -47,11 +48,20 @@ module.exports = function()
                         this._get_xsts_token(this.user_token.Token).then(function(xsts_token){
 
                             console.log('xsts_token', xsts_token)
-                            console.log('User authenticated:', xsts_token.DisplayClaims.xui[0].gtg)
+                            console.log('User authenticated:', xsts_token.DisplayClaims.xui[0])
 
+                            this.xsts_token = xsts_token
                             this.authenticated = true
 
-                            resolve('ok')
+                            this.get_title_info('Microsoft.SeaofThieves_8wekyb3d8bbwe').then(function(title_info){
+
+                                console.log(title_info, title_info)
+
+                                resolve('ok')
+
+                            }.bind(this)).catch(function(error){
+                                reject(error)
+                            })
 
                         }.bind(this)).catch(function(error){
                             reject(error)
@@ -63,6 +73,39 @@ module.exports = function()
                     reject('Failed to authenticate. Run with token')
                 }
 
+            }.bind(this))
+        },
+
+        get_title_info: function(title_id){
+
+            return new Promise(function(resolve, reject) {
+                // console.log('auth header:', 'XBL3.0 x='+this.xsts_token.DisplayClaims.xui[0].uhs+';'+this.xsts_token)
+                console.log('this.xsts_token', this.xsts_token)
+
+                request.post({
+                    url: 'https://titlehub.xboxlive.com/titles/batch/decoration/detail',
+                    headers: {
+                        Authorization: 'XBL3.0 x='+this.xsts_token.DisplayClaims.xui[0].uhs+';'+this.xsts_token.Token,
+                        'Accept-Language': 'en-US',
+                        'x-xbl-contract-version': '2',
+                        'x-xbl-client-name': 'XboxApp',
+                        'x-xbl-client-type': 'UWA',
+                        'x-xbl-client-version': '39.39.22001.0'
+                    },
+                    json: {
+                        "pfns": [
+                            title_id //'Microsoft.SeaofThieves_8wekyb3d8bbwe'
+                        ],
+                        "windowsPhoneProductIds": []
+                    }
+                }, (error, res, body) => {
+                    if (error) {
+                        reject(error)
+                    }
+                    console.log('res', res.statusCode)
+
+                    resolve(body)
+                })
             }.bind(this))
         },
 
