@@ -5,7 +5,7 @@ module.exports = function(tokenfile = '.tokens.json')
     return {
         file: tokenfile,
 
-        tokens: false,
+        tokens: {},
 
         load: function(){
             try {
@@ -18,6 +18,29 @@ module.exports = function(tokenfile = '.tokens.json')
             }
 
             return this.tokens
+        },
+
+        save: function(){
+            try {
+                var token_store = fs.writeFileSync(this.file, JSON.stringify(this.tokens));
+                return true
+            }
+            catch(error){
+                // console.log(error)
+                return error
+            }
+        },
+
+        set: function(key, value){
+            this.tokens[key] = value
+        },
+
+        get: function(key){
+            return this.tokens[key]
+        },
+
+        delete: function(key){
+            return this.tokens[key] = undefined
         }
     }
 }
