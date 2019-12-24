@@ -23,6 +23,7 @@ describe('client', function(){
     });
 
     it('Should init a new client with TokenStore enabled', function(done){
+        this.timeout(10000);
         var token_store = TokenStore()
 
         var client = XboxApiClient(token_store)
@@ -38,6 +39,7 @@ describe('client', function(){
     });
 
     it('Should get data using a provider (userpresence)', function(done){
+        this.timeout(10000);
         var token_store = TokenStore()
 
         var client = XboxApiClient(token_store)
@@ -60,6 +62,7 @@ describe('client', function(){
     });
 
     it('Should get data using a provider (achievements)', function(done){
+        this.timeout(10000);
         var token_store = TokenStore()
 
         var client = XboxApiClient(token_store)
@@ -81,6 +84,7 @@ describe('client', function(){
     });
 
     it('Should get data using a provider (titlehub)', function(done){
+        this.timeout(10000);
         var token_store = TokenStore()
 
         var client = XboxApiClient(token_store)
