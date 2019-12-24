@@ -6,9 +6,6 @@ describe('TokenStore', function(){
 
         var token_store = TokenStore('.none-existing.tokens.json')
         var result = token_store.load()
-
-        assert.deepStrictEqual(result, {});
-        assert.deepStrictEqual(token_store.tokens, {});
     });
 
     it('should load tokenstore on existing location', function(){

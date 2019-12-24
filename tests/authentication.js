@@ -54,12 +54,17 @@ describe('authentication', function(){
                 assert.notStrictEqual(user_data.agg, undefined)
 
             }).catch(function(error){
+                console.log('error', error);
                 assert.deepStrictEqual(error.error, 'authentication.failed');
                 assert.fail('should not fail authentication')
             })
 
             // @TODO:  Implement rejected login
             assert.deepStrictEqual(auth_manager.authenticated, false);
+        });
+    } else {
+        it('should be tested with valid tokens', function(){
+            assert.fail('Skipping integration test with valid tokens')
         });
     }
 })
