@@ -22,7 +22,7 @@ module.exports = function(tokenfile = '.tokens.json')
 
         save: function(){
             try {
-                var token_store = fs.writeFileSync(this.file, JSON.stringify(this.tokens));
+                fs.writeFileSync(this.file, JSON.stringify(this.tokens));
                 return true
             }
             catch(error){
