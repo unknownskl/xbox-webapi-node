@@ -13,7 +13,73 @@ describe('client', function(){
         var client = XboxApiClient(token_store)
 
         client.authenticate().then(function(client){
-            console.log('client', client)
+            //console.log('client', client)
+
+        }).catch(function(error){
+            console.log('error', error)
+        })
+    });
+
+    it('Should get data using a provider (userpresence)', function(){
+        var token_store = TokenStore()
+
+        var client = XboxApiClient(token_store)
+
+        client.authenticate().then(function(user_info){
+            client.provider('userpresence').get('users/me').then(function(data){
+
+                assert.deepStrictEqual(data.state, 'Online')
+                assert.deepStrictEqual(data.xuid, user_info.xid)
+            }).catch(function(error){
+                console.log('error', error)
+            })
+
+        }).catch(function(error){
+            console.log('error', error)
+        })
+    });
+
+    it('Should get data using a provider (achievements)', function(){
+        var token_store = TokenStore()
+
+        var client = XboxApiClient(token_store)
+
+        client.authenticate().then(function(user_info){
+            client.provider('achievements').get('users/xuid('+user_info.xid.toString()+')/history/titles').then(function(data){
+
+                // ok?
+            }).catch(function(error){
+                console.log('error', error)
+            })
+
+        }).catch(function(error){
+            console.log('error', error)
+        })
+    });
+
+    it('Should get data using a provider (titlehub)', function(){
+        var token_store = TokenStore()
+
+        var client = XboxApiClient(token_store)
+
+        client.authenticate().then(function(user_info){
+            client.provider('titlehub').post('titles/batch/decoration/detail', {
+                "pfns": [
+                    'Microsoft.SeaofThieves_8wekyb3d8bbwe', 'SpotifyAB.SpotifyMusic-forXbox_zpdnekdrzrea0'
+                ],
+                "windowsPhoneProductIds": []
+            }).then(function(data){
+
+                assert.deepStrictEqual(data.titles[0].pfn, 'SpotifyAB.SpotifyMusic-forXbox_zpdnekdrzrea0')
+                assert.deepStrictEqual(data.titles[0].name, 'Spotify Music - for Xbox One')
+                assert.deepStrictEqual(data.titles[0].type, 'Application')
+
+                assert.deepStrictEqual(data.titles[1].pfn, 'Microsoft.SeaofThieves_8wekyb3d8bbwe')
+                assert.deepStrictEqual(data.titles[1].name, 'Sea of Thieves')
+                assert.deepStrictEqual(data.titles[1].type, 'Game')
+            }).catch(function(error){
+                console.log('error', error)
+            })
 
         }).catch(function(error){
             console.log('error', error)

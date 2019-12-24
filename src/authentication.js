@@ -61,10 +61,8 @@ module.exports = function()
                     }.bind(this)).catch(function(error){
                         reject(error)
                     })
-                } else
-
-                // Run login using access and refresh token (Layer 3)
-                if(this.access_token != false && this.refresh_token != false){
+                } else if(this.access_token != false && this.refresh_token != false){
+                    // Run login using access and refresh token (Layer 3)
                     this._get_user_token(this.access_token).then(function(user_token){
                         this.user_token = user_token
 

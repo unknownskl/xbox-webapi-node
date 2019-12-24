@@ -1,5 +1,5 @@
-var Authentication = require('../src/authentication.js')
-var TokenStore = require('../src/tokenstore.js')
+var Authentication = require('./authentication.js')
+var TokenStore = require('./tokenstore.js')
 
 module.exports = function(tokens = {})
 {
@@ -8,6 +8,12 @@ module.exports = function(tokens = {})
         is_token_store: false,
 
         auth_manager: false,
+
+        providers: {
+            userpresence: 'providers/userpresence',
+            titlehub: 'providers/titlehub',
+            achievements: 'providers/achievements'
+        },
 
         startup: function(){
             this.auth_manager = Authentication()
@@ -41,6 +47,72 @@ module.exports = function(tokens = {})
                     reject(error)
                 })
             }.bind(this))
+        },
+
+        provider: function(name){
+            if(this.providers[name] != undefined){
+                var provider = require('./'+this.providers[name]+'.js')
+                return provider(this)
+            } else {
+                return false
+            }
+        },
+
+        get_http_headers: function(){
+            return {
+                Authorization: 'XBL3.0 x='+this.auth_manager.xsts_token.DisplayClaims.xui[0].uhs+';'+this.auth_manager.xsts_token.Token,
+                'Accept-Language': 'en-US',
+                'x-xbl-contract-version': '2',
+                'x-xbl-client-name': 'XboxApp',
+                'x-xbl-client-type': 'UWA',
+                'x-xbl-client-version': '39.39.22001.0'
+            }
+        },
+
+        check_http_response: function(error, res, body, resolve, reject){
+            if(res.statusCode == 400){
+                reject({
+                    error: 'response.failed',
+                    message: 'Token is invalid',
+                    details: {
+                        response_status: res.statusCode,
+                        method: res.request.method,
+                        url: res.request.href,
+                        body: res.request.body,
+                        res: res
+                    }
+                })
+            } else if(res.statusCode == 500){
+                reject({
+                    error: 'response.server_error',
+                    message: 'Server error encountered',
+                    details: {
+                        response_status: res.statusCode,
+                        method: res.request.method,
+                        url: res.request.href,
+                        body: res.request.body,
+                        res: res
+                    }
+                })
+            } else if(body == undefined){
+                reject({
+                    error: 'response.response.body_null',
+                    message: 'Web api responded without a body, status: '+res.statusCode,
+                    details: {
+                        response_status: res.statusCode,
+                        method: res.request.method,
+                        url: res.request.href,
+                        body: res.request.body,
+                        res: res
+                    }
+                })
+            } else {
+                if(typeof body === 'object'){
+                    resolve(body)
+                } else {
+                    resolve(JSON.parse(body))
+                }
+            }
         }
     }
 
