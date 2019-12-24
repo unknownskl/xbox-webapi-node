@@ -1,7 +1,7 @@
 const querystring = require('querystring')
 const request = require('request')
 
-const Error = require('./error.js')
+// const Error = require('./error.js')
 
 module.exports = function()
 {
