@@ -4,6 +4,11 @@ var TokenStore = require('./tokenstore.js')
 var UserPresenceProvider = require('./providers/userpresence.js')
 var TitlehubProvider = require('./providers/titlehub.js')
 var AchievementsProvider = require('./providers/achievements.js')
+var GameserverProvider = require('./providers/gameserver.js')
+var SocialProvider = require('./providers/social.js')
+var ProfileProvider = require('./providers/profile.js')
+var InventoryProvider = require('./providers/inventory.js')
+var PinsProvider = require('./providers/pins.js')
 
 module.exports = function(tokens = {})
 {
@@ -16,7 +21,12 @@ module.exports = function(tokens = {})
         providers: {
             userpresence: UserPresenceProvider,
             titlehub: TitlehubProvider,
-            achievements: AchievementsProvider
+            achievements: AchievementsProvider,
+            gameserver: GameserverProvider,
+            social: SocialProvider,
+            profile: ProfileProvider,
+            inventory: InventoryProvider,
+            pins: PinsProvider
         },
 
         startup: function(){
@@ -85,6 +95,18 @@ module.exports = function(tokens = {})
                         res: res
                     }
                 })
+            } else if(res.statusCode == 403){
+                reject({
+                    error: 'response.forbidden',
+                    message: 'Server send a forbidden response',
+                    details: {
+                        response_status: res.statusCode,
+                        method: res.request.method,
+                        url: res.request.href,
+                        body: res.request.body,
+                        res: res
+                    }
+                })
             } else if(res.statusCode == 500){
                 reject({
                     error: 'response.server_error',
@@ -113,6 +135,7 @@ module.exports = function(tokens = {})
                 if(typeof body === 'object'){
                     resolve(body)
                 } else {
+                    console.log('body:', res.statusCode)
                     resolve(JSON.parse(body))
                 }
             }
