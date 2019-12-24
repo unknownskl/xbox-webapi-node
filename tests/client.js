@@ -28,7 +28,7 @@ describe('client', function(){
         client.authenticate().then(function(user_info){
             client.provider('userpresence').get('users/me').then(function(data){
 
-                assert.deepStrictEqual(data.state, 'Online')
+                assert.deepStrictEqual(data.state, 'Offline')
                 assert.deepStrictEqual(data.xuid, user_info.xid)
             }).catch(function(error){
                 console.log('error', error)
