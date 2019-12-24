@@ -46,22 +46,32 @@ module.exports = function()
 
         authenticate: function(){
             return new Promise(function(resolve, reject) {
-                // Run login using a token
+                // Run login using xsts token (Layer 1)
+                // @TODO: Run query to test token?
+
+                // Run login using user_token (Layer 2)
+                if(this.user_token != false){
+                    this._get_xsts_token(this.user_token.Token).then(function(xsts_token){
+
+                        this.xsts_token = xsts_token
+                        this.authenticated = true
+
+                        resolve(xsts_token.DisplayClaims.xui[0])
+
+                    }.bind(this)).catch(function(error){
+                        reject(error)
+                    })
+                } else
+
+                // Run login using access and refresh token (Layer 3)
                 if(this.access_token != false && this.refresh_token != false){
                     this._get_user_token(this.access_token).then(function(user_token){
-                        // console.log('token:', user_token)
-                        // console.log('user_token', user_token.DisplayClaims.xui)
                         this.user_token = user_token
 
                         // Lets get the XSTS token
                         this._get_xsts_token(this.user_token.Token).then(function(xsts_token){
-
-                            // console.log('xsts_token', xsts_token)
-                            // console.log('User authenticated:', xsts_token.DisplayClaims.xui[0])
-
                             this.xsts_token = xsts_token
                             this.authenticated = true
-
                             // this.start_title('Microsoft.SeaofThieves_8wekyb3d8bbwe').then(function(title_info){
                             //
                             //     console.log(title_info, title_info)
@@ -103,9 +113,6 @@ module.exports = function()
         get_title_info: function(title_id){
 
             return new Promise(function(resolve, reject) {
-                // console.log('auth header:', 'XBL3.0 x='+this.xsts_token.DisplayClaims.xui[0].uhs+';'+this.xsts_token)
-                console.log('this.xsts_token', this.xsts_token)
-
                 request.post({
                     url: 'https://titlehub.xboxlive.com/titles/batch/decoration/detail',
                     headers: {
@@ -126,7 +133,6 @@ module.exports = function()
                     if (error) {
                         reject(error)
                     }
-                    console.log('res', res.statusCode)
 
                     resolve(body)
                 })
@@ -136,9 +142,6 @@ module.exports = function()
         start_title: function(title_id){
 
             return new Promise(function(resolve, reject) {
-                // console.log('auth header:', 'XBL3.0 x='+this.xsts_token.DisplayClaims.xui[0].uhs+';'+this.xsts_token)
-                console.log('this.xsts_token', this.xsts_token)
-
                 request.post({
                     url: 'https://graph.microsoft.com/beta/me/devices/d9bab2de-daf9-5cd8-a911-60145548e550/command',
                     headers: {
@@ -216,9 +219,6 @@ module.exports = function()
                         }
                     }
                 }, (error, res, body) => {
-                    if (error) {
-                        reject(error)
-                    }
                     if(res.statusCode == 400){
                         reject({
                             error: 'authentication.failed',
@@ -231,8 +231,7 @@ module.exports = function()
                                 res: res
                             }
                         })
-                    }
-                    if(body == undefined){
+                    } else if(body == undefined){
                         reject({
                             error: 'authentication.response.body_null',
                             message: 'Web api responded without a body, status: '+res.statusCode,
@@ -244,8 +243,9 @@ module.exports = function()
                                 res: res
                             }
                         })
+                    } else {
+                        resolve(body)
                     }
-                    resolve(body)
                 })
             }.bind(this))
         },
@@ -262,9 +262,6 @@ module.exports = function()
                         }
                     }
                 }, (error, res, body) => {
-                    if (error) {
-                        reject(error)
-                    }
                     if(res.statusCode == 400){
                         reject({
                             error: 'authentication.failed',
@@ -277,8 +274,7 @@ module.exports = function()
                                 res: res
                             }
                         })
-                    }
-                    if(body == undefined){
+                    } else if(body == undefined){
                         reject({
                             error: 'authentication.response.body_null',
                             message: 'Web api responded without a body, status: '+res.statusCode,
@@ -290,8 +286,9 @@ module.exports = function()
                                 res: res
                             }
                         })
+                    } else {
+                        resolve(body)
                     }
-                    resolve(body)
                 })
             }.bind(this))
         }

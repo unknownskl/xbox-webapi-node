@@ -14,23 +14,24 @@ module.exports = function(tokenfile = '.tokens.json')
     return {
         file: tokenfile,
 
-        tokens: default_tokens,
+        tokens: {},
+        env_tokens: default_tokens,
 
-        load: function(overwrite = false){
+        load: function(){
             try {
                 var token_store = fs.readFileSync(this.file).toString();
                 token_store = JSON.parse(token_store)
 
-                if(overwrite == true){
-                    this.tokens = {}
-                }
-
                 for(let token in token_store){
                     this.set(token, token_store[token])
                 }
+
+                for(let token in this.env_tokens){
+                    this.set(token, this.env_tokens[token])
+                }
             }
             catch(error){
-                // this.tokens = this.tokens
+                // Ignore load error
             }
 
             return this.tokens
