@@ -22,20 +22,22 @@ describe('client', function(){
         var client = XboxApiClient()
     });
 
-    it('Should init a new client with TokenStore enabled', function(){
+    it('Should init a new client with TokenStore enabled', function(done){
         var token_store = TokenStore()
 
         var client = XboxApiClient(token_store)
 
         client.authenticate().then(function(client){
             //console.log('client', client)
+            done()
 
         }).catch(function(error){
             console.log('error', error)
+            done()
         })
     });
 
-    it('Should get data using a provider (userpresence)', function(){
+    it('Should get data using a provider (userpresence)', function(done){
         var token_store = TokenStore()
 
         var client = XboxApiClient(token_store)
@@ -45,16 +47,19 @@ describe('client', function(){
 
                 assert.deepStrictEqual(data.state, 'Offline')
                 assert.deepStrictEqual(data.xuid, user_info.xid)
+                done()
             }).catch(function(error){
                 console.log('error', error)
+                done()
             })
 
         }).catch(function(error){
             console.log('error', error)
+            done()
         })
     });
 
-    it('Should get data using a provider (achievements)', function(){
+    it('Should get data using a provider (achievements)', function(done){
         var token_store = TokenStore()
 
         var client = XboxApiClient(token_store)
@@ -63,16 +68,19 @@ describe('client', function(){
             client.provider('achievements').get('users/xuid('+user_info.xid.toString()+')/history/titles').then(function(data){
 
                 // ok?
+                done()
             }).catch(function(error){
                 console.log('error', error)
+                done()
             })
 
         }).catch(function(error){
             console.log('error', error)
+            done()
         })
     });
 
-    it('Should get data using a provider (titlehub)', function(){
+    it('Should get data using a provider (titlehub)', function(done){
         var token_store = TokenStore()
 
         var client = XboxApiClient(token_store)
@@ -92,12 +100,16 @@ describe('client', function(){
                 assert.deepStrictEqual(data.titles[1].pfn, 'Microsoft.SeaofThieves_8wekyb3d8bbwe')
                 assert.deepStrictEqual(data.titles[1].name, 'Sea of Thieves')
                 assert.deepStrictEqual(data.titles[1].type, 'Game')
+
+                done()
             }).catch(function(error){
                 console.log('error', error)
+                done()
             })
 
         }).catch(function(error){
             console.log('error', error)
+            done()
         })
     });
 })
