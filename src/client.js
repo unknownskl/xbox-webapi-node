@@ -9,6 +9,7 @@ var SocialProvider = require('./providers/social.js')
 var ProfileProvider = require('./providers/profile.js')
 var InventoryProvider = require('./providers/inventory.js')
 var PinsProvider = require('./providers/pins.js')
+var MessagesProvider = require('./providers/messages.js')
 
 module.exports = function(tokens = {})
 {
@@ -26,7 +27,8 @@ module.exports = function(tokens = {})
             social: SocialProvider,
             profile: ProfileProvider,
             inventory: InventoryProvider,
-            pins: PinsProvider
+            pins: PinsProvider,
+            messages: MessagesProvider
         },
 
         startup: function(){
