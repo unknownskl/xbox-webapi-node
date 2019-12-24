@@ -3,6 +3,16 @@ var XboxApiClient = require('../src/client.js')
 var TokenStore = require('../src/tokenstore.js')
 
 describe('client', function(){
+
+    var check_token_store = TokenStore()
+    var check_client = XboxApiClient(check_token_store)
+
+    check_client.authenticate().then(function(user_info){
+        console.log('Running tests as xbox live user:', user_info.gtg, '(Dummy account)')
+    }).catch(function(error){
+        console.log('Running tests as anonymous')
+    })
+
     it('Should init a new client', function(){
         var client = XboxApiClient()
     });
