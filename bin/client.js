@@ -1,20 +1,18 @@
-var authentication = require('../src/authentication.js');
-const querystring = require('querystring')
+var XboxApiClient = require('../src/client.js');
+var TokenStore = require('../src/tokenstore.js');
 
-auth_manager = authentication()
-auth_manager.setUserAuth('invalid@mail.com', 'abc123')
+var token_store = TokenStore()
+var client = XboxApiClient(token_store)
 
-if(process.argv[2] != undefined){
-    var return_url = process.argv[2].split('#')
-    var parsed = querystring.parse(return_url[1])
+client.authenticate().then(function(user_info){
+    client.provider('userpresence').get('users/me').then(function(data){
 
-    auth_manager.access_token = parsed.access_token
-    auth_manager.refresh_token = parsed.refresh_token
-    auth_manager.user_id = parsed.user_id
-}
+        console.log('data', user_info, data)
 
-auth_manager.authenticate().then(function(user){
-    console.log(user)
+    }).catch(function(error){
+        console.log('error', error)
+    })
+
 }).catch(function(error){
-    console.log(error)
+    console.log('error', error)
 })

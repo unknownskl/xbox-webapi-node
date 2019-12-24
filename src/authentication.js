@@ -70,15 +70,8 @@ module.exports = function()
                         this._get_xsts_token(this.user_token.Token).then(function(xsts_token){
                             this.xsts_token = xsts_token
                             this.authenticated = true
-                            // this.start_title('Microsoft.SeaofThieves_8wekyb3d8bbwe').then(function(title_info){
-                            //
-                            //     console.log(title_info, title_info)
-
-                                resolve(xsts_token.DisplayClaims.xui[0])
-
-                            // }.bind(this)).catch(function(error){
-                            //     reject(error)
-                            // })
+                            
+                            resolve(xsts_token.DisplayClaims.xui[0])
 
                         }.bind(this)).catch(function(error){
                             reject(error)
