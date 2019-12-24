@@ -1,6 +1,10 @@
 var Authentication = require('./authentication.js')
 var TokenStore = require('./tokenstore.js')
 
+var UserPresenceProvider = require('./providers/userpresence.js')
+var TitlehubProvider = require('./providers/titlehub.js')
+var AchievementsProvider = require('./providers/achievements.js')
+
 module.exports = function(tokens = {})
 {
     var apiClient = {
@@ -10,9 +14,9 @@ module.exports = function(tokens = {})
         auth_manager: false,
 
         providers: {
-            userpresence: 'providers/userpresence',
-            titlehub: 'providers/titlehub',
-            achievements: 'providers/achievements'
+            userpresence: UserPresenceProvider,
+            titlehub: TitlehubProvider,
+            achievements: AchievementsProvider
         },
 
         startup: function(){
@@ -51,8 +55,7 @@ module.exports = function(tokens = {})
 
         provider: function(name){
             if(this.providers[name] != undefined){
-                var provider = require('./'+this.providers[name]+'.js')
-                return provider(this)
+                return this.providers[name](this)
             } else {
                 return false
             }
