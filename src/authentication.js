@@ -154,8 +154,32 @@ module.exports = function()
                     if (error) {
                         reject(error)
                     }
-                    console.log('res', res.statusCode)
-
+                    if(res.statusCode == 400){
+                        reject({
+                            error: 'authentication.failed',
+                            message: 'Token is invalid',
+                            details: {
+                                response_status: res.statusCode,
+                                method: res.request.method,
+                                url: res.request.href,
+                                body: res.request.body,
+                                res: res
+                            }
+                        })
+                    }
+                    if(body == undefined){
+                        reject({
+                            error: 'authentication.response.body_null',
+                            message: 'Web api responded without a body, status: '+res.statusCode,
+                            details: {
+                                response_status: res.statusCode,
+                                method: res.request.method,
+                                url: res.request.href,
+                                body: res.request.body,
+                                res: res
+                            }
+                        })
+                    }
                     resolve(body)
                 })
             }.bind(this))
@@ -240,6 +264,32 @@ module.exports = function()
                 }, (error, res, body) => {
                     if (error) {
                         reject(error)
+                    }
+                    if(res.statusCode == 400){
+                        reject({
+                            error: 'authentication.failed',
+                            message: 'Token is invalid',
+                            details: {
+                                response_status: res.statusCode,
+                                method: res.request.method,
+                                url: res.request.href,
+                                body: res.request.body,
+                                res: res
+                            }
+                        })
+                    }
+                    if(body == undefined){
+                        reject({
+                            error: 'authentication.response.body_null',
+                            message: 'Web api responded without a body, status: '+res.statusCode,
+                            details: {
+                                response_status: res.statusCode,
+                                method: res.request.method,
+                                url: res.request.href,
+                                body: res.request.body,
+                                res: res
+                            }
+                        })
                     }
                     resolve(body)
                 })
