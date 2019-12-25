@@ -2,7 +2,7 @@
   "name": "xbox-webapi",
   "version": "0.1.0",
   "description": "Xbox web api client in Node.JS",
-  "main": "index.js",
+  "main": "src/client.js",
   "scripts": {
     "test": "nyc --reporter=html --reporter=lcov --reporter=text ./node_modules/mocha/bin/mocha tests/",
     "start": "node bin/client.js"
