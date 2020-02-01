@@ -1,5 +1,4 @@
 var Authentication = require('./authentication.js')
-var TokenStore = require('./tokenstore.js')
 
 var UserPresenceProvider = require('./providers/userpresence.js')
 var TitlehubProvider = require('./providers/titlehub.js')
@@ -101,6 +100,18 @@ module.exports = function(tokens = {})
                 reject({
                     error: 'response.forbidden',
                     message: 'Server send a forbidden response',
+                    details: {
+                        response_status: res.statusCode,
+                        method: res.request.method,
+                        url: res.request.href,
+                        body: res.request.body,
+                        res: res
+                    }
+                })
+            } else if(res.statusCode == 404){
+                reject({
+                    error: 'response.not_found',
+                    message: 'Send returned a 404 error',
                     details: {
                         response_status: res.statusCode,
                         method: res.request.method,
