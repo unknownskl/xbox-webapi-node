@@ -5,7 +5,7 @@ var token_store = TokenStore()
 var client = XboxApiClient(token_store)
 
 client.authenticate().then(function(user_info){
-    client.provider('userpresence').get('users/me').then(function(data){
+    client.provider('titlehub').get_title('442736763').then(function(data){
 
         console.log('data', user_info, data)
 
