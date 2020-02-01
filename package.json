@@ -1,10 +1,11 @@
 {
   "name": "xbox-webapi",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Xbox web api client in Node.JS",
-  "main": "index.js",
+  "main": "src/client.js",
   "scripts": {
-    "test": "nyc --reporter=html --reporter=lcov --reporter=text ./node_modules/mocha/bin/mocha tests/"
+    "test": "nyc --reporter=html --reporter=lcov --reporter=text ./node_modules/mocha/bin/mocha tests/",
+    "start": "node bin/client.js"
   },
   "repository": {
     "type": "git",
@@ -19,5 +20,8 @@
   "devDependencies": {
     "mocha": "^5.2.0",
     "nyc": "^13.3.0"
+  },
+  "dependencies": {
+    "request": "^2.88.0"
   }
 }
