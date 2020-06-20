@@ -80,22 +80,15 @@ module.exports = function()
                         reject(error)
                     })
                 } else {
+                    var authUrl = this._generate_authorization_url()
 
-                    // Authentication via credentials
-                    if(this.email_address != false && this.password !=  false){
-                        //  @TODO: Generate url flow
-
-                        var url = this._generate_authorization_url()
-                        //console.log('Authenticate using:', url)
-
-                        reject({
-                            error: 'authentication.need_setup',
-                            message: 'Need setup: '+url,
-                            details: {
-                                url: url
-                            }
-                        })
-                    }
+                    reject({
+                        error: 'authentication.need_setup',
+                        message: 'Need setup: '+authUrl,
+                        details: {
+                            url: authUrl
+                        }
+                    })
                 }
 
             }.bind(this))

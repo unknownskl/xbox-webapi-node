@@ -1,6 +1,6 @@
 const request = require('request')
 
-module.exports = function(client, host)
+module.exports = function(client, host, headers)
 {
     return {
         host: host,
@@ -10,7 +10,7 @@ module.exports = function(client, host)
             return new Promise(function(resolve, reject) {
                 request.get({
                     url: this.host+'/'+path,
-                    headers: this.client.get_http_headers()
+                    headers: this.client.get_http_headers(headers)
                 }, (error, res, body) => {
                     this.client.check_http_response(error, res, body, resolve, reject)
                 })
@@ -21,7 +21,7 @@ module.exports = function(client, host)
             return new Promise(function(resolve, reject) {
                 request.post({
                     url: this.host+'/'+path,
-                    headers: this.client.get_http_headers(),
+                    headers: this.client.get_http_headers(headers),
                     json: data
                 }, (error, res, body) => {
                     this.client.check_http_response(error, res, body, resolve, reject)
