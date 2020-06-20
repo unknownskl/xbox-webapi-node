@@ -1,4 +1,5 @@
 var Authentication = require('./authentication.js')
+var querystring = require('querystring')
 
 var UserPresenceProvider = require('./providers/userpresence.js')
 var TitlehubProvider = require('./providers/titlehub.js')
@@ -62,6 +63,13 @@ module.exports = function(tokens = {})
                     reject(error)
                 })
             }.bind(this))
+        },
+
+        process_authentication_response: function(url){
+            var format_querystring = url.split('#')
+            var results = querystring.parse(format_querystring[1])
+
+            return results
         },
 
         provider: function(name){

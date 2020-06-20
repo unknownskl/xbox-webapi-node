@@ -95,6 +95,17 @@ module.exports = function()
                                 url: url
                             }
                         })
+                    } else {
+                        var url = this._generate_authorization_url()
+                        //console.log('Authenticate using:', url)
+
+                        reject({
+                            error: 'authentication.need_setup',
+                            message: 'Need setup: '+url,
+                            details: {
+                                url: url
+                            }
+                        })
                     }
                 }
 
