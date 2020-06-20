@@ -11,8 +11,6 @@ const rl = readline.createInterface({
 var token_store = TokenStore()
 var client = XboxApiClient(token_store)
 
-console.log(token_store)
-
 client.authenticate().then(function(user_info){
     client.provider('titlehub').get_title('442736763').then(function(data){
 
@@ -46,14 +44,11 @@ function startLoginFlow(){
 
         // console.log(results.access_token, results.refresh_token)
         var token_store = TokenStore()
-        console.log(token_store)
         token_store.set('access_token', results.access_token)
         token_store.set('refresh_token', results.refresh_token)
         token_store.delete('user_token')
         token_store.delete('xsts_token')
         token_store.save()
-        console.log('token_store saved', token_store)
-        // console.log('Attempting to login...')
 
         console.log('Done, restart app');
 
