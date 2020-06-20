@@ -80,8 +80,8 @@ module.exports = function(tokens = {})
             }
         },
 
-        get_http_headers: function(){
-            return {
+        get_http_headers: function(headers){
+            defaultHeaders = {
                 Authorization: 'XBL3.0 x='+this.auth_manager.xsts_token.DisplayClaims.xui[0].uhs+';'+this.auth_manager.xsts_token.Token,
                 'Accept-Language': 'en-US',
                 'x-xbl-contract-version': '2',
@@ -89,6 +89,8 @@ module.exports = function(tokens = {})
                 'x-xbl-client-type': 'UWA',
                 'x-xbl-client-version': '39.39.22001.0'
             }
+            
+            return {...defaultHeaders, ...headers}
         },
 
         check_http_response: function(error, res, body, resolve, reject){
