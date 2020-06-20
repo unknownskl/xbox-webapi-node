@@ -12,9 +12,14 @@ var token_store = TokenStore()
 var client = XboxApiClient(token_store)
 
 client.authenticate().then(function(user_info){
-    client.provider('titlehub').get_title('442736763').then(function(data){
-
+    client.provider('profile').get_friends_by_gamertag('Gamertag').then(function(data){
+        
         console.log('data', user_info, data)
+
+        for(var profile in data.profileUsers){
+            console.log(data.profileUsers[profile])
+        }
+
         rl.close();
 
     }).catch(function(error){

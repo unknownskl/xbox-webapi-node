@@ -1,5 +1,5 @@
-var XboxApiClient = require('../src/client.js');
-var TokenStore = require('../src/tokenstore.js');
+var XboxApiClient = require('../src/client.js'); // or require('xbox-webapi')
+var TokenStore = require('../src/tokenstore.js'); // or require('xbox-webapi/src/tokenstore.js');
 
 const readline = require('readline');
 
@@ -40,7 +40,6 @@ function startLoginFlow(){
     rl.question('Copy url from browser and paste here: ', (response) => {
         // TODO: Log the answer in a database
         var results = client.process_authentication_response(response)
-
 
         // console.log(results.access_token, results.refresh_token)
         var token_store = TokenStore()

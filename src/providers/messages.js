@@ -3,15 +3,17 @@ const BaseProvider = require('./base.js')
 
 module.exports = function(client)
 {
-    var Provider = BaseProvider(client, 'https://msg.xboxlive.com')
+    var Provider = BaseProvider(client, 'https://msg.xboxlive.com', {'x-xbl-contract-version': '1'})
 
     Provider.get_inbox = function(){
         var xid = this.client.auth_manager.xsts_token.DisplayClaims.xui[0].xid
-        return this.get('users/xuid('+xid+')/inbox')
+        
+        return this.get('users/xuid('+xid+')/inbox?skipItems=0&maxItems=100')
     }
 
     Provider.get_message = function(message_id){
         var xid = this.client.auth_manager.xsts_token.DisplayClaims.xui[0].xid
+        
         return this.get('users/xuid('+xid+')/inbox/'+message_id)
     }
 
