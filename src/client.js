@@ -10,6 +10,8 @@ var ProfileProvider = require('./providers/profile.js')
 var InventoryProvider = require('./providers/inventory.js')
 var PinsProvider = require('./providers/pins.js')
 var MessagesProvider = require('./providers/messages.js')
+var GameclipsProvider = require('./providers/gameclips.js')
+var ScreenshotsProvider = require('./providers/screenshots.js')
 
 module.exports = function(tokens = {})
 {
@@ -28,7 +30,9 @@ module.exports = function(tokens = {})
             profile: ProfileProvider,
             inventory: InventoryProvider,
             pins: PinsProvider,
-            messages: MessagesProvider
+            messages: MessagesProvider,
+            gameclips: GameclipsProvider,
+            screenshots: ScreenshotsProvider
         },
 
         startup: function(){
@@ -81,7 +85,7 @@ module.exports = function(tokens = {})
         },
 
         get_http_headers: function(headers){
-            defaultHeaders = {
+            var defaultHeaders = {
                 Authorization: 'XBL3.0 x='+this.auth_manager.xsts_token.DisplayClaims.xui[0].uhs+';'+this.auth_manager.xsts_token.Token,
                 'Accept-Language': 'en-US',
                 'x-xbl-contract-version': '2',

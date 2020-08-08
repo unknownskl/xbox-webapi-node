@@ -9,5 +9,5 @@ addons:
     organization: "unknownskl-github"
 
 script:
-  - npm test
+  # - npm test
   - sonar-scanner

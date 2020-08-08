@@ -5,42 +5,43 @@ module.exports = function(client)
 {
     var Provider = BaseProvider(client, 'https://profile.xboxlive.com')
 
-    Provider.GAME_DISPLAY_NAME = 'GameDisplayName',
-    Provider.APP_DISPLAY_NAME = 'AppDisplayName',
-    Provider.APP_DISPLAYPIC_RAW = 'AppDisplayPicRaw',
-    Provider.GAMERSCORE = 'Gamerscore',
-    Provider.GAMERTAG = 'Gamertag',
-    Provider.GAME_DISPLAYPIC_RAW = 'GameDisplayPicRaw',
-    Provider.PUBLIC_GAMERPIC = 'PublicGamerpic',
-    Provider.SHOW_USER_AS_AVATAR = 'ShowUserAsAvatar',
-    Provider.ACCOUNT_TIER = 'AccountTier',
-    Provider.TENURE_LEVEL = 'TenureLevel',
-    Provider.XBOX_ONE_REP = 'XboxOneRep',
-    Provider.PREFERRED_COLOR = 'PreferredColor',
-    Provider.LOCATION = 'Location',
-    Provider.BIOGRAPHY = 'Bio',
-    Provider.WATERMARKS = 'Watermarks',
+    Provider.GAME_DISPLAY_NAME = 'GameDisplayName'
+    Provider.APP_DISPLAY_NAME = 'AppDisplayName'
+    Provider.APP_DISPLAYPIC_RAW = 'AppDisplayPicRaw'
+    Provider.GAMERSCORE = 'Gamerscore'
+    Provider.GAMERTAG = 'Gamertag'
+    Provider.GAME_DISPLAYPIC_RAW = 'GameDisplayPicRaw'
+    Provider.PUBLIC_GAMERPIC = 'PublicGamerpic'
+    Provider.SHOW_USER_AS_AVATAR = 'ShowUserAsAvatar'
+    Provider.ACCOUNT_TIER = 'AccountTier'
+    Provider.TENURE_LEVEL = 'TenureLevel'
+    Provider.XBOX_ONE_REP = 'XboxOneRep'
+    Provider.PREFERRED_COLOR = 'PreferredColor'
+    Provider.LOCATION = 'Location'
+    Provider.BIOGRAPHY = 'Bio'
+    Provider.WATERMARKS = 'Watermarks'
     Provider.REAL_NAME = 'RealName'
 
     // V2 api
     Provider.get_profiles = function(xuid_array, types){
-        if(types == undefined)
-        types = [
-            Provider.GAME_DISPLAY_NAME,
-            Provider.APP_DISPLAY_NAME,
-            Provider.APP_DISPLAYPIC_RAW,
-            Provider.GAMERSCORE,
-            Provider.GAMERTAG,
-            Provider.GAME_DISPLAYPIC_RAW,
-            Provider.ACCOUNT_TIER,
-            Provider.TENURE_LEVEL,
-            Provider.XBOX_ONE_REP,
-            Provider.PREFERRED_COLOR,
-            Provider.LOCATION,
-            Provider.BIOGRAPHY,
-            Provider.WATERMARKS,
-            Provider.REAL_NAME
-        ]
+        if(types == undefined){
+            types = [
+                Provider.GAME_DISPLAY_NAME,
+                Provider.APP_DISPLAY_NAME,
+                Provider.APP_DISPLAYPIC_RAW,
+                Provider.GAMERSCORE,
+                Provider.GAMERTAG,
+                Provider.GAME_DISPLAYPIC_RAW,
+                Provider.ACCOUNT_TIER,
+                Provider.TENURE_LEVEL,
+                Provider.XBOX_ONE_REP,
+                Provider.PREFERRED_COLOR,
+                Provider.LOCATION,
+                Provider.BIOGRAPHY,
+                Provider.WATERMARKS,
+                Provider.REAL_NAME
+            ]
+        }
 
         return this.post('users/batch/profile/settings', {
             "settings": types,
