@@ -1,6 +1,6 @@
 {
   "name": "xbox-webapi",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Xbox web api client in Node.JS",
   "main": "src/client.js",
   "scripts": {
