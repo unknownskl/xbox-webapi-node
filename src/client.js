@@ -11,6 +11,7 @@ var InventoryProvider = require('./providers/inventory.js')
 var PinsProvider = require('./providers/pins.js')
 var MessagesProvider = require('./providers/messages.js')
 var GameclipsProvider = require('./providers/gameclips.js')
+var ScreenshotsProvider = require('./providers/screenshots.js')
 
 module.exports = function(tokens = {})
 {
@@ -30,7 +31,8 @@ module.exports = function(tokens = {})
             inventory: InventoryProvider,
             pins: PinsProvider,
             messages: MessagesProvider,
-            gameclips: GameclipsProvider
+            gameclips: GameclipsProvider,
+            screenshots: ScreenshotsProvider
         },
 
         startup: function(){
