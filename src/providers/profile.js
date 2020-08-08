@@ -24,23 +24,24 @@ module.exports = function(client)
 
     // V2 api
     Provider.get_profiles = function(xuid_array, types){
-        if(types == undefined)
-        types = [
-            Provider.GAME_DISPLAY_NAME,
-            Provider.APP_DISPLAY_NAME,
-            Provider.APP_DISPLAYPIC_RAW,
-            Provider.GAMERSCORE,
-            Provider.GAMERTAG,
-            Provider.GAME_DISPLAYPIC_RAW,
-            Provider.ACCOUNT_TIER,
-            Provider.TENURE_LEVEL,
-            Provider.XBOX_ONE_REP,
-            Provider.PREFERRED_COLOR,
-            Provider.LOCATION,
-            Provider.BIOGRAPHY,
-            Provider.WATERMARKS,
-            Provider.REAL_NAME
-        ]
+        if(types == undefined){
+            types = [
+                Provider.GAME_DISPLAY_NAME,
+                Provider.APP_DISPLAY_NAME,
+                Provider.APP_DISPLAYPIC_RAW,
+                Provider.GAMERSCORE,
+                Provider.GAMERTAG,
+                Provider.GAME_DISPLAYPIC_RAW,
+                Provider.ACCOUNT_TIER,
+                Provider.TENURE_LEVEL,
+                Provider.XBOX_ONE_REP,
+                Provider.PREFERRED_COLOR,
+                Provider.LOCATION,
+                Provider.BIOGRAPHY,
+                Provider.WATERMARKS,
+                Provider.REAL_NAME
+            ]
+        }
 
         return this.post('users/batch/profile/settings', {
             "settings": types,

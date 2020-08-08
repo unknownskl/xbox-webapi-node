@@ -9,7 +9,7 @@ module.exports = function(client)
         return this.get('users/me')
     }
 
-    Provider.get_presence_batch = function(xuid_array, online_only = false, presence_level){
+    Provider.get_presence_batch = function(xuid_array, online_only = false){
 
         return this.post('users/batch', {
             "users": xuid_array,

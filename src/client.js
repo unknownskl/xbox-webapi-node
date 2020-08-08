@@ -85,7 +85,7 @@ module.exports = function(tokens = {})
         },
 
         get_http_headers: function(headers){
-            defaultHeaders = {
+            var defaultHeaders = {
                 Authorization: 'XBL3.0 x='+this.auth_manager.xsts_token.DisplayClaims.xui[0].uhs+';'+this.auth_manager.xsts_token.Token,
                 'Accept-Language': 'en-US',
                 'x-xbl-contract-version': '2',
