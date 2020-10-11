@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Xbox web api client in Node.JS",
   "scripts": {
-    "test": "nyc --reporter=html --reporter=lcov --reporter=text ./node_modules/mocha/bin/mocha tests/",
-    "lint": "eslint 'src/**/*.js' --ignore-pattern node_modules/",
-    "start": "node bin/client.js"
+    "test": "npm run lint && nyc --reporter=html --reporter=lcov --reporter=text ./node_modules/mocha/bin/mocha tests/",
+    "start": "npm run lint && ode bin/client.js",
+    "lint": "eslint 'src/**/*.js' --ignore-pattern node_modules/"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,7 @@
     "mockserver": "^3.1.1",
     "nyc": "^15.1.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "debug": "^4.2.0"
+  }
 }
