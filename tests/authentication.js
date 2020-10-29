@@ -29,7 +29,7 @@ describe('authentication', function(){
     })
 
     it('should get a oauth token when invoking getTokenRequest()', function(done){
-        this.auth.getTokenRequest('abc123', function(tokens, error){
+        this.auth.getTokenRequest('abc123').then(function(tokens){
             assert.deepStrictEqual(tokens.token_type, 'bearer')
             assert.deepStrictEqual(tokens.expires_in, 3600)
             assert.deepStrictEqual(tokens.scope, 'XboxLive.signin XboxLive.offline_access')
@@ -38,11 +38,14 @@ describe('authentication', function(){
             assert.deepStrictEqual(tokens.user_id, 'user_id_example')
             
             done()
+        }).catch(function(error){
+            assert.deepStrictEqual(true, error)
+            done()
         })
     })
 
     it('should get a new oauth token when invoking refreshTokens()', function(done){
-        this.auth.refreshToken('abc123', function(tokens, error){
+        this.auth.refreshToken('abc123').then(function(tokens){
             assert.deepStrictEqual(tokens.token_type, 'bearer')
             assert.deepStrictEqual(tokens.expires_in, 3600)
             assert.deepStrictEqual(tokens.scope, 'XboxLive.signin XboxLive.offline_access')
@@ -51,16 +54,22 @@ describe('authentication', function(){
             assert.deepStrictEqual(tokens.user_id, 'user_id_example')
 
             done()
+        }).catch(function(error){
+            assert.deepStrictEqual(true, error)
+            done()
         })
     })
 
     it('should get a new user token when invoking getUserToken()', function(done){
-        this.auth.getUserToken('abc123', function(tokens, error){
+        this.auth.getUserToken('abc123').then(function(tokens){
             assert.deepStrictEqual(tokens.IssueInstant, '2020-10-29T08:18:44.2057145Z')
             assert.deepStrictEqual(tokens.NotAfter, '2020-11-12T08:18:44.2057145Z')
             assert.deepStrictEqual(tokens.Token, 'user_token_data')
             assert.deepStrictEqual(tokens.DisplayClaims.xui[0].uhs, 'userhash_data')
 
+            done()
+        }).catch(function(error){
+            assert.deepStrictEqual(true, error)
             done()
         })
     })

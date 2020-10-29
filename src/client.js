@@ -18,8 +18,10 @@ module.exports = function(config){
             return this._authentication.isAuthenticated()
         },
 
-        startAuthServer: function(returnUrl, port){
-            this._authentication.startServer(port)
+        startAuthServer: function(callback, port){
+            this._authentication.startServer(callback)
+
+            return this._authentication.generateAuthorizationUrl()
         }
     }
 }
