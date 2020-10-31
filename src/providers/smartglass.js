@@ -102,7 +102,7 @@ module.exports = function(client){
             params = []
         }
 
-        var session_id = Uuid4();
+        var session_id = Uuid4()
         // var session_id = '2c1f6eae-30f1-4b03-81bf-ff11f4e02079'
 
         var postParams = {
