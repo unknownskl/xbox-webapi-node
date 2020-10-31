@@ -1,7 +1,8 @@
 {
   "name": "xbox-webapi",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Xbox Web API client in Node.JS that supports Smartglass commands to control the Xbox",
+  "main": "src/client.js",
   "scripts": {
     "test": "npm run lint && nyc --reporter=html --reporter=lcov --reporter=text ./node_modules/mocha/bin/mocha tests/",
     "start": "npm run lint && ode bin/client.js",

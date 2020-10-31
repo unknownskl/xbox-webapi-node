@@ -4,7 +4,7 @@ var client = XboxApiClient({
     clientId: '5e5ead27-ed60-482d-b3fc-702b28a97404'
 })
 
-client.isAuthenticated().then(function(token){
+client.isAuthenticated().then(function(){
     console.log('User is authenticated.')
 
     client.getProvider('profile').getUserProfile().then(function(result){

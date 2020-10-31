@@ -4,7 +4,7 @@ var client = XboxApiClient({
     clientId: '5e5ead27-ed60-482d-b3fc-702b28a97404'
 })
 
-client.isAuthenticated().then(function(token){
+client.isAuthenticated().then(function(){
 
     client.getProvider('people').getFriends().then(function(result){
         console.log('resolve', result)
