@@ -1,30 +1,42 @@
-const request = require('request')
+const HttpClient = require('../http.js')
+const Debug = require('debug')('xbox-webapi-node:provider_base')
 
-module.exports = function(client, host, headers)
-{
+module.exports = function(client){
     return {
-        host: host,
-        client: client,
+        _endpoint: 'https://xboxlive.com',
+        _client: client,
 
-        get: function(path){
+        _headers: {
+            'Authorization': 'XBL3.0 x='+client._authentication._user.uhs+';'+client._authentication._tokens.xsts.Token,
+            'Accept-Language': 'en-US',
+            'x-xbl-contract-version': '2',
+            'x-xbl-client-name': 'XboxApp',
+            'x-xbl-client-type': 'UWA',
+            'x-xbl-client-version': '39.39.22001.0'
+        },
+
+        get: function(url){
             return new Promise(function(resolve, reject) {
-                request.get({
-                    url: this.host+'/'+path,
-                    headers: this.client.get_http_headers(headers)
-                }, (error, res, body) => {
-                    this.client.check_http_response(error, res, body, resolve, reject)
+                Debug('GET '+url)
+
+                HttpClient().get(this._endpoint+url, this._headers).then(function(response){
+                    var responseObject = JSON.parse(response)
+                    resolve(responseObject)
+                }).catch(function(error){
+                    reject(error)
                 })
             }.bind(this))
         },
 
-        post: function(path, data){
+        post: function(url, postData){
             return new Promise(function(resolve, reject) {
-                request.post({
-                    url: this.host+'/'+path,
-                    headers: this.client.get_http_headers(headers),
-                    json: data
-                }, (error, res, body) => {
-                    this.client.check_http_response(error, res, body, resolve, reject)
+                Debug('POST ', url, postData)
+
+                HttpClient().post(this._endpoint+url, this._headers, postData).then(function(response){
+                    var responseObject = JSON.parse(response)
+                    resolve(responseObject)
+                }).catch(function(error){
+                    reject(error)
                 })
             }.bind(this))
         }

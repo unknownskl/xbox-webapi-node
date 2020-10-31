@@ -1,73 +1,84 @@
-var assert = require('assert')
-var authentication = require('../src/authentication.js')
-var TokenStore = require('../src/tokenstore.js')
+const assert = require('assert');
+const Authentication = require('../src/authentication')
+
+var http = require('http')
+var mockserver = require('mockserver')('tests/mock_data', false)
+
+mockserver.verbose = true
+
 
 describe('authentication', function(){
-    it('should fail with invalid credentials', function(done){
+    before(function(){
+        this.serverRun = http.createServer(mockserver).listen(9001);
+    })
 
-        auth_manager = authentication()
-        auth_manager.setUserAuth('invalid@mail.com', 'abc123')
-        auth_manager.authenticate().then(function(user_data){
-            assert.fail('should not follow authentication path')
+    beforeEach(function(){
+        this.auth = Authentication('5e5ead27-ed60-482d-b3fc-702b28a97404')
+        this.auth._endpoints = {
+            live: 'http://localhost:9001',
+            auth: 'http://127.0.0.1:9001'
+        }
+    })
 
+    it('should generate an authorization url', function(){
+        // var auth = Authentication('5e5ead27-ed60-482d-b3fc-702b28a97404')
+        var url = this.auth.generateAuthorizationUrl('http://localhost:8080/auth/callback')
+
+        assert.deepStrictEqual(this.auth._clientId, '5e5ead27-ed60-482d-b3fc-702b28a97404')
+        assert.deepStrictEqual(url, 'https://login.live.com/oauth20_authorize.srf?client_id=5e5ead27-ed60-482d-b3fc-702b28a97404&response_type=code&approval_prompt=auto&scope=XboxLive.signin%20XboxLive.offline_access&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fauth%2Fcallback')
+    })
+
+    it('should get a oauth token when invoking getTokenRequest()', function(done){
+        this.auth.getTokenRequest('abc123').then(function(tokens){
+            assert.deepStrictEqual(tokens.token_type, 'bearer')
+            assert.deepStrictEqual(tokens.expires_in, 3600)
+            assert.deepStrictEqual(tokens.scope, 'XboxLive.signin XboxLive.offline_access')
+            assert.deepStrictEqual(tokens.access_token, 'access_token_example')
+            assert.deepStrictEqual(tokens.refresh_token, 'refresh_token_example')
+            assert.deepStrictEqual(tokens.user_id, 'user_id_example')
+            
+            done()
         }).catch(function(error){
-            assert.deepStrictEqual(error.error, 'authentication.need_setup')
-            assert.deepStrictEqual(error.details.url, 'https://login.live.com/oauth20_authorize.srf?client_id=0000000048093EE3&redirect_uri=https%3A%2F%2Flogin.live.com%2Foauth20_desktop.srf&response_type=token&display=touch&scope=service%3A%3Auser.auth.xboxlive.com%3A%3AMBI_SSL&locale=en')
+            assert.deepStrictEqual(true, error)
             done()
         })
+    })
 
-        assert.deepStrictEqual(auth_manager.authenticated, false);
+    it('should get a new oauth token when invoking refreshTokens()', function(done){
+        this.auth.refreshToken('abc123').then(function(tokens){
+            assert.deepStrictEqual(tokens.token_type, 'bearer')
+            assert.deepStrictEqual(tokens.expires_in, 3600)
+            assert.deepStrictEqual(tokens.scope, 'XboxLive.signin XboxLive.offline_access')
+            assert.deepStrictEqual(tokens.access_token, 'access_token_example')
+            assert.deepStrictEqual(tokens.refresh_token, 'refresh_token_example')
+            assert.deepStrictEqual(tokens.user_id, 'user_id_example')
+
+            done()
+        }).catch(function(error){
+            assert.deepStrictEqual(true, error)
+            done()
+        })
+    })
+
+    it('should get a new user token when invoking getUserToken()', function(done){
+        this.auth.getUserToken('abc123').then(function(tokens){
+            assert.deepStrictEqual(tokens.IssueInstant, '2020-10-29T08:18:44.2057145Z')
+            assert.deepStrictEqual(tokens.NotAfter, '2020-11-12T08:18:44.2057145Z')
+            assert.deepStrictEqual(tokens.Token, 'user_token_data')
+            assert.deepStrictEqual(tokens.DisplayClaims.xui[0].uhs, 'userhash_data')
+
+            done()
+        }).catch(function(error){
+            assert.deepStrictEqual(true, error)
+            done()
+        })
+    })
+
+    afterEach(function() {
+        delete this.auth
     });
 
-    it('should fail with invalid tokens', function(done){
-
-        auth_manager = authentication()
-        auth_manager.setTokens({
-            access_token: 'invalid_access_token',
-            refresh_token:  'invalid_refresh_token'
-        })
-        auth_manager.authenticate().then(function(user_data){
-            assert.fail('should not follow authentication path')
-            done()
-
-        }).catch(function(error){
-            assert.deepStrictEqual(error.error, 'authentication.failed')
-            done()
-        })
-
-        assert.deepStrictEqual(auth_manager.authenticated, false)
+    after(function() {
+        this.serverRun.close()
     });
-
-    var token_store = TokenStore()
-    token_store.load()
-
-    if(token_store.tokens != false){
-        it('should succeed with valid tokens', function(done){
-            auth_manager = authentication()
-            auth_manager.setTokens(token_store.tokens)
-
-            auth_manager.authenticate().then(function(user_data){
-                assert.notStrictEqual(user_data.gtg, undefined)
-                assert.notStrictEqual(user_data.uhs, undefined)
-                assert.notStrictEqual(user_data.xid, undefined)
-                assert.notStrictEqual(user_data.agg, undefined)
-
-                assert.deepStrictEqual(auth_manager.authenticated, true);
-                done()
-
-            }).catch(function(error){
-                assert.deepStrictEqual(error.error, 'authentication.failed')
-                assert.fail('should not fail authentication')
-                assert.deepStrictEqual(auth_manager.authenticated, true);
-                done()
-            })
-
-            // @TODO:  Implement rejected login
-            // assert.deepStrictEqual(auth_manager.authenticated, false);
-        })
-    } else {
-        it('should be tested with valid tokens', function(){
-            assert.fail('Skipping integration test with valid tokens')
-        })
-    }
 })
