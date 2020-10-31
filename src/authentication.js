@@ -84,47 +84,139 @@ module.exports = function(clientId, secret){
             return this._expressServer.close()
         },
 
-        refreshTokens: function(){
-            // @TODO: Refactor this part so we check the timestamps and improve the renewall flow so long running processes can renew tokens too
+        refreshTokens: function(type){
+            if(type == undefined){
+                type = 'oauth'
+            }
+
             return new Promise(function(resolve, reject) {
-
-                if(this._tokens.user.Token === undefined){
-                    this.getUserToken(this._tokens.oauth.access_token).then(function(data){
-                        this._tokens.user = data
-
-
-
+                if(type == 'oauth'){
+                    if(this._tokens.oauth.refresh_token){
+                        var oauth_expire_oauth = new Date(new Date(this._tokens.oauth.issued).getTime() + (this._tokens.oauth.expires_in*1000))
                         
-                        if(this._tokens.xsts.Token === undefined){
-                            // console.log('GETTING XSTS TOKEN', this._tokens.user)
-                            this.getXstsToken(this._tokens.user.Token).then(function(data){
-                                this._tokens.xsts = data
+                        if(new Date() > oauth_expire_oauth){
+                            // Oauth token expired, refresh token
+                            console.log('TODO: refresh token')
 
-                                this._user = {
-                                    gamertag: data.DisplayClaims.xui[0].gtg,
-                                    xid: data.DisplayClaims.xui[0].xid,
-                                    uhs: data.DisplayClaims.xui[0].uhs
-                                    // @TODO: Check if we need more data?
-                                }
+                            this.refreshToken(this._tokens.oauth.refresh_token).then(function(token){
+                                this._tokens.oauth = token
+                                this.saveTokens()
 
-                                resolve()
-        
-                            }.bind(this)).catch(function(error){
-                                reject(error)
-                            }.bind(this))
+                                this.refreshTokens('user').then(function(){
+                                    resolve()
+                                }).catch(function(error){
+                                    reject(error)
+                                })
+
+                            }).catch(function(error){
+                                reject('Unable to refresh oauth access token. Reauthenticate again')
+                            })
                         } else {
+                            // Token is still valid
+                            // console.log('oauth token is valid, continue to get user token')
+
+                            this.refreshTokens('user').then(function(){
+                                resolve()
+                            }).catch(function(error){
+                                reject(error)
+                            })
+                        }
+                    } else {
+                        reject('No oauth token found. Run authentication flow first')
+                    }
+
+                } else if(type == 'user'){
+
+                    if(this._tokens.user.Token){
+                        var oauth_expire_user = new Date(this._tokens.user.NotAfter).getTime()
+                        
+                        if(new Date() > oauth_expire_user){
+                            // Oauth token expired, refresh user token
+                            console.log('TODO: refresh user token')
+
+                            this.getUserToken(this._tokens.oauth.access_token).then(function(token){
+                                this._tokens.user = token
+                                // this.saveTokens()
+
+                                this.refreshTokens('xsts').then(function(){
+                                    resolve()
+                                }).catch(function(error){
+                                    reject(error)
+                                })
+
+                            }).catch(function(error){
+                                reject('Unable to refresh oauth access token. Reauthenticate again')
+                            })
+                        } else {
+                            // Token is still valid
+                            // console.log('user token is valid')
+
+                            this.refreshTokens('xsts').then(function(){
+                                resolve()
+                            }).catch(function(error){
+                                reject(error)
+                            })
+                        }
+                    } else {
+                        // Get user token
+                        this.getUserToken(this._tokens.oauth.access_token).then(function(data){
+                            // Got user token, continue with xsts
+                            this._tokens.user = data
+
+                            this.refreshTokens('xsts').then(function(){
+                                resolve()
+                            }).catch(function(error){
+                                reject(error)
+                            })
+
+                        }.bind(this)).catch(function(error){
+                            reject(error)
+                        })
+                    }
+
+                } else if(type == 'xsts'){
+                    // console.log(this._tokens)
+
+                    if(this._tokens.xsts.Token){
+                        var oauth_expire = new Date(this._tokens.xsts.NotAfter).getTime()
+                        
+                        if(new Date() > oauth_expire){
+                            // Oauth token expired, refresh user token
+                            console.log('TODO: refresh xsts token')
+                        } else {
+                            // Token is still valid
+                            // console.log('xsts token is valid')
+
+                            this._user = {
+                                gamertag: this._tokens.xsts.DisplayClaims.xui[0].gtg,
+                                xid: this._tokens.xsts.DisplayClaims.xui[0].xid,
+                                uhs: this._tokens.xsts.DisplayClaims.xui[0].uhs
+                                // @TODO: Check if we need more data?
+                            }
+
                             resolve()
                         }
+                    } else {
+                        // Get user token
+                        this.getXstsToken(this._tokens.user.Token).then(function(data){
+                            // Got user token, continue with xsts
+                            this._tokens.xsts = data
+                            // console.log(this._tokens)
 
+                            this._user = {
+                                gamertag: data.DisplayClaims.xui[0].gtg,
+                                xid: data.DisplayClaims.xui[0].xid,
+                                uhs: data.DisplayClaims.xui[0].uhs
+                                // @TODO: Check if we need more data?
+                            }
 
+                            resolve()
 
-
-                    }.bind(this)).catch(function(error){
-                        reject(error)
-                    }.bind(this))
-
+                        }.bind(this)).catch(function(error){
+                            reject(error)
+                        })
+                    }
                 }
-
             }.bind(this))
         },
 
@@ -144,14 +236,17 @@ module.exports = function(clientId, secret){
                 var postData = QueryString.stringify(tokenParams)
 
                 HttpClient().post(this._endpoints.live+'/oauth20_token.srf', {'Content-Type': 'application/x-www-form-urlencoded'}, postData).then(function(data){
-                    resolve(JSON.parse(data))
+                    var responseData = JSON.parse(data)
+                    responseData.issued = new Date().toISOString()
+                    
+                    resolve(responseData)
                 }).catch(function(error){
                     reject(error)
                 })
             }.bind(this))
         },
 
-        refreshToken: function(refreshToken, callback){
+        refreshToken: function(refreshToken){
             return new Promise(function(resolve, reject) {
                 const tokenParams = {
                     "client_id": this._clientId,
@@ -166,14 +261,17 @@ module.exports = function(clientId, secret){
                 var postData = QueryString.stringify(tokenParams)
 
                 HttpClient().post(this._endpoints.live+'/oauth20_token.srf', {'Content-Type': 'application/x-www-form-urlencoded'}, postData).then(function(data){
-                    resolve(JSON.parse(data))
+                    var responseData = JSON.parse(data)
+                    responseData.issued = new Date().toISOString()
+                    
+                    resolve(responseData)
                 }).catch(function(error){
                     reject(error)
                 })
             }.bind(this))
         },
 
-        getUserToken: function(accessToken, callback){
+        getUserToken: function(accessToken){
             return new Promise(function(resolve, reject) {
                 const tokenParams = {
                     "RelyingParty": "http://auth.xboxlive.com",
@@ -188,14 +286,17 @@ module.exports = function(clientId, secret){
                 const postData = JSON.stringify(tokenParams)
 
                 HttpClient().post(this._endpoints.auth+'/user/authenticate', {'Content-Type': 'application/json'}, postData).then(function(data){
-                    resolve(JSON.parse(data))
+                    var responseData = JSON.parse(data)
+                    // responseData.issued = new Date().toISOString()
+                    
+                    resolve(responseData)
                 }).catch(function(error){
                     reject(error)
                 })
             }.bind(this))
         },
 
-        getXstsToken: function(userToken, callback){
+        getXstsToken: function(userToken){
             return new Promise(function(resolve, reject) {
                 const tokenParams = {
                     "RelyingParty": "http://xboxlive.com",
@@ -222,26 +323,11 @@ module.exports = function(clientId, secret){
                     this.loadTokens()
                 }
 
-                if(this._tokens.oauth.refresh_token){
-                    this.refreshToken(this._tokens.oauth.refresh_token).then(function(token){
-
-                        if(this._tokens.xsts.access_token === undefined){
-                            this.refreshTokens().then(function(token){
-                                resolve(token)
-                            }).catch(function(error){
-                                reject(error)
-                            })
-                        } else {
-                            resolve(token)
-                        }
-
-                    }.bind(this)).catch(function(error){
-                        reject(error)
-
-                    }.bind(this))
-                } else {
-                    reject('No refresh token in .token.json')
-                }
+                this.refreshTokens().then(function(){
+                    resolve()
+                }).catch(function(error){
+                    reject(error)
+                })
             }.bind(this))
         },
 
