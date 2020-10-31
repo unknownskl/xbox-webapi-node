@@ -8,9 +8,62 @@ module.exports = function(){
     return {
 
         get: function(url, headers){
+            Debug('- HTTP GET call start')
             return new Promise(function(resolve, reject) {
 
+                // Extract options from url
+                var parsedUrl = this.queryUrl(url)
 
+                const options = {
+                    hostname: parsedUrl.host,
+                    port: parsedUrl.port,
+                    path: parsedUrl.path,
+                    method: 'GET',
+                    headers: {
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                        // 'Content-Length': postdata.length
+                    },
+                }
+
+                for(let header in headers){
+                    options.headers[header]  = headers[header]
+                }
+
+                Debug('HTTP request options:', options)
+
+                var httpEngine = Http
+
+                if(parsedUrl.protocol == 'https'){
+                    httpEngine = Https
+                }
+    
+                const req = httpEngine.request(options, (res) => {
+
+                    var responseData = ''
+                  
+                    res.on('data', (data) => {
+                        // Debug('HTTP response partial body:', data.toString())
+                        responseData += data
+                    })
+
+                    res.on('close', () => {
+                        Debug('HTTP response headers:', res.headers)
+                        Debug('HTTP response body:', responseData.toString())
+
+                        if(res.statusCode == 200){
+                            resolve(responseData.toString())
+                        } else {
+                            reject({status: res.statusCode, body: responseData.toString()})
+                        }
+                    })
+                })
+                
+                req.on('error', (error) => {
+                    Debug('HTTP request error:', error)
+                    reject(error)
+                })
+
+                req.end()
 
             }.bind(this))
         },
@@ -51,7 +104,7 @@ module.exports = function(){
                     var responseData = ''
                   
                     res.on('data', (data) => {
-                        Debug('HTTP response partial body:', data.toString())
+                        // Debug('HTTP response partial body:', data.toString())
                         responseData += data
                     })
 
