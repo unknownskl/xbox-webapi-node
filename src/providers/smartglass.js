@@ -35,23 +35,23 @@ module.exports = function(client){
         return this.get('/consoles/'+consoleId)
     }
 
-    // provider.powerOn = function(consoleId){
-    //     Debug('getConsoleStatus('+consoleId+')')
+    provider.powerOn = function(consoleId){
+        Debug('powerOn('+consoleId+')')
 
-    //     return this.get('/consoles/'+consoleId)
-    // }
+        return this._sendCommand(consoleId, 'Power', 'WakeUp')
+    }
 
-    // provider.powerOff = function(consoleId){
-    //     Debug('getConsoleStatus('+consoleId+')')
+    provider.powerOff = function(consoleId){
+        Debug('powerOff('+consoleId+')')
 
-    //     return this.get('/consoles/'+consoleId)
-    // }
+        return this._sendCommand(consoleId, 'Power', 'TurnOff')
+    }
 
-    // provider.reboot = function(consoleId){
-    //     Debug('getConsoleStatus('+consoleId+')')
+    provider.reboot = function(consoleId){
+        Debug('reboot('+consoleId+')')
 
-    //     return this.get('/consoles/'+consoleId)
-    // }
+        return this._sendCommand(consoleId, 'Power', 'Reboot')
+    }
 
     provider.mute = function(consoleId){
         Debug('mute('+consoleId+')')
@@ -92,6 +92,14 @@ module.exports = function(client){
 
         return this._sendCommand(consoleId, 'Shell', 'InjectKey', [{
             'keyType': button
+        }])
+    }
+
+    provider.openGuideTab = function(consoleId){
+        Debug('openGuideTab('+consoleId+')')
+
+        return this._sendCommand(consoleId, 'Shell', 'ShowGuideTab', [{
+            'tabName': 'Guide'
         }])
     }
 
