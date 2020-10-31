@@ -1,0 +1,11 @@
+HTTP/1.1 200 OK
+cache-control: no-cache, no-store,
+content-type: application/json,
+ms-cv: xxxxxxxxxxxxxxxx/xxxxx.x,
+x-content-type-options: nosniff,
+x-xblcorrelationid: 00000000-0000-0000-0000-000000000000,
+x-err: 00000005,
+date: Thu, 29 Oct 2020 08:18:44 GMT,
+connection: close
+
+{"IssueInstant":"2020-10-29T08:18:44.2057145Z","NotAfter":"2020-11-12T08:18:44.2057145Z","Token":"user_token_data","DisplayClaims":{"xui":[{"uhs":"userhash_data"}]}}

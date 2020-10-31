@@ -1,0 +1,15 @@
+HTTP/1.1 200 OK
+cache-control: no-store,
+pragma: no-cache,
+content-type: application/json,
+server: Microsoft-IIS/10.0,
+referrer-policy: strict-origin-when-cross-origin,
+x-ms-request-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx,
+ppserver: PPV: 30 H: xxxxxxxxxxxxxxx V: 0,
+x-content-type-options: nosniff,
+strict-transport-security: max-age=31536000,
+x-xss-protection: 1; mode=block,
+date: Wed, 28 Oct 2020 18:22:40 GMT,
+connection: close
+
+{"token_type":"bearer","expires_in":3600,"scope":"XboxLive.signin XboxLive.offline_access","access_token":"access_token_example","refresh_token":"refresh_token_example","user_id":"user_id_example"}

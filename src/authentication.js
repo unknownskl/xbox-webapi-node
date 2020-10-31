@@ -1,202 +1,257 @@
-const querystring = require('querystring')
-const request = require('request')
+const QueryString = require('querystring')
+const Debug = require('debug')('xbox-webapi-node:authentication')
 
-// const Error = require('./error.js')
+const HttpClient = require('./http.js')
+var fs = require('fs')
 
-module.exports = function()
-{
-    // var id = Math.floor(Math.random() * (999 - 1)) + 1;
-    // var Debug = require('debug')('smartglass:client-'+id)
-    //
-    // var events = Events()
+var express = require('express')
+
+module.exports = function(clientId, secret){
 
     return {
-        email_address: false,
-        password: false,
+        _clientId: clientId,
+        _clientSecret: secret,
+        _scopes: ['XboxLive.signin', 'XboxLive.offline_access'],
 
-        access_token: false,
-        refresh_token: false,
-        xsts_token: false,
-        user_token: false,
-        user_id: false,
+        _express: false,
+        _expressServer: false,
+        _tokensFile: '.tokens.json',
 
-        authenticated: false,
+        _tokens: {
+            oauth: {},
+            user: {},
+            xsts: {}
+        },
+        _user: false,
 
-        setUserAuth: function(email, password){
-            this.email_address = email
-            this.password = password
+        _endpoints: {
+            live: 'https://login.live.com',
+            auth: 'https://user.auth.xboxlive.com',
+            xsts: 'https://xsts.auth.xboxlive.com'
         },
 
-        setTokens: function(tokens){
-            if(tokens.access_token != undefined)
-                this.access_token = tokens.access_token
-
-            if(tokens.refresh_token != undefined)
-                this.refresh_token = tokens.refresh_token
-
-            if(tokens.xsts_token != undefined)
-                this.xsts_token = tokens.xsts_token
-
-            if(tokens.user_token != undefined)
-                this.user_token = tokens.user_token
-
-            if(tokens.user_id != undefined)
-                this.user_id = tokens.user_id
+        generateAuthorizationUrl: function(){
+            var params_object = {
+                "client_id": this._clientId,
+                "response_type": "code",
+                "approval_prompt": "auto",
+                "scope": this._scopes.join(' '),
+                "redirect_uri": this.getReturnUrl(),
+            }
+            var params = QueryString.stringify(params_object)
+            return 'https://login.live.com/oauth20_authorize.srf?'+params
         },
 
-        authenticate: function(){
+        getReturnUrl: function(){
+            // @TODO: Get port from express
+            return 'http://localhost:8080/auth/callback'
+        },
+
+        startServer: function(callback, port){
+            if(port === undefined)
+                port = 8080
+            
+            var app = express()
+
+            app.get('/auth/callback', function(req, res) {
+                this.getTokenRequest(req.query.code).then(function(data){
+                    res.send('Login succeeded!')
+                    Debug('[AUTH] Got oauth token:', data)
+
+                    this._tokens.oauth = data
+                    this.saveTokens()
+
+                    callback(data)
+                    this.stopServer()
+
+                }.bind(this)).catch(function(error){
+                    console.log('OAUTH Error:', error)
+                    res.send('Failed to login. Please check the console output')
+                })
+                
+            }.bind(this))
+
+            var server = app.listen(port, function () {
+                Debug('[HTTP] Authentication server ready on :'+port)
+                Debug('Authorization URL: ', this.generateAuthorizationUrl())
+            }.bind(this))
+
+            this._express = app
+            this._expressServer = server
+        },
+
+        stopServer: function(){
+            return this._expressServer.close()
+        },
+
+        refreshTokens: function(){
+            // @TODO: Refactor this part so we check the timestamps and improve the renewall flow so long running processes can renew tokens too
             return new Promise(function(resolve, reject) {
-                // Run login using xsts token (Layer 1)
-                // @TODO: Run query to test token?
 
-                // Run login using user_token (Layer 2)
-                if(this.user_token != false){
-                    this._get_xsts_token(this.user_token.Token).then(function(xsts_token){
+                if(this._tokens.user.Token === undefined){
+                    this.getUserToken(this._tokens.oauth.access_token).then(function(data){
+                        this._tokens.user = data
 
-                        this.xsts_token = xsts_token
-                        this.authenticated = true
 
-                        resolve(xsts_token.DisplayClaims.xui[0])
 
-                    }.bind(this)).catch(function(error){
-                        reject(error)
-                    })
-                } else if(this.access_token != false && this.refresh_token != false){
-                    // Run login using access and refresh token (Layer 3)
-                    this._get_user_token(this.access_token).then(function(user_token){
-                        this.user_token = user_token
+                        
+                        if(this._tokens.xsts.Token === undefined){
+                            // console.log('GETTING XSTS TOKEN', this._tokens.user)
+                            this.getXstsToken(this._tokens.user.Token).then(function(data){
+                                this._tokens.xsts = data
 
-                        // Lets get the XSTS token
-                        this._get_xsts_token(this.user_token.Token).then(function(xsts_token){
-                            this.xsts_token = xsts_token
-                            this.authenticated = true
-                            
-                            resolve(xsts_token.DisplayClaims.xui[0])
+                                this._user = {
+                                    gamertag: data.DisplayClaims.xui[0].gtg,
+                                    xid: data.DisplayClaims.xui[0].xid,
+                                    uhs: data.DisplayClaims.xui[0].uhs
+                                    // @TODO: Check if we need more data?
+                                }
 
-                        }.bind(this)).catch(function(error){
-                            reject(error)
-                        })
-                    }.bind(this)).catch(function(error){
-                        reject(error)
-                    })
-                } else {
-                    var authUrl = this._generate_authorization_url()
-
-                    reject({
-                        error: 'authentication.need_setup',
-                        message: 'Need setup: '+authUrl,
-                        details: {
-                            url: authUrl
+                                resolve()
+        
+                            }.bind(this)).catch(function(error){
+                                reject(error)
+                            }.bind(this))
+                        } else {
+                            resolve()
                         }
-                    })
+
+
+
+
+                    }.bind(this)).catch(function(error){
+                        reject(error)
+                    }.bind(this))
+
                 }
 
             }.bind(this))
         },
 
-        _generate_authorization_url: function(){
-            var response_type='token'
-            var client_id='0000000048093EE3'
-            var scope='service::user.auth.xboxlive.com::MBI_SSL'
-            var redirect_uri='https://login.live.com/oauth20_desktop.srf'
-
-            var params = querystring.stringify({
-                client_id: client_id,
-                redirect_uri: redirect_uri,
-                response_type: response_type,
-                display: 'touch',
-                scope: scope,
-                locale: 'en'
-            })
-
-            return 'https://login.live.com/oauth20_authorize.srf?'+params;
-        },
-
-        _get_user_token: function(access_token){
+        getTokenRequest: function(code, callback){
             return new Promise(function(resolve, reject) {
-                request.post('https://user.auth.xboxlive.com/user/authenticate', {
-                  json: {
-                        "RelyingParty": "http://auth.xboxlive.com",
-                        "TokenType": "JWT",
-                        "Properties": {
-                            "AuthMethod": "RPS",
-                            "SiteName": "user.auth.xboxlive.com",
-                            "RpsTicket": access_token,
-                        }
-                    }
-                }, (error, res, body) => {
-                    if(res.statusCode == 400){
-                        reject({
-                            error: 'authentication.failed',
-                            message: 'Token is invalid',
-                            details: {
-                                response_status: res.statusCode,
-                                method: res.request.method,
-                                url: res.request.href,
-                                body: res.request.body,
-                                res: res
-                            }
-                        })
-                    } else if(body == undefined){
-                        reject({
-                            error: 'authentication.response.body_null',
-                            message: 'Web api responded without a body, status: '+res.statusCode,
-                            details: {
-                                response_status: res.statusCode,
-                                method: res.request.method,
-                                url: res.request.href,
-                                body: res.request.body,
-                                res: res
-                            }
-                        })
-                    } else {
-                        resolve(body)
-                    }
+                const tokenParams = {
+                    "client_id": this._clientId,
+                    "grant_type": "authorization_code",
+                    "scope": this._scopes.join(' '),
+                    "code": code,
+                    "redirect_uri": this.getReturnUrl()
+                }
+
+                if(this._clientSecret !== '')
+                    tokenParams.client_secret = this._clientSecret
+
+                var postData = QueryString.stringify(tokenParams)
+
+                HttpClient().post(this._endpoints.live+'/oauth20_token.srf', {'Content-Type': 'application/x-www-form-urlencoded'}, postData).then(function(data){
+                    resolve(JSON.parse(data))
+                }).catch(function(error){
+                    reject(error)
                 })
             }.bind(this))
         },
 
-        _get_xsts_token: function(user_token){
+        refreshToken: function(refreshToken, callback){
             return new Promise(function(resolve, reject) {
-                request.post('https://xsts.auth.xboxlive.com/xsts/authorize', {
-                  json: {
-                        "RelyingParty": "http://xboxlive.com",
-                        "TokenType": "JWT",
-                        "Properties": {
-                            "UserTokens": [user_token],
-                            "SandboxId": "RETAIL",
-                        }
-                    }
-                }, (error, res, body) => {
-                    if(res.statusCode == 400){
-                        reject({
-                            error: 'authentication.failed',
-                            message: 'Token is invalid',
-                            details: {
-                                response_status: res.statusCode,
-                                method: res.request.method,
-                                url: res.request.href,
-                                body: res.request.body,
-                                res: res
-                            }
-                        })
-                    } else if(body == undefined){
-                        reject({
-                            error: 'authentication.response.body_null',
-                            message: 'Web api responded without a body, status: '+res.statusCode,
-                            details: {
-                                response_status: res.statusCode,
-                                method: res.request.method,
-                                url: res.request.href,
-                                body: res.request.body,
-                                res: res
-                            }
-                        })
-                    } else {
-                        resolve(body)
-                    }
+                const tokenParams = {
+                    "client_id": this._clientId,
+                    "grant_type": "refresh_token",
+                    "scope": this._scopes.join(' '),
+                    "refresh_token": refreshToken,
+                }
+
+                if(this._clientSecret !== '')
+                    tokenParams.client_secret = this._clientSecret
+
+                var postData = QueryString.stringify(tokenParams)
+
+                HttpClient().post(this._endpoints.live+'/oauth20_token.srf', {'Content-Type': 'application/x-www-form-urlencoded'}, postData).then(function(data){
+                    resolve(JSON.parse(data))
+                }).catch(function(error){
+                    reject(error)
                 })
             }.bind(this))
+        },
+
+        getUserToken: function(accessToken, callback){
+            return new Promise(function(resolve, reject) {
+                const tokenParams = {
+                    "RelyingParty": "http://auth.xboxlive.com",
+                    "TokenType": "JWT",
+                    "Properties": {
+                        "AuthMethod": "RPS",
+                        "SiteName": "user.auth.xboxlive.com",
+                        "RpsTicket": "d="+accessToken
+                    },
+                }
+
+                const postData = JSON.stringify(tokenParams)
+
+                HttpClient().post(this._endpoints.auth+'/user/authenticate', {'Content-Type': 'application/json'}, postData).then(function(data){
+                    resolve(JSON.parse(data))
+                }).catch(function(error){
+                    reject(error)
+                })
+            }.bind(this))
+        },
+
+        getXstsToken: function(userToken, callback){
+            return new Promise(function(resolve, reject) {
+                const tokenParams = {
+                    "RelyingParty": "http://xboxlive.com",
+                    "TokenType": "JWT",
+                    "Properties": {
+                        "UserTokens": [userToken],
+                        "SandboxId": "RETAIL",
+                    },
+                }
+
+                const postData = JSON.stringify(tokenParams)
+
+                HttpClient().post(this._endpoints.xsts+'/xsts/authorize', {'Content-Type': 'application/json', 'x-xbl-contract-version': '1'}, postData).then(function(data){
+                    resolve(JSON.parse(data))
+                }).catch(function(error){
+                    reject(error)
+                })
+            }.bind(this))
+        },
+
+        isAuthenticated: function(){
+            return new Promise(function(resolve, reject) {
+                if (fs.existsSync(this._tokensFile)){
+                    this.loadTokens()
+                }
+
+                if(this._tokens.oauth.refresh_token){
+                    this.refreshToken(this._tokens.oauth.refresh_token).then(function(token){
+
+                        if(this._tokens.xsts.access_token === undefined){
+                            this.refreshTokens().then(function(token){
+                                resolve(token)
+                            }).catch(function(error){
+                                reject(error)
+                            })
+                        } else {
+                            resolve(token)
+                        }
+
+                    }.bind(this)).catch(function(error){
+                        reject(error)
+
+                    }.bind(this))
+                } else {
+                    reject('No refresh token in .token.json')
+                }
+            }.bind(this))
+        },
+
+        saveTokens: function(){
+            return fs.writeFileSync(this._tokensFile, JSON.stringify(this._tokens.oauth))
+        },
+
+        loadTokens: function(){
+            var token_store = fs.readFileSync(this._tokensFile).toString()
+            this._tokens.oauth = JSON.parse(token_store)
         }
     }
 }

@@ -1,14 +1,19 @@
-const request = require('request')
+const HttpClient = require('../http.js')
 const BaseProvider = require('./base.js')
+const Debug = require('debug')('xbox-webapi-node:provider_pins')
 
-module.exports = function(client)
-{
-    var Provider = BaseProvider(client, 'https://eplists.xboxlive.com')
+module.exports = function(client){
 
-    Provider.get_pins = function(list = 'XBLPins'){
-        var xid = this.client.auth_manager.xsts_token.DisplayClaims.xui[0].xid
-        return this.get('users/xuid('+xid+')/lists/PINS/'+list)
+    var provider = BaseProvider(client)
+    provider._endpoint = 'https://eplists.xboxlive.com'
+
+    provider._headers['Content-Type'] = 'application/json'
+
+    provider.getPins = function(){
+        Debug('getTitleHistory()')
+
+        return this.get('/users/xuid('+this._client._authentication._user.xid+')/lists/PINS/XBLPins')
     }
 
-    return Provider
+    return provider
 }
