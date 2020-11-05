@@ -1,0 +1,53 @@
+HTTP/1.1 200 OK
+cache-control: no-cache, no-store,
+content-type: application/json,
+x-content-type-options: nosniff,
+ms-cv: xxxxxxxxxxxxxxxx/xxxxx.x,
+date: Thu, 05 Nov 2020 18:59:47 GMT,
+connection: close
+
+{
+  "status": {
+    "errorCode": "OK",
+    "errorMessage": null
+  },
+  "result": [
+    {
+      "oneStoreProductId": "9WZDNCRFJ3TJ",
+      "titleId": 327370029,
+      "aumid": "4DF9E0F8.Netflix_mcm4njqhnhss8!App",
+      "lastActiveTime": "2020-10-31T01:19:30.156Z",
+      "isGame": false,
+      "name": "Netflix",
+      "contentType": "App",
+      "instanceId": "{A89ECE52-7E8E-444F-BBD0-C68B76C2ECA4}#4DF9E0F8.Netflix_mcm4njqhnhss8",
+      "storageDeviceId": "A89ECE52-7E8E-444F-BBD0-C68B76C2ECA4",
+      "uniqueId": "4DF9E0F8.Netflix_mcm4njqhnhss8",
+      "legacyProductId": null,
+      "version": 2251954432507974.0,
+      "sizeInBytes": 7250253.0,
+      "installTime": "2018-04-07T04:05:04.438Z",
+      "updateTime": "2020-03-19T11:03:50.501Z",
+      "parentId": null
+    },
+    {
+      "oneStoreProductId": "BPQ955FQFPH6",
+      "titleId": 144389848,
+      "aumid": "Destiny2_z7wx9v9k22rmg!tiger.ReleaseFinal",
+      "lastActiveTime": "2020-08-28T14:10:28.213Z",
+      "isGame": true,
+      "name": "Destiny 2",
+      "contentType": "Game",
+      "instanceId": "{A89ECE52-7E8E-444F-BBD0-C68B76C2ECA4}#0C57204F-F4F0-4BF6-B119-B7AFC231994D",
+      "storageDeviceId": "A89ECE52-7E8E-444F-BBD0-C68B76C2ECA4",
+      "uniqueId": "0C57204F-F4F0-4BF6-B119-B7AFC231994D",
+      "legacyProductId": "B5E968ED-9E38-45E1-878E-84981802E90C",
+      "version": 5716180992.0,
+      "sizeInBytes": 116757692416.0,
+      "installTime": "2020-06-12T20:51:38.532Z",
+      "updateTime": "2020-09-22T17:44:05.364Z",
+      "parentId": null
+    }
+  ],
+  "agentUserId": null
+}

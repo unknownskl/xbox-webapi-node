@@ -13,8 +13,8 @@ client.isAuthenticated().then(function(){
             console.log('resolve', result)
 
             for(let device in result.result){
-                client.getProvider('smartglass').getConsoleStatus(result.result[device].id).then(function(result){
-                    console.log('resolve', result)
+                client.getProvider('smartglass').getInstalledApps(result.result[device].id).then(function(result){
+                    // console.log('resolve', result)
             
                 }).catch(function(error){
                     console.log('reject', error)
