@@ -52,7 +52,7 @@ module.exports = function(config){
 
         getProvider: function(name){
             if(this._providers[name] != undefined){
-                return this._providers[name](this)
+                return this._providers[name](this, name)
             } else {
                 return false
             }
