@@ -6,7 +6,7 @@ var http = require('http')
 
 describe('provider/smartglass', function(){
     before(function(){
-        var mockserver = require('mockserver')('tests/mock_data', true)
+        var mockserver = require('mockserver')('tests/mock_data', false)
         this.serverRun = http.createServer(mockserver).listen(9001);
 
         var client = XboxWebClient()
