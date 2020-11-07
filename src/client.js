@@ -6,6 +6,7 @@ var PeopleProvider = require('./providers/people.js')
 var TitlehubProvider = require('./providers/titlehub.js')
 var CatalogProvider = require('./providers/catalog.js')
 var PinsProvider = require('./providers/pins.js')
+var ScreenshotsProvider = require('./providers/screenshots.js')
 var SmartglassProvider = require('./providers/smartglass.js')
 
 module.exports = function(config){
@@ -36,7 +37,7 @@ module.exports = function(config){
             pins: PinsProvider,
             // messages: MessagesProvider,
             // gameclips: GameclipsProvider,
-            // screenshots: ScreenshotsProvider,
+            screenshots: ScreenshotsProvider,
             smartglass: SmartglassProvider
         },
 
