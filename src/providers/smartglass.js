@@ -74,9 +74,7 @@ module.exports = function(client){
     provider.launchOneGuide = function(consoleId){
         Debug('launchOneGuide('+consoleId+')')
 
-        return this._sendCommand(consoleId, 'Shell', 'InjectKey', [{
-            'keyType': 'A'
-        }])
+        return this._sendCommand(consoleId, 'TV', 'ShowGuide')
     }
 
     provider.launchApp = function(consoleId, titleId){
