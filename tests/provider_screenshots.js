@@ -66,7 +66,7 @@ describe('provider/screenshots', function(){
         })
     })
 
-    it('should be able to get screenshots by xuid using getScreenshotsByXuid(titleId)', function(done){
+    it('should be able to get screenshots by xuid using getScreenshotsByXuid(xuid)', function(done){
         this.provider.getScreenshotsByXuid('0000000000000000').then(function(result){
             // console.log(result)
 
