@@ -16,6 +16,7 @@ describe('authentication', function(){
             auth: 'http://127.0.0.1:9001',
             xsts: 'http://127.0.0.1:9001'
         }
+        this.auth._tokensFile = '.tokens.test.json'
     })
 
     it('should generate an authorization url', function(){

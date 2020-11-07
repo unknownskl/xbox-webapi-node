@@ -25,7 +25,7 @@ module.exports = function(client, providerName){
                     // delete responseObject.titles
                     // console.log(responseObject)
 
-                    if(this._provider == 'smartglass'){
+                    if(providerName == 'smartglass'){
                         if(responseObject.status.errorCode != 'OK'){
                             reject(responseObject.status)
                         } else {
