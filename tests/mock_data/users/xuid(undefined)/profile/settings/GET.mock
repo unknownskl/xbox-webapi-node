@@ -1,0 +1,36 @@
+HTTP/1.1 200 OK
+cache-control: no-cache, no-store,
+content-type: application/json,
+last-modified: 2020-11-06T18:17:59.0293377Z,
+x-content-type-options: nosniff,
+ms-cv: xxxxxxxxxxxxxxxx/xxxxx.x,
+date: Fri, 06 Nov 2020 18:19:59 GMT,
+connection: close
+
+{
+    "profileUsers": [
+        {
+            "id": "0000000000000000",
+            "hostId": "0000000000000000",
+            "settings": [
+                {
+                    "id": "GameDisplayName",
+                    "value": "displayname_data"
+                },
+                {
+                    "id": "GameDisplayPicRaw",
+                    "value": "displaypicture_data"
+                },
+                {
+                    "id": "Gamerscore",
+                    "value": "19023"
+                },
+                {
+                    "id": "Gamertag",
+                    "value": "gamertag_data"
+                }
+            ],
+            "isSponsoredUser": false
+        }
+    ]
+}

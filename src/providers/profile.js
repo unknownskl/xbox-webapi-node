@@ -9,7 +9,7 @@ module.exports = function(client){
 
     provider._headers['x-xbl-contract-version'] = 3
 
-    provider.getProfiles = function(){
+    provider.getUserProfile = function(){
         Debug('getUserProfile()')
 
         return this.get('/users/xuid('+this._client._authentication._user.xid +')/profile/settings?settings=GameDisplayName,GameDisplayPicRaw,Gamerscore,Gamertag')

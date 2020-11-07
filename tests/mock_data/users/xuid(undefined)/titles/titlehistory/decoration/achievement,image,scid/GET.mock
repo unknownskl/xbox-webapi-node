@@ -1,0 +1,208 @@
+HTTP/1.1 200 OK
+cache-control: no-cache, no-store,
+content-type: application/json,
+last-modified: 2020-11-06T18:17:59.0293377Z,
+x-content-type-options: nosniff,
+ms-cv: xxxxxxxxxxxxxxxx/xxxxx.x,
+date: Fri, 06 Nov 2020 18:19:59 GMT,
+connection: close
+
+{
+    "xuid": "0000000000000000",
+    "titles": [
+        {
+            "titleId": "144389848",
+            "pfn": "Bungie.Destiny2basegame_8xb1a0vv8ay84",
+            "bingId": null,
+            "serviceConfigId": "bcc90100-31ff-42bd-b545-90cd089b36d8",
+            "windowsPhoneProductId": "75abf583-2325-4e58-b235-96a8a1dd2b43",
+            "name": "Destiny 2",
+            "type": "Game",
+            "devices": [
+                "XboxOne",
+                "PC",
+                "XboxSeries"
+            ],
+            "displayImage": "http://store-images.s-microsoft.com/image/apps.10960.68655995542193491.ba715372-3c52-40a9-9cc1-033bdedd4a66.64369d33-5ea2-4727-9eef-12c901bd2b31",
+            "mediaItemType": "Application",
+            "modernTitleId": "144389848",
+            "isBundle": false,
+            "achievement": {
+                "currentAchievements": 17,
+                "totalAchievements": 0,
+                "currentGamerscore": 880,
+                "totalGamerscore": 1240,
+                "progressPercentage": 71.0,
+                "sourceVersion": 2
+            },
+            "stats": null,
+            "gamePass": null,
+            "images": [
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.33296.68655995542193491.c7adf441-d0c2-4f49-ba4f-695986defb97.766dcee0-8849-40d0-b135-3b21b3b381f0",
+                    "type": "BrandedKeyArt"
+                },
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.60831.68655995542193491.c7491554-2aa5-4e01-bc47-d6002bd8755a.1f65c32e-677c-4c56-9d50-ef0e9164d18b",
+                    "type": "TitledHeroArt"
+                },
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.1823.68655995542193491.c7adf441-d0c2-4f49-ba4f-695986defb97.6c40a2a5-b200-47f2-a544-5d6be322c2d5",
+                    "type": "Poster"
+                },
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.1502.68655995542193491.c7491554-2aa5-4e01-bc47-d6002bd8755a.c2e99bb8-69a2-418c-973b-006f22f0ab91",
+                    "type": "SuperHeroArt"
+                },
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.10960.68655995542193491.ba715372-3c52-40a9-9cc1-033bdedd4a66.64369d33-5ea2-4727-9eef-12c901bd2b31",
+                    "type": "BoxArt"
+                },
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.55773.68655995542193491.c7491554-2aa5-4e01-bc47-d6002bd8755a.e1496367-acd4-4480-8061-d3722cfbd9c4",
+                    "type": "FeaturePromotionalSquareArt"
+                },
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.33511.68655995542193491.8ebaffb9-0b52-40b0-9395-b18addc8fafa.7fa0444b-90f1-4731-93a6-18fc03644ba1",
+                    "type": "Screenshot"
+                },
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.3809.68655995542193491.8ebaffb9-0b52-40b0-9395-b18addc8fafa.4dbbf0b5-9477-46ee-9b1d-a4914ba32667",
+                    "type": "Screenshot"
+                },
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.17198.68655995542193491.8ebaffb9-0b52-40b0-9395-b18addc8fafa.edc7c54c-0c18-4828-af82-1a0591d8ba9b",
+                    "type": "Screenshot"
+                },
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.9428.68655995542193491.8ebaffb9-0b52-40b0-9395-b18addc8fafa.2ef0df99-a63a-421d-935d-da31446ed80f",
+                    "type": "Screenshot"
+                },
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.53943.68655995542193491.8ebaffb9-0b52-40b0-9395-b18addc8fafa.edd6780e-7e32-4a90-a59b-f895c96fe90a",
+                    "type": "Screenshot"
+                },
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.57606.68655995542193491.caf9a2b8-1f59-43f3-99b8-54353060f6de.0ab10705-6c82-4ddb-8ea3-ef029dd77ce4",
+                    "type": "Screenshot"
+                },
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.20771.68655995542193491.caf9a2b8-1f59-43f3-99b8-54353060f6de.7d74dfe5-6ccb-4ae8-9084-c8d724bc91e9",
+                    "type": "Screenshot"
+                },
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.5247.68655995542193491.caf9a2b8-1f59-43f3-99b8-54353060f6de.75bb7fea-5ee3-441f-b88f-443c749b693f",
+                    "type": "Screenshot"
+                },
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.51692.68655995542193491.caf9a2b8-1f59-43f3-99b8-54353060f6de.8d9b2e2a-d731-4505-a50d-7e6be7c46fa2",
+                    "type": "Screenshot"
+                },
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.49173.68655995542193491.caf9a2b8-1f59-43f3-99b8-54353060f6de.267616bc-5830-47cb-8888-5a181af36509",
+                    "type": "Screenshot"
+                }
+            ],
+            "titleHistory": {
+                "lastTimePlayed": "2020-08-28T14:10:31.2757911Z",
+                "visible": true,
+                "canHide": false
+            },
+            "detail": null,
+            "friendsWhoPlayed": null,
+            "alternateTitleIds": null,
+            "contentBoards": null,
+            "xboxLiveTier": "Full",
+            "isStreamable": true
+        },
+        {
+            "titleId": "2105342780",
+            "pfn": "Microsoft.Maine_8wekyb3d8bbwe",
+            "bingId": null,
+            "serviceConfigId": "00000000-0000-0000-0000-00007d7cfb3c",
+            "windowsPhoneProductId": "aa624c22-b990-431f-abec-13c8181a259f",
+            "name": "Grounded - Game Preview",
+            "type": "Game",
+            "devices": [
+                "PC",
+                "XboxOne",
+                "XboxSeries"
+            ],
+            "displayImage": "http://store-images.s-microsoft.com/image/apps.10426.14280109286674604.94eda3ef-8495-429e-bea1-fd9002043916.302e1ec1-145f-483c-bc27-6eae2928d0c3",
+            "mediaItemType": "Application",
+            "modernTitleId": "2105342780",
+            "isBundle": false,
+            "achievement": {
+                "currentAchievements": 0,
+                "totalAchievements": 0,
+                "currentGamerscore": 0,
+                "totalGamerscore": 0,
+                "progressPercentage": 0.0,
+                "sourceVersion": 0
+            },
+            "stats": null,
+            "gamePass": null,
+            "images": [
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.60821.14280109286674604.8a8a957d-3e66-4680-aa75-21984825a5a1.b5160004-2a01-4c17-9954-91a5b04acff2",
+                    "type": "Screenshot"
+                },
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.44004.14280109286674604.07457100-a11d-4e1d-8c2b-59dd36bb9443.03777f72-96c3-46a2-8bee-f1769fdf8bfd",
+                    "type": "BoxArt"
+                },
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.38461.14280109286674604.07457100-a11d-4e1d-8c2b-59dd36bb9443.85025541-4f61-4f8b-a5a2-dea8925365cc",
+                    "type": "BrandedKeyArt"
+                },
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.52524.14280109286674604.94eda3ef-8495-429e-bea1-fd9002043916.b3daf942-19cd-4a83-a372-5166140333e9",
+                    "type": "FeaturePromotionalSquareArt"
+                },
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.55018.14280109286674604.94eda3ef-8495-429e-bea1-fd9002043916.02bf63f8-691d-426a-b929-f1c09ff48211",
+                    "type": "SuperHeroArt"
+                },
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.30438.14280109286674604.07457100-a11d-4e1d-8c2b-59dd36bb9443.50475687-e425-4eb7-9d4b-ed92ce8e1079",
+                    "type": "Poster"
+                },
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.13110.14280109286674604.07457100-a11d-4e1d-8c2b-59dd36bb9443.2bb239be-f1fd-45c3-91de-55482c4f0162",
+                    "type": "TitledHeroArt"
+                },
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.10426.14280109286674604.94eda3ef-8495-429e-bea1-fd9002043916.302e1ec1-145f-483c-bc27-6eae2928d0c3",
+                    "type": "Logo"
+                },
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.51465.14280109286674604.8a8a957d-3e66-4680-aa75-21984825a5a1.824ce96b-32a5-43c5-a2b9-3a9825993d0e",
+                    "type": "Screenshot"
+                },
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.54552.14280109286674604.8a8a957d-3e66-4680-aa75-21984825a5a1.7a1a62da-8bd8-4108-bf99-69ee349d8baf",
+                    "type": "Screenshot"
+                },
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.59202.14280109286674604.8a8a957d-3e66-4680-aa75-21984825a5a1.1d3fb264-6a82-4792-b2b4-c52614e638f0",
+                    "type": "Screenshot"
+                },
+                {
+                    "url": "http://store-images.s-microsoft.com/image/apps.64850.14280109286674604.8a8a957d-3e66-4680-aa75-21984825a5a1.0719a962-a82d-4996-a038-cf0d1ecca23e",
+                    "type": "Screenshot"
+                }
+            ],
+            "titleHistory": {
+                "lastTimePlayed": "2020-07-31T17:31:46.2094345Z",
+                "visible": true,
+                "canHide": true
+            },
+            "detail": null,
+            "friendsWhoPlayed": null,
+            "alternateTitleIds": null,
+            "contentBoards": null,
+            "xboxLiveTier": "Full",
+            "isStreamable": true
+        }
+    ]
+}

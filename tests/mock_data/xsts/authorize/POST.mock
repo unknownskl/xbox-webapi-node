@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+cache-control: no-cache, no-store,
+content-type: application/json,
+ms-cv: xxxxxxxxxxxxxxxx/xxxxx.x,
+x-content-type-options: nosniff,
+x-xblcorrelationid: 00000000-0000-0000-0000-000000000000,
+date: Thu, 05 Nov 2020 18:04:47 GMT,
+connection: close
+
+{"IssueInstant":"2020-11-05T18:04:47.6292327Z","NotAfter":"2020-11-06T10:04:47.6292327Z","Token":"xsts_token_data","DisplayClaims":{"xui":[{"gtg":"gamertag_data","xid":"xid_data","uhs":"uhs_data","agg":"Adult","usr":"usr_data","utr":"utr_data","prv":"prv_data"}]}}
