@@ -184,6 +184,22 @@ module.exports = function(clientId, secret){
                         if(new Date() > oauth_expire){
                             // Oauth token expired, refresh user token
                             console.log('TODO: refresh xsts token')
+
+                            // reject()
+
+                            this.getXstsToken(this._tokens.user.access_token).then(function(token){
+                                this._tokens.xsts = token
+                                this.saveTokens()
+
+                                this.refreshTokens('xsts').then(function(){
+                                    resolve()
+                                }).catch(function(error){
+                                    reject(error)
+                                })
+
+                            }).catch(function(error){
+                                reject('Unable to refresh oauth access token. Reauthenticate again')
+                            })
                         } else {
                             // Token is still valid
                             // console.log('xsts token is valid')

@@ -6,7 +6,7 @@ var http = require('http')
 
 describe('provider/smartglass', function(){
     before(function(){
-        var mockserver = require('mockserver')('tests/mock_data', true)
+        var mockserver = require('mockserver')('tests/mock_data', false)
         this.serverRun = http.createServer(mockserver).listen(9001);
 
         var client = XboxWebClient()
@@ -105,8 +105,263 @@ describe('provider/smartglass', function(){
         })
     })
 
-    it('should be able to mute the tv using mute()', function(done){
-        this.provider.mute().then(function(result){
+    it('should be able to get the console status using getConsoleStatus(consoleId)', function(done){
+        this.provider.getConsoleStatus('FD00000000000000').then(function(result){
+            assert.deepStrictEqual(result.status.errorCode, 'OK')
+            assert.deepStrictEqual(result.status.errorMessage, null)
+
+            assert.deepStrictEqual(result.powerState, 'On')
+            assert.deepStrictEqual(result.playbackState, 'Playing')
+            assert.deepStrictEqual(result.loginState, null)
+            assert.deepStrictEqual(result.focusAppAumid, 'GoogleInc.YouTube_yfg5n0ztvskxp!App')
+            assert.deepStrictEqual(result.isTvConfigured, true)
+            assert.deepStrictEqual(result.digitalAssistantRemoteControlEnabled, true)
+            assert.deepStrictEqual(result.consoleStreamingEnabled, true)
+            assert.deepStrictEqual(result.remoteManagementEnabled, true)
+
+            done()
+        }).catch(function(error){
+            assert.deepStrictEqual(true, error)
+            done()
+        })
+    })
+
+    it('should be able to torn on the console using powerOn(consoleId)', function(done){
+        this.provider.powerOn('FD00000000000000').then(function(result){
+            assert.deepStrictEqual(result.status.errorCode, 'OK')
+            assert.deepStrictEqual(result.status.errorMessage, null)
+
+            // console.log(result)
+
+            assert.deepStrictEqual(result.result, null)
+            assert.deepStrictEqual(result.uiText, null)
+            assert.deepStrictEqual(result.destination.id, 'FD00000000000000')
+            assert.deepStrictEqual(result.destination.name, 'XBOXONE')
+            assert.deepStrictEqual(result.destination.powerState, 'On')
+            assert.deepStrictEqual(result.destination.remoteManagementEnabled, 'True')
+            assert.deepStrictEqual(result.destination.consoleStreamingEnabled, 'True')
+            assert.deepStrictEqual(result.destination.consoleType, 'XboxOneS')
+            assert.deepStrictEqual(result.destination.osVersion, '10.0.19041.5424')
+            assert.deepStrictEqual(result.destination.userXboxCount, '1')
+            assert.deepStrictEqual(result.opId, '00000000-0000-0000-0000-000000000000')
+
+            done()
+        }).catch(function(error){
+            assert.deepStrictEqual(true, error)
+            done()
+        })
+    })
+
+    it('should be able to torn off the console using powerOff(consoleId)', function(done){
+        this.provider.powerOff('FD00000000000000').then(function(result){
+            assert.deepStrictEqual(result.status.errorCode, 'OK')
+            assert.deepStrictEqual(result.status.errorMessage, null)
+
+            // console.log(result)
+
+            assert.deepStrictEqual(result.result, null)
+            assert.deepStrictEqual(result.uiText, null)
+            assert.deepStrictEqual(result.destination.id, 'FD00000000000000')
+            assert.deepStrictEqual(result.destination.name, 'XBOXONE')
+            assert.deepStrictEqual(result.destination.powerState, 'On')
+            assert.deepStrictEqual(result.destination.remoteManagementEnabled, 'True')
+            assert.deepStrictEqual(result.destination.consoleStreamingEnabled, 'True')
+            assert.deepStrictEqual(result.destination.consoleType, 'XboxOneS')
+            assert.deepStrictEqual(result.destination.osVersion, '10.0.19041.5424')
+            assert.deepStrictEqual(result.destination.userXboxCount, '1')
+            assert.deepStrictEqual(result.opId, '00000000-0000-0000-0000-000000000000')
+
+            done()
+        }).catch(function(error){
+            assert.deepStrictEqual(true, error)
+            done()
+        })
+    })
+
+    it('should be able to reboot the console using reboot(consoleId)', function(done){
+        this.provider.reboot('FD00000000000000').then(function(result){
+            assert.deepStrictEqual(result.status.errorCode, 'OK')
+            assert.deepStrictEqual(result.status.errorMessage, null)
+
+            // console.log(result)
+
+            assert.deepStrictEqual(result.result, null)
+            assert.deepStrictEqual(result.uiText, null)
+            assert.deepStrictEqual(result.destination.id, 'FD00000000000000')
+            assert.deepStrictEqual(result.destination.name, 'XBOXONE')
+            assert.deepStrictEqual(result.destination.powerState, 'On')
+            assert.deepStrictEqual(result.destination.remoteManagementEnabled, 'True')
+            assert.deepStrictEqual(result.destination.consoleStreamingEnabled, 'True')
+            assert.deepStrictEqual(result.destination.consoleType, 'XboxOneS')
+            assert.deepStrictEqual(result.destination.osVersion, '10.0.19041.5424')
+            assert.deepStrictEqual(result.destination.userXboxCount, '1')
+            assert.deepStrictEqual(result.opId, '00000000-0000-0000-0000-000000000000')
+
+            done()
+        }).catch(function(error){
+            assert.deepStrictEqual(true, error)
+            done()
+        })
+    })
+
+    it('should be able to mute the tv using mute(consoleId)', function(done){
+        this.provider.mute('FD00000000000000').then(function(result){
+            assert.deepStrictEqual(result.status.errorCode, 'OK')
+            assert.deepStrictEqual(result.status.errorMessage, null)
+
+            // console.log(result)
+
+            assert.deepStrictEqual(result.result, null)
+            assert.deepStrictEqual(result.uiText, null)
+            assert.deepStrictEqual(result.destination.id, 'FD00000000000000')
+            assert.deepStrictEqual(result.destination.name, 'XBOXONE')
+            assert.deepStrictEqual(result.destination.powerState, 'On')
+            assert.deepStrictEqual(result.destination.remoteManagementEnabled, 'True')
+            assert.deepStrictEqual(result.destination.consoleStreamingEnabled, 'True')
+            assert.deepStrictEqual(result.destination.consoleType, 'XboxOneS')
+            assert.deepStrictEqual(result.destination.osVersion, '10.0.19041.5424')
+            assert.deepStrictEqual(result.destination.userXboxCount, '1')
+            assert.deepStrictEqual(result.opId, '00000000-0000-0000-0000-000000000000')
+
+            done()
+        }).catch(function(error){
+            assert.deepStrictEqual(true, error)
+            done()
+        })
+    })
+
+    it('should be able to unmute the tv using unmute(consoleId)', function(done){
+        this.provider.unmute('FD00000000000000').then(function(result){
+            assert.deepStrictEqual(result.status.errorCode, 'OK')
+            assert.deepStrictEqual(result.status.errorMessage, null)
+
+            // console.log(result)
+
+            assert.deepStrictEqual(result.result, null)
+            assert.deepStrictEqual(result.uiText, null)
+            assert.deepStrictEqual(result.destination.id, 'FD00000000000000')
+            assert.deepStrictEqual(result.destination.name, 'XBOXONE')
+            assert.deepStrictEqual(result.destination.powerState, 'On')
+            assert.deepStrictEqual(result.destination.remoteManagementEnabled, 'True')
+            assert.deepStrictEqual(result.destination.consoleStreamingEnabled, 'True')
+            assert.deepStrictEqual(result.destination.consoleType, 'XboxOneS')
+            assert.deepStrictEqual(result.destination.osVersion, '10.0.19041.5424')
+            assert.deepStrictEqual(result.destination.userXboxCount, '1')
+            assert.deepStrictEqual(result.opId, '00000000-0000-0000-0000-000000000000')
+
+            done()
+        }).catch(function(error){
+            assert.deepStrictEqual(true, error)
+            done()
+        })
+    })
+
+    it('should be able to launch the dashboard using launchDashboard(consoleId)', function(done){
+        this.provider.launchDashboard('FD00000000000000').then(function(result){
+            assert.deepStrictEqual(result.status.errorCode, 'OK')
+            assert.deepStrictEqual(result.status.errorMessage, null)
+
+            // console.log(result)
+
+            assert.deepStrictEqual(result.result, null)
+            assert.deepStrictEqual(result.uiText, null)
+            assert.deepStrictEqual(result.destination.id, 'FD00000000000000')
+            assert.deepStrictEqual(result.destination.name, 'XBOXONE')
+            assert.deepStrictEqual(result.destination.powerState, 'On')
+            assert.deepStrictEqual(result.destination.remoteManagementEnabled, 'True')
+            assert.deepStrictEqual(result.destination.consoleStreamingEnabled, 'True')
+            assert.deepStrictEqual(result.destination.consoleType, 'XboxOneS')
+            assert.deepStrictEqual(result.destination.osVersion, '10.0.19041.5424')
+            assert.deepStrictEqual(result.destination.userXboxCount, '1')
+            assert.deepStrictEqual(result.opId, '00000000-0000-0000-0000-000000000000')
+
+            done()
+        }).catch(function(error){
+            assert.deepStrictEqual(true, error)
+            done()
+        })
+    })
+
+    it('should be able to launch oneGuide using launchOneGuide(consoleId)', function(done){
+        this.provider.launchOneGuide('FD00000000000000').then(function(result){
+            assert.deepStrictEqual(result.status.errorCode, 'OK')
+            assert.deepStrictEqual(result.status.errorMessage, null)
+
+            // console.log(result)
+
+            assert.deepStrictEqual(result.result, null)
+            assert.deepStrictEqual(result.uiText, null)
+            assert.deepStrictEqual(result.destination.id, 'FD00000000000000')
+            assert.deepStrictEqual(result.destination.name, 'XBOXONE')
+            assert.deepStrictEqual(result.destination.powerState, 'On')
+            assert.deepStrictEqual(result.destination.remoteManagementEnabled, 'True')
+            assert.deepStrictEqual(result.destination.consoleStreamingEnabled, 'True')
+            assert.deepStrictEqual(result.destination.consoleType, 'XboxOneS')
+            assert.deepStrictEqual(result.destination.osVersion, '10.0.19041.5424')
+            assert.deepStrictEqual(result.destination.userXboxCount, '1')
+            assert.deepStrictEqual(result.opId, '00000000-0000-0000-0000-000000000000')
+
+            done()
+        }).catch(function(error){
+            assert.deepStrictEqual(true, error)
+            done()
+        })
+    })
+
+    it('should be able to launch an app using launchApp(consoleId, oneStoreId)', function(done){
+        this.provider.launchApp('FD00000000000000', '000001').then(function(result){
+            assert.deepStrictEqual(result.status.errorCode, 'OK')
+            assert.deepStrictEqual(result.status.errorMessage, null)
+
+            // console.log(result)
+
+            assert.deepStrictEqual(result.result, null)
+            assert.deepStrictEqual(result.uiText, null)
+            assert.deepStrictEqual(result.destination.id, 'FD00000000000000')
+            assert.deepStrictEqual(result.destination.name, 'XBOXONE')
+            assert.deepStrictEqual(result.destination.powerState, 'On')
+            assert.deepStrictEqual(result.destination.remoteManagementEnabled, 'True')
+            assert.deepStrictEqual(result.destination.consoleStreamingEnabled, 'True')
+            assert.deepStrictEqual(result.destination.consoleType, 'XboxOneS')
+            assert.deepStrictEqual(result.destination.osVersion, '10.0.19041.5424')
+            assert.deepStrictEqual(result.destination.userXboxCount, '1')
+            assert.deepStrictEqual(result.opId, '00000000-0000-0000-0000-000000000000')
+
+            done()
+        }).catch(function(error){
+            assert.deepStrictEqual(true, error)
+            done()
+        })
+    })
+
+    it('should be able to send a button press using sendButtonPress(consoleId, button)', function(done){
+        this.provider.sendButtonPress('FD00000000000000', 'A').then(function(result){
+            assert.deepStrictEqual(result.status.errorCode, 'OK')
+            assert.deepStrictEqual(result.status.errorMessage, null)
+
+            // console.log(result)
+
+            assert.deepStrictEqual(result.result, null)
+            assert.deepStrictEqual(result.uiText, null)
+            assert.deepStrictEqual(result.destination.id, 'FD00000000000000')
+            assert.deepStrictEqual(result.destination.name, 'XBOXONE')
+            assert.deepStrictEqual(result.destination.powerState, 'On')
+            assert.deepStrictEqual(result.destination.remoteManagementEnabled, 'True')
+            assert.deepStrictEqual(result.destination.consoleStreamingEnabled, 'True')
+            assert.deepStrictEqual(result.destination.consoleType, 'XboxOneS')
+            assert.deepStrictEqual(result.destination.osVersion, '10.0.19041.5424')
+            assert.deepStrictEqual(result.destination.userXboxCount, '1')
+            assert.deepStrictEqual(result.opId, '00000000-0000-0000-0000-000000000000')
+
+            done()
+        }).catch(function(error){
+            assert.deepStrictEqual(true, error)
+            done()
+        })
+    })
+
+    it('should be able to open the GuideTab using openGuideTab(consoleId)', function(done){
+        this.provider.openGuideTab('FD00000000000000').then(function(result){
             assert.deepStrictEqual(result.status.errorCode, 'OK')
             assert.deepStrictEqual(result.status.errorMessage, null)
 

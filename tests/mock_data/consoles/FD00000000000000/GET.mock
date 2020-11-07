@@ -1,0 +1,22 @@
+HTTP/1.1 200 OK
+cache-control: no-cache, no-store,
+content-type: application/json,
+x-content-type-options: nosniff,
+ms-cv: xxxxxxxxxxxxxxxx/xxxxx.x,
+date: Thu, 05 Nov 2020 18:45:44 GMT,
+connection: close
+
+{
+    "status": {
+        "errorCode": "OK",
+        "errorMessage": null
+    },
+    "powerState": "On",
+    "playbackState": "Playing",
+    "loginState": null,
+    "focusAppAumid": "GoogleInc.YouTube_yfg5n0ztvskxp!App",
+    "isTvConfigured": true,
+    "digitalAssistantRemoteControlEnabled": true,
+    "consoleStreamingEnabled": true,
+    "remoteManagementEnabled": true
+}
