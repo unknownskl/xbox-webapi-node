@@ -6,7 +6,7 @@ var http = require('http')
 
 describe('provider/smartglass', function(){
     before(function(){
-        var mockserver = require('mockserver')('tests/mock_data', false)
+        var mockserver = require('mockserver')('tests/mock_data', true)
         this.serverRun = http.createServer(mockserver).listen(9001);
 
         var client = XboxWebClient()
@@ -40,8 +40,6 @@ describe('provider/smartglass', function(){
 
     it('should be able to get a list of apps/games using getInstalledApps()', function(done){
         this.provider.getInstalledApps().then(function(result){
-            // console.log(result)
-
             assert.deepStrictEqual(result.status.errorCode, 'OK')
             assert.deepStrictEqual(result.status.errorMessage, null)
 
@@ -80,6 +78,51 @@ describe('provider/smartglass', function(){
             assert.deepStrictEqual(result.result[1].installTime, '2020-06-12T20:51:38.532Z')
             assert.deepStrictEqual(result.result[1].updateTime, '2020-09-22T17:44:05.364Z')
             assert.deepStrictEqual(result.result[1].parentId, null)
+
+            done()
+        }).catch(function(error){
+            assert.deepStrictEqual(true, error)
+            done()
+        })
+    })
+
+    it('should be able to get a list of storage devices using getStorageDevices()', function(done){
+        this.provider.getStorageDevices().then(function(result){
+            assert.deepStrictEqual(result.status.errorCode, 'OK')
+            assert.deepStrictEqual(result.status.errorMessage, null)
+
+            assert.deepStrictEqual(result.deviceId, 'FD00000000000000')
+            assert.deepStrictEqual(result.result[0].storageDeviceId, '00000000-0000-0000-0000-000000000000')
+            assert.deepStrictEqual(result.result[0].storageDeviceName, 'Internal')
+            assert.deepStrictEqual(result.result[0].isDefault, true)
+            assert.deepStrictEqual(result.result[0].freeSpaceBytes, 81558921216)
+            assert.deepStrictEqual(result.result[0].totalSpaceBytes, 391915761664)
+
+            done()
+        }).catch(function(error){
+            assert.deepStrictEqual(true, error)
+            done()
+        })
+    })
+
+    it('should be able to mute the tv using mute()', function(done){
+        this.provider.mute().then(function(result){
+            assert.deepStrictEqual(result.status.errorCode, 'OK')
+            assert.deepStrictEqual(result.status.errorMessage, null)
+
+            // console.log(result)
+
+            assert.deepStrictEqual(result.result, null)
+            assert.deepStrictEqual(result.uiText, null)
+            assert.deepStrictEqual(result.destination.id, 'FD00000000000000')
+            assert.deepStrictEqual(result.destination.name, 'XBOXONE')
+            assert.deepStrictEqual(result.destination.powerState, 'On')
+            assert.deepStrictEqual(result.destination.remoteManagementEnabled, 'True')
+            assert.deepStrictEqual(result.destination.consoleStreamingEnabled, 'True')
+            assert.deepStrictEqual(result.destination.consoleType, 'XboxOneS')
+            assert.deepStrictEqual(result.destination.osVersion, '10.0.19041.5424')
+            assert.deepStrictEqual(result.destination.userXboxCount, '1')
+            assert.deepStrictEqual(result.opId, '00000000-0000-0000-0000-000000000000')
 
             done()
         }).catch(function(error){

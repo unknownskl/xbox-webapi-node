@@ -47,7 +47,7 @@ module.exports = function(client, providerName){
                 HttpClient().post(this._endpoint+url, this._headers, postData).then(function(response){
                     var responseObject = JSON.parse(response)
                     
-                    if(this._provider == 'smartglass'){
+                    if(providerName == 'smartglass'){
                         if(responseObject.status.errorCode != 'OK'){
                             reject(responseObject.status)
                         } else {
