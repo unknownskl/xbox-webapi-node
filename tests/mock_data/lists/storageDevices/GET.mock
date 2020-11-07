@@ -1,0 +1,25 @@
+HTTP/1.1 200 OK
+cache-control: no-cache, no-store,
+content-type: application/json,
+x-content-type-options: nosniff,
+ms-cv: xxxxxxxxxxxxxxxx/xxxxx.x,
+date: Thu, 05 Nov 2020 18:45:44 GMT,
+connection: close
+
+{
+    "status": {
+        "errorCode": "OK",
+        "errorMessage": null
+    },
+    "deviceId": "FD00000000000000",
+    "result": [
+        {
+            "storageDeviceId": "00000000-0000-0000-0000-000000000000",
+            "storageDeviceName": "Internal",
+            "isDefault": true,
+            "freeSpaceBytes": 81558921216.0,
+            "totalSpaceBytes": 391915761664.0
+        }
+    ],
+    "agentUserId": null
+}

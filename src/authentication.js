@@ -136,7 +136,7 @@ module.exports = function(clientId, secret){
 
                             this.getUserToken(this._tokens.oauth.access_token).then(function(token){
                                 this._tokens.user = token
-                                // this.saveTokens()
+                                this.saveTokens()
 
                                 this.refreshTokens('xsts').then(function(){
                                     resolve()
@@ -162,6 +162,7 @@ module.exports = function(clientId, secret){
                         this.getUserToken(this._tokens.oauth.access_token).then(function(data){
                             // Got user token, continue with xsts
                             this._tokens.user = data
+                            this.saveTokens()
 
                             this.refreshTokens('xsts').then(function(){
                                 resolve()
@@ -183,6 +184,22 @@ module.exports = function(clientId, secret){
                         if(new Date() > oauth_expire){
                             // Oauth token expired, refresh user token
                             console.log('TODO: refresh xsts token')
+
+                            // reject()
+
+                            this.getXstsToken(this._tokens.user.access_token).then(function(token){
+                                this._tokens.xsts = token
+                                this.saveTokens()
+
+                                this.refreshTokens('xsts').then(function(){
+                                    resolve()
+                                }).catch(function(error){
+                                    reject(error)
+                                })
+
+                            }).catch(function(error){
+                                reject('Unable to refresh oauth access token. Reauthenticate again')
+                            })
                         } else {
                             // Token is still valid
                             // console.log('xsts token is valid')
@@ -201,6 +218,7 @@ module.exports = function(clientId, secret){
                         this.getXstsToken(this._tokens.user.Token).then(function(data){
                             // Got user token, continue with xsts
                             this._tokens.xsts = data
+                            this.saveTokens()
                             // console.log(this._tokens)
 
                             this._user = {
@@ -332,12 +350,12 @@ module.exports = function(clientId, secret){
         },
 
         saveTokens: function(){
-            return fs.writeFileSync(this._tokensFile, JSON.stringify(this._tokens.oauth))
+            return fs.writeFileSync(this._tokensFile, JSON.stringify(this._tokens))
         },
 
         loadTokens: function(){
             var token_store = fs.readFileSync(this._tokensFile).toString()
-            this._tokens.oauth = JSON.parse(token_store)
+            this._tokens = JSON.parse(token_store)
         }
     }
 }

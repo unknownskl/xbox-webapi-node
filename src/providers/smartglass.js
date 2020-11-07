@@ -5,7 +5,7 @@ const Uuid4 = require('uuid4')
 
 module.exports = function(client){
 
-    var provider = BaseProvider(client)
+    var provider = BaseProvider(client, 'smartglass')
     provider._endpoint = 'https://xccs.xboxlive.com'
 
     provider._headers['x-xbl-contract-version'] = 4
@@ -74,9 +74,7 @@ module.exports = function(client){
     provider.launchOneGuide = function(consoleId){
         Debug('launchOneGuide('+consoleId+')')
 
-        return this._sendCommand(consoleId, 'Shell', 'InjectKey', [{
-            'keyType': 'A'
-        }])
+        return this._sendCommand(consoleId, 'TV', 'ShowGuide')
     }
 
     provider.launchApp = function(consoleId, titleId){
