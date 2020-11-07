@@ -10,7 +10,7 @@ module.exports = function(client){
     provider._headers['Content-Type'] = 'application/json'
 
     provider.getPins = function(){
-        Debug('getTitleHistory()')
+        Debug('getPins()')
 
         return this.get('/users/xuid('+this._client._authentication._user.xid+')/lists/PINS/XBLPins')
     }

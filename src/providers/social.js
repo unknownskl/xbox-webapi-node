@@ -7,13 +7,11 @@ module.exports = function(client){
     var provider = BaseProvider(client)
     provider._endpoint = 'https://social.xboxlive.com'
 
-    // provider._headers['x-xbl-contract-version'] = 3
+    provider.getFriends = function(){
+        Debug('getFriends()')
 
-    // provider.getProfiles = function(){
-    //     Debug('getUserProfile()')
-
-    //     return this.get('/users/xuid('+this._client._authentication._user.xid +')/profile/settings?settings=GameDisplayName,GameDisplayPicRaw,Gamerscore,Gamertag')
-    // }
+        return this.get('/users/me/summary')
+    }
 
     return provider
 }

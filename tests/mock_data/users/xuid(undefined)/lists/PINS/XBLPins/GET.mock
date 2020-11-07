@@ -1,0 +1,64 @@
+HTTP/1.1 200 OK
+cache-control: no-cache, no-store,
+content-type: application/json,
+last-modified: 2020-11-06T18:17:59.0293377Z,
+x-content-type-options: nosniff,
+ms-cv: xxxxxxxxxxxxxxxx/xxxxx.x,
+date: Fri, 06 Nov 2020 18:19:59 GMT,
+connection: close
+
+{
+    "ImpressionId": "Lists.00000000-0000-0000-0000-000000000000",
+    "ListItems": [
+        {
+            "DateAdded": "09/05/2017 21:48:16",
+            "DateModified": "09/05/2017 21:48:16",
+            "Index": 0,
+            "KValue": 0,
+            "Item": {
+                "ItemId": "b5e968ed-9e38-45e1-878e-84981802e90c",
+                "ContentType": "DGame",
+                "Title": "Destiny 2",
+                "DeviceType": "XboxOne",
+                "Provider": null,
+                "ProviderId": null
+            }
+        },
+        {
+            "DateAdded": "05/10/2018 08:05:20",
+            "DateModified": "05/10/2018 08:05:20",
+            "Index": 1,
+            "KValue": 1,
+            "Item": {
+                "ItemId": "Microsoft.Xbox.LiveTV_8wekyb3d8bbwe",
+                "ContentType": "DApp",
+                "Title": "OneGuide",
+                "DeviceType": "XboxOne",
+                "Provider": null,
+                "ProviderId": null
+            }
+        },
+        {
+            "DateAdded": "08/05/2016 20:35:44",
+            "DateModified": "08/05/2016 20:35:44",
+            "Index": 2,
+            "KValue": 2,
+            "Item": {
+                "ItemId": "4DF9E0F8.Netflix_mcm4njqhnhss8",
+                "ContentType": "DApp",
+                "Title": "Netflix",
+                "DeviceType": "XboxOne",
+                "Provider": null,
+                "ProviderId": null
+            }
+        }
+    ],
+    "ListMetadata": {
+        "ListTitle": "Pins",
+        "ListVersion": 1407,
+        "ListCount": 3,
+        "AllowDuplicates": false,
+        "MaxListSize": 200,
+        "AccessSetting": "OwnerOnly"
+    }
+}
