@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.1.0] - TBD
+
+### Added
+
+- Added screenshots provider
+
 ## [1.0.2] - 2020-11-07
 
 ### Added
