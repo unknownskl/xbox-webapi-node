@@ -31,19 +31,19 @@ connection: close
             "greatestMomentId": null,
             "thumbnails": [
                 {
-                    "uri": "https://screenshotscontent-t5001.xboxlive.com/xuid-2533274811222928-public/93996a82-b384-4efe-a06b-212e3eccc73a_Thumbnail.PNG",
+                    "uri": "https://screenshotscontent-t5001.xboxlive.com/xuid-0000000000000000-public/93996a82-b384-4efe-a06b-212e3eccc73a_Thumbnail.PNG",
                     "fileSize": 0,
                     "thumbnailType": "Small"
                 },
                 {
-                    "uri": "https://screenshotscontent-t5001.xboxlive.com/xuid-2533274811222928-public/93996a82-b384-4efe-a06b-212e3eccc73a_Thumbnail.PNG",
+                    "uri": "https://screenshotscontent-t5001.xboxlive.com/xuid-0000000000000000-public/93996a82-b384-4efe-a06b-212e3eccc73a_Thumbnail.PNG",
                     "fileSize": 0,
                     "thumbnailType": "Large"
                 }
             ],
             "screenshotUris": [
                 {
-                    "uri": "https://screenshotscontent-d5001.xboxlive.com/xuid-2533274811222928-private/93996a82-b384-4efe-a06b-212e3eccc73a.PNG",
+                    "uri": "https://screenshotscontent-d5001.xboxlive.com/xuid-0000000000000000-private/93996a82-b384-4efe-a06b-212e3eccc73a.PNG",
                     "fileSize": 2642822,
                     "uriType": "Download",
                     "expiration": "2020-11-07T04:16:35.9828756Z"

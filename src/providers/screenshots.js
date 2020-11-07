@@ -15,5 +15,17 @@ module.exports = function(client){
         return this.get('/users/me/screenshots')
     }
 
+    provider.getCommunityScreenshotsByTitleId = function(titleId){
+        Debug('getCommunityScreenshotsByTitleId()')
+
+        return this.get('/public/titles/'+titleId+'/screenshots?qualifier=created')
+    }
+
+    provider.getScreenshotsByXuid = function(xuid){
+        Debug('getScreenshotsByXuid()')
+
+        return this.get('/users/xuid('+xuid+')/screenshots')
+    }
+
     return provider
 }
