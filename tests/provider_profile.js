@@ -16,7 +16,7 @@ describe('provider/profile', function(){
     // beforeEach(function(){
     // })
 
-    it('should be able to getyour profile using getUserProfile()', function(done){
+    it('should be able to get your profile using getUserProfile()', function(done){
         this.provider.getUserProfile().then(function(result){
             assert.deepStrictEqual(result.profileUsers.length, 1)
 

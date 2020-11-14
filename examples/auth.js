@@ -13,6 +13,12 @@ client.isAuthenticated().then(function(){
     console.log('User is not authenticated. Starting flow...')
     var url = client.startAuthServer(function(){
         console.log('Authentication is done. User logged in')
+
+        client.isAuthenticated().then(function(){
+            console.log(client._authentication)
+        }).catch(function(error){
+            console.log('error', error)
+        })
     })
     console.log('Open the following link to authenticate:', url)
 })
