@@ -100,6 +100,8 @@ module.exports = function(clientId, secret){
 
                             this.refreshToken(this._tokens.oauth.refresh_token).then(function(token){
                                 this._tokens.oauth = token
+                                this._tokens.user = {}
+                                this._tokens.xsts = {}
                                 this.saveTokens()
 
                                 this.refreshTokens('user').then(function(){
@@ -128,14 +130,16 @@ module.exports = function(clientId, secret){
                 } else if(type == 'user'){
 
                     if(this._tokens.user.Token){
-                        var oauth_expire_user = new Date(this._tokens.user.NotAfter).getTime()
+                        var user_expire_user = new Date(this._tokens.user.NotAfter).getTime()
                         
-                        if(new Date() > oauth_expire_user){
+                        if(new Date() > user_expire_user){
                             // Oauth token expired, refresh user token
                             console.log('TODO: refresh user token')
 
                             this.getUserToken(this._tokens.oauth.access_token).then(function(token){
                                 this._tokens.user = token
+                                this._tokens.xsts = {}
+                                // this._tokens.xsts = false // Force xsts refresh
                                 this.saveTokens()
 
                                 this.refreshTokens('xsts').then(function(){
@@ -144,7 +148,7 @@ module.exports = function(clientId, secret){
                                     reject(error)
                                 })
 
-                            }).catch(function(error){
+                            }.bind(this)).catch(function(error){
                                 reject('Unable to refresh oauth access token. Reauthenticate again')
                             })
                         } else {
@@ -162,6 +166,8 @@ module.exports = function(clientId, secret){
                         this.getUserToken(this._tokens.oauth.access_token).then(function(data){
                             // Got user token, continue with xsts
                             this._tokens.user = data
+                            this._tokens.xsts = {}
+                            // this._tokens.xsts = false // Force xsts refresh
                             this.saveTokens()
 
                             this.refreshTokens('xsts').then(function(){
@@ -185,9 +191,13 @@ module.exports = function(clientId, secret){
                             // Oauth token expired, refresh user token
                             console.log('TODO: refresh xsts token')
 
+                            this._tokens.xsts = {}
+                            this.saveTokens()
+
                             // reject()
 
                             this.getXstsToken(this._tokens.user.access_token).then(function(token){
+                                console.log(this._tokens.xsts, token)
                                 this._tokens.xsts = token
                                 this.saveTokens()
 
@@ -197,9 +207,10 @@ module.exports = function(clientId, secret){
                                     reject(error)
                                 })
 
-                            }).catch(function(error){
-                                reject('Unable to refresh oauth access token. Reauthenticate again')
-                            })
+                            }.bind(this)).catch(function(error){
+                                console.log(this._tokens)
+                                reject('Unable to refresh oauth access token. Reauthenticate again', error)
+                            }.bind(this))
                         } else {
                             // Token is still valid
                             // console.log('xsts token is valid')
@@ -232,7 +243,7 @@ module.exports = function(clientId, secret){
 
                         }.bind(this)).catch(function(error){
                             reject(error)
-                        })
+                        }.bind(this))
                     }
                 }
             }.bind(this))
