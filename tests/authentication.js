@@ -1,5 +1,6 @@
 const assert = require('assert');
 const Authentication = require('../src/authentication')
+const HttpClient = require('../src/http')
 
 var http = require('http')
 
@@ -20,11 +21,29 @@ describe('authentication', function(){
     })
 
     it('should generate an authorization url', function(){
-        // var auth = Authentication('5e5ead27-ed60-482d-b3fc-702b28a97404')
         var url = this.auth.generateAuthorizationUrl('http://localhost:8080/auth/callback')
 
         assert.deepStrictEqual(this.auth._clientId, '5e5ead27-ed60-482d-b3fc-702b28a97404')
         assert.deepStrictEqual(url, 'https://login.live.com/oauth20_authorize.srf?client_id=5e5ead27-ed60-482d-b3fc-702b28a97404&response_type=code&approval_prompt=auto&scope=XboxLive.signin%20XboxLive.offline_access&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fauth%2Fcallback')
+    })
+
+    it('should test the authentication webserver', function(done){
+        var url = this.auth.generateAuthorizationUrl('http://localhost:8080/auth/callback')
+
+        this.auth.startServer(function(token){
+            assert.deepStrictEqual(token.scope, 'XboxLive.signin XboxLive.offline_access')
+            assert.deepStrictEqual(token.access_token, 'access_token_example')
+            assert.deepStrictEqual(token.refresh_token, 'refresh_token_example')
+            assert.deepStrictEqual(token.user_id, 'user_id_example')
+
+            done()
+        })
+
+        HttpClient().get('http://localhost:8080/auth/callback?code=abc123').then(function(response){
+            console.log(response)
+        }).catch(function(error){
+            console.log(error)
+        })
     })
 
     it('should get a oauth token when invoking getTokenRequest()', function(done){
