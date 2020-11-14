@@ -7,8 +7,8 @@ var client = XboxApiClient({
 client.isAuthenticated().then(function(){
     console.log('User is authenticated.')
 
-    client.getProvider('achievements').getTitleId360(1161889840).then(function(result){
-        console.log('resolve', result.achievements[0])
+    client.getProvider('achievements').getRecentAchievements().then(function(result){
+        console.log('resolve', result)
 
     }).catch(function(error){
         console.log('reject', error)
