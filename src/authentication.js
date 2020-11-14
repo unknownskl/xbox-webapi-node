@@ -94,26 +94,26 @@ module.exports = function(clientId, secret){
                     if(this._tokens.oauth.refresh_token){
                         var oauth_expire_oauth = new Date(new Date(this._tokens.oauth.issued).getTime() + (this._tokens.oauth.expires_in*1000))
                         
-                        if(new Date() > oauth_expire_oauth){
-                            // Oauth token expired, refresh token
-                            console.log('TODO: refresh token')
+                        // if(new Date() > oauth_expire_oauth){
+                        //     // Oauth token expired, refresh token
+                        //     console.log('TODO: refresh token')
 
-                            this.refreshToken(this._tokens.oauth.refresh_token).then(function(token){
-                                this._tokens.oauth = token
-                                this._tokens.user = {}
-                                this._tokens.xsts = {}
-                                this.saveTokens()
+                        //     this.refreshToken(this._tokens.oauth.refresh_token).then(function(token){
+                        //         this._tokens.oauth = token
+                        //         this._tokens.user = {}
+                        //         this._tokens.xsts = {}
+                        //         this.saveTokens()
 
-                                this.refreshTokens('user').then(function(){
-                                    resolve()
-                                }).catch(function(error){
-                                    reject(error)
-                                })
+                        //         this.refreshTokens('user').then(function(){
+                        //             resolve()
+                        //         }).catch(function(error){
+                        //             reject(error)
+                        //         })
 
-                            }).catch(function(error){
-                                reject('Unable to refresh oauth access token. Reauthenticate again')
-                            })
-                        } else {
+                        //     }).catch(function(error){
+                        //         reject('Unable to refresh oauth access token. Reauthenticate again')
+                        //     })
+                        // } else {
                             // Token is still valid
                             // console.log('oauth token is valid, continue to get user token')
 
@@ -122,7 +122,7 @@ module.exports = function(clientId, secret){
                             }).catch(function(error){
                                 reject(error)
                             })
-                        }
+                        // }
                     } else {
                         reject('No oauth token found. Run authentication flow first')
                     }
