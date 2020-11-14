@@ -1,6 +1,6 @@
 const HttpClient = require('../http.js')
 const BaseProvider = require('./base.js')
-const Debug = require('debug')('xbox-webapi-node:provider_profile')
+const Debug = require('debug')('xbox-webapi-node:provider_achievements')
 
 module.exports = function(client){
 

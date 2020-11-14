@@ -3,7 +3,7 @@ const XboxWebClient = require('../src/client')
 
 var http = require('http')
 
-describe('provider/profile', function(){
+describe('provider/achievements', function(){
     before(function(){
         var mockserver = require('mockserver')('tests/mock_data', false)
         this.serverRun = http.createServer(mockserver).listen(9001);
