@@ -9,6 +9,10 @@
 - Added screenshots provider
 - Added gameclips provider
 
+### Changed
+
+- Improved token renewall flow
+
 ## [1.0.2] - 2020-11-07
 
 ### Added
