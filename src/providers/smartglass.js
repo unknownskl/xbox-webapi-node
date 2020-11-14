@@ -13,7 +13,7 @@ module.exports = function(client){
     provider.getConsolesList = function(){
         Debug('getConsolesList()')
 
-        return this.get('/lists/devices')
+        return this.get('/lists/devices?queryCurrentDevice=false&includeStorageDevices=true')
     }
 
     provider.getInstalledApps = function(consoleId){
