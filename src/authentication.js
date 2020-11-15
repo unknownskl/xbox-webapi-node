@@ -114,14 +114,14 @@ module.exports = function(clientId, secret){
                         //         reject('Unable to refresh oauth access token. Reauthenticate again')
                         //     })
                         // } else {
-                            // Token is still valid
-                            // console.log('oauth token is valid, continue to get user token')
+                        //     // Token is still valid
+                        //     // console.log('oauth token is valid, continue to get user token')
 
-                            this.refreshTokens('user').then(function(){
-                                resolve()
-                            }).catch(function(error){
-                                reject(error)
-                            })
+                        this.refreshTokens('user').then(function(){
+                            resolve()
+                        }).catch(function(error){
+                            reject(error)
+                        })
                         // }
                     } else {
                         reject('No oauth token found. Run authentication flow first')
