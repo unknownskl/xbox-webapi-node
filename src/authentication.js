@@ -92,7 +92,7 @@ module.exports = function(clientId, secret){
             return new Promise(function(resolve, reject) {
                 if(type == 'oauth'){
                     if(this._tokens.oauth.refresh_token){
-                        var oauth_expire_oauth = new Date(new Date(this._tokens.oauth.issued).getTime() + (this._tokens.oauth.expires_in*1000))
+                        // var oauth_expire_oauth = new Date(new Date(this._tokens.oauth.issued).getTime() + (this._tokens.oauth.expires_in*1000))
                         
                         // if(new Date() > oauth_expire_oauth){
                         //     // Oauth token expired, refresh token
