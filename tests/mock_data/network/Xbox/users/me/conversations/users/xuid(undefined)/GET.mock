@@ -1,0 +1,31 @@
+HTTP/1.1 200 OK
+cache-control: no-cache, no-store,
+content-type: application/json,
+x-content-type-options: nosniff,
+ms-cv: xxxxxxxxxxxxxxxx/xxxxx.x,
+date: Thu, 05 Nov 2020 18:59:47 GMT,
+connection: close
+
+{
+   "timestamp":"2018-09-08T18:09:49.02Z",
+   "networkId":"Xbox",
+   "type":"OneToOne",
+   "conversationId":"00000000-0000-0000-0000-000000000000",
+   "participants":[
+      "0000000000000000",
+      "0000000000000012"
+   ],
+   "readHorizon":"0000000000000000",
+   "deleteHorizon":"0",
+   "isRead":true,
+   "muted":false,
+   "folder":"Primary",
+   "messages":[
+      
+   ],
+   "continuationToken":null,
+   "voiceId":"00000000-0000-0000-0000-000000000000",
+   "voiceRoster":[
+      
+   ]
+}

@@ -1,0 +1,76 @@
+HTTP/1.1 200 OK
+cache-control: no-cache, no-store,
+content-type: application/json,
+x-content-type-options: nosniff,
+ms-cv: xxxxxxxxxxxxxxxx/xxxxx.x,
+date: Thu, 05 Nov 2020 18:59:47 GMT,
+connection: close
+
+{
+   "primary":{
+      "folder":"Primary",
+      "totalCount":1,
+      "unreadCount":0,
+      "conversations":[
+         {
+            "timestamp":"2020-04-17T20:47:50.287443Z",
+            "networkId":"Xbox",
+            "type":"OneToOne",
+            "conversationId":"00000000-0000-0000-90cb-3d0100000900",
+            "voiceId":"00000000-0000-0000-90cb-3d0100000900",
+            "participants":[
+               "0000000000000000",
+               "0"
+            ],
+            "readHorizon":"12145306876070863",
+            "deleteHorizon":"0",
+            "isRead":true,
+            "muted":false,
+            "folder":"Primary",
+            "lastMessage":{
+               "contentPayload":{
+                  "content":{
+                     "parts":[
+                        {
+                           "contentType":"text",
+                           "text":"message_text_sample",
+                           "version":0
+                        },
+                        {
+                           "contentType":"deeplink",
+                           "buttonText":"App starten",
+                           "appUri":"ms-windows-store://pdp/?productid=CFQ7TTC0K5DJ",
+                           "version":0
+                        }
+                     ]
+                  }
+               },
+               "timestamp":"2020-04-17T20:47:50.287443Z",
+               "lastUpdateTimestamp":"2020-04-17T20:47:50.287443Z",
+               "type":"ContentMessage",
+               "networkId":"Xbox",
+               "conversationType":"OneToOne",
+               "conversationId":"00000000-0000-0000-90cb-3d0100000900",
+               "owner":"0000000000000000",
+               "sender":"0",
+               "messageId":"12145306876070863",
+               "isDeleted":false,
+               "isServerUpdated":false
+            }
+         }
+      ]
+   },
+   "folders":[
+      
+   ],
+   "safetySettings":{
+      "version":3,
+      "primaryInboxMedia":"Mature",
+      "primaryInboxText":"AllowAll",
+      "primaryInboxUrl":"Mature",
+      "secondaryInboxMedia":"Medium",
+      "secondaryInboxText":"Medium",
+      "secondaryInboxUrl":"BlockAll",
+      "canUnobscure":true
+   }
+}
