@@ -94,37 +94,11 @@ module.exports = function(clientId, secret){
             return new Promise(function(resolve, reject) {
                 if(type == 'oauth'){
                     if(this._tokens.oauth.refresh_token){
-                        // var oauth_expire_oauth = new Date(new Date(this._tokens.oauth.issued).getTime() + (this._tokens.oauth.expires_in*1000))
-                        
-                        // if(new Date() > oauth_expire_oauth){
-                        //     // Oauth token expired, refresh token
-                        //     console.log('TODO: refresh token')
-
-                        //     this.refreshToken(this._tokens.oauth.refresh_token).then(function(token){
-                        //         this._tokens.oauth = token
-                        //         this._tokens.user = {}
-                        //         this._tokens.xsts = {}
-                        //         this.saveTokens()
-
-                        //         this.refreshTokens('user').then(function(){
-                        //             resolve()
-                        //         }).catch(function(error){
-                        //             reject(error)
-                        //         })
-
-                        //     }).catch(function(error){
-                        //         reject('Unable to refresh oauth access token. Reauthenticate again')
-                        //     })
-                        // } else {
-                        //     // Token is still valid
-                        //     // console.log('oauth token is valid, continue to get user token')
-
                         this.refreshTokens('user').then(function(){
                             resolve()
                         }).catch(function(error){
                             reject(error)
                         })
-                        // }
                     } else {
                         reject('No oauth token found. Run authentication flow first')
                     }
@@ -136,20 +110,29 @@ module.exports = function(clientId, secret){
                         
                         if(new Date() > user_expire_user){
                             // Oauth token expired, refresh user token
-                            console.log('TODO: refresh user token')
+                            // console.log('TODO: refresh user token')
 
-                            this.getUserToken(this._tokens.oauth.access_token).then(function(token){
-                                this._tokens.user = token
-                                this._tokens.xsts = {}
-                                // this._tokens.xsts = false // Force xsts refresh
+                            this.refreshToken(this._tokens.oauth.refresh_token).then(function(token){
+                                Debug('refreshTokens('+type+') Get token,', token)
+
+                                this._tokens.oauth = token
                                 this.saveTokens()
 
-                                this.refreshTokens('xsts').then(function(){
-                                    resolve()
-                                }).catch(function(error){
-                                    reject(error)
-                                })
+                                this.getUserToken(this._tokens.oauth.access_token).then(function(token){
+                                    this._tokens.user = token
+                                    this._tokens.xsts = {}
+                                    // this._tokens.xsts = false // Force xsts refresh
+                                    this.saveTokens()
 
+                                    this.refreshTokens('xsts').then(function(){
+                                        resolve()
+                                    }).catch(function(error){
+                                        reject(error)
+                                    })
+
+                                }.bind(this)).catch(function(error){
+                                    reject('Unable to refresh oauth access token. Reauthenticate again')
+                                })
                             }.bind(this)).catch(function(error){
                                 reject('Unable to refresh user access token. Reauthenticate again')
                             })
@@ -193,7 +176,7 @@ module.exports = function(clientId, secret){
                         if(new Date() > oauth_expire){
                             Debug('refreshTokens('+type+') Token is expired, refreshing token')
                             // Oauth token expired, refresh user token
-                            console.log('TODO: refresh xsts token')
+                            // console.log('TODO: refresh xsts token')
 
                             this._tokens.xsts = {}
                             this.saveTokens()
@@ -305,7 +288,7 @@ module.exports = function(clientId, secret){
                     Debug('refreshToken() Resolved')
                     resolve(responseData)
                 }).catch(function(error){
-                    Debug('refreshToken() Rejected')
+                    Debug('refreshToken() Rejected', error)
                     reject(error)
                 })
             }.bind(this))
@@ -333,7 +316,7 @@ module.exports = function(clientId, secret){
                     Debug('getUserToken() Resolved')
                     resolve(responseData)
                 }).catch(function(error){
-                    Debug('getUserToken() Rejected')
+                    Debug('getUserToken() Rejected', error)
                     reject(error)
                 })
             }.bind(this))
