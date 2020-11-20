@@ -112,10 +112,10 @@ module.exports = function(clientId, secret){
                             // Oauth token expired, refresh user token
                             // console.log('TODO: refresh user token')
 
-                            this.refreshToken(this._tokens.oauth.refresh_token).then(function(token){
-                                Debug('refreshTokens('+type+') Get token,', token)
+                            this.refreshToken(this._tokens.oauth.refresh_token).then(function(user_token){
+                                Debug('refreshTokens('+type+') Get token,', user_token)
 
-                                this._tokens.oauth = token
+                                this._tokens.oauth = user_token
                                 this.saveTokens()
 
                                 this.getUserToken(this._tokens.oauth.access_token).then(function(token){
