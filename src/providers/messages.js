@@ -6,14 +6,17 @@ module.exports = function(client){
     var provider = BaseProvider(client)
     provider._endpoint = 'https://xblmessaging.xboxlive.com'
 
-    // provider._headers['x-xbl-contract-version'] = 2
-
     provider.getInbox = function(){
         Debug('getInbox()')
 
-        // return this.get('/users/xuid('+this._client._authentication._user.xid +')/profile/settings?settings=GameDisplayName,GameDisplayPicRaw,Gamerscore,Gamertag')
         return this.get('/network/Xbox/users/me/inbox')
         
+    }
+
+    provider.getConversation = function(xuid){
+        Debug('getConversation('+xuid+')')
+
+        return this.get('/network/Xbox/users/me/conversations/users/xuid('+xuid+')?maxItems=100')
     }
 
     return provider

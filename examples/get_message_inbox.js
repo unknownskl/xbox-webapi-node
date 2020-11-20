@@ -8,7 +8,13 @@ client.isAuthenticated().then(function(){
     console.log('User is authenticated.')
 
     client.getProvider('messages').getInbox().then(function(result){
-        console.log('resolve', JSON.stringify(result))
+        // console.log('resolve', JSON.stringify(result))
+
+        client.getProvider('messages').getConversation(2535448439253242).then(function(result){
+            console.log('resolve', JSON.stringify(result))
+        }).catch(function(error){
+            console.log('reject', error)
+        })
 
     }).catch(function(error){
         console.log('reject', error)
