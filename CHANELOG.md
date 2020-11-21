@@ -8,6 +8,7 @@
 
 - Added screenshots provider
 - Added gameclips provider
+- Added messages provider
 
 ### Changed
 
