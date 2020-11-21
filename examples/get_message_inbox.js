@@ -10,12 +10,6 @@ client.isAuthenticated().then(function(){
     client.getProvider('messages').getInbox().then(function(result){
         // console.log('resolve', JSON.stringify(result))
 
-        client.getProvider('messages').getConversation(2535448439253242).then(function(result){
-            console.log('resolve', JSON.stringify(result))
-        }).catch(function(error){
-            console.log('reject', error)
-        })
-
     }).catch(function(error){
         console.log('reject', error)
     })
