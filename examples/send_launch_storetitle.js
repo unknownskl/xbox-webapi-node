@@ -10,7 +10,7 @@ client.isAuthenticated().then(function(){
     client.getProvider('smartglass').getConsolesList().then(function(result){
         console.log('resolve', result)
 
-        var  consoleId = 'F4001ED24E92B799' // result.result[0].id
+        var  consoleId = result.result[0].id
 
         client.getProvider('catalog').searchTitle('Twitch').then(function(result){
             console.log('Launching app/game:', result.Results[0].Products[0].Title, '('+result.Results[0].Products[0].ProductId+')')
