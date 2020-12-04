@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.1.1] - 2020-12-04
+
+### Fixed
+
+- Fixed authserver not being able to listen on an alternate port
+
 ## [1.1.0] - 2020-12-04
 
 ### Added
