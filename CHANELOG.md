@@ -2,17 +2,18 @@
 
 ## [Unreleased]
 
-## [1.1.0] - TBD
+## [1.1.0] - 2020-12-04
 
 ### Added
 
-- Added screenshots provider
-- Added gameclips provider
-- Added messages provider
+- Added Achievements provider
+- Added Screenshots provider
+- Added Gameclips provider
+- Added Messages provider
 
 ### Changed
 
-- Improved token renewall flow
+- Improved token refresh flow
 
 ## [1.0.2] - 2020-11-07
 
