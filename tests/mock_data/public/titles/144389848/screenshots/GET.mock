@@ -1,0 +1,157 @@
+HTTP/1.1 200 OK
+cache-control: no-cache, no-store,
+content-type: application/json,
+last-modified: 2020-11-06T18:17:59.0293377Z,
+x-content-type-options: nosniff,
+ms-cv: xxxxxxxxxxxxxxxx/xxxxx.x,
+date: Fri, 06 Nov 2020 18:19:59 GMT,
+connection: close
+
+{
+    "screenshots": [
+        {
+            "screenshotId": "49f03702-4597-41fc-b3b0-f667724f61d4",
+            "resolutionHeight": 1080,
+            "resolutionWidth": 1920,
+            "state": "Published",
+            "datePublished": "2020-11-07T04:05:20.7404184Z",
+            "dateTaken": "2020-11-07T04:01:52Z",
+            "lastModified": "2020-11-07T04:01:52Z",
+            "userCaption": "",
+            "type": "UserGenerated",
+            "scid": "d1adc8aa-0a31-4407-90f2-7e9b54b0347c",
+            "titleId": 144389848,
+            "rating": 0.0,
+            "ratingCount": 0,
+            "views": 0,
+            "titleData": "",
+            "systemProperties": "3d88e1fb-b05e-4149-a78f-b2de935e79960;",
+            "savedByUser": true,
+            "achievementId": "",
+            "greatestMomentId": null,
+            "thumbnails": [
+                {
+                    "uri": "https://screenshotscontent-t5001.xboxlive.com/xuid-0000000000000000-public/49f03702-4597-41fc-b3b0-f667724f61d4_Thumbnail.PNG",
+                    "fileSize": 0,
+                    "thumbnailType": "Small"
+                },
+                {
+                    "uri": "https://screenshotscontent-t5001.xboxlive.com/xuid-0000000000000000-public/49f03702-4597-41fc-b3b0-f667724f61d4_Thumbnail.PNG",
+                    "fileSize": 0,
+                    "thumbnailType": "Large"
+                }
+            ],
+            "screenshotUris": [
+                {
+                    "uri": "https://screenshotscontent-d5001.xboxlive.com/xuid-0000000000000000-private/49f03702-4597-41fc-b3b0-f667724f61d4.PNG?sv=2015-12-11&sr=b&si=DefaultAccess&sig=5sD2ZuPg6tjD9CP5fIahysCBqowpwIbQThEmaXBcuZk%3D",
+                    "fileSize": 3429415,
+                    "uriType": "Download",
+                    "expiration": "2020-11-07T05:05:22.5638593Z"
+                }
+            ],
+            "xuid": "0000000000000000",
+            "screenshotName": "",
+            "titleName": "Destiny 2",
+            "screenshotLocale": "en-US",
+            "screenshotContentAttributes": "None",
+            "deviceType": "Edmonton"
+        },
+        {
+            "screenshotId": "19982050-e4a6-4853-999e-ec4477703d5f",
+            "resolutionHeight": 2160,
+            "resolutionWidth": 3840,
+            "state": "Published",
+            "datePublished": "2020-11-07T04:05:20.7091603Z",
+            "dateTaken": "2020-11-07T04:04:53Z",
+            "lastModified": "2020-11-07T04:04:53Z",
+            "userCaption": "",
+            "type": "UserGenerated",
+            "scid": "d1adc8aa-0a31-4407-90f2-7e9b54b0347c",
+            "titleId": 144389848,
+            "rating": 0.0,
+            "ratingCount": 0,
+            "views": 0,
+            "titleData": "",
+            "systemProperties": "07c7679e-8930-4808-8de9-eb8337358be90;",
+            "savedByUser": true,
+            "achievementId": "",
+            "greatestMomentId": null,
+            "thumbnails": [
+                {
+                    "uri": "https://screenshotscontent-t4001.xboxlive.com/xuid-0000000000000000-public/19982050-e4a6-4853-999e-ec4477703d5f_Thumbnail.PNG",
+                    "fileSize": 0,
+                    "thumbnailType": "Small"
+                },
+                {
+                    "uri": "https://screenshotscontent-t4001.xboxlive.com/xuid-0000000000000000-public/19982050-e4a6-4853-999e-ec4477703d5f_Thumbnail.PNG",
+                    "fileSize": 0,
+                    "thumbnailType": "Large"
+                }
+            ],
+            "screenshotUris": [
+                {
+                    "uri": "https://screenshotscontent-d4001.xboxlive.com/xuid-0000000000000000-private/19982050-e4a6-4853-999e-ec4477703d5f.PNG?sv=2015-12-11&sr=b&si=DefaultAccess&sig=XEnDw4gK2ULp7vDuKbg5iLW3EXXFnPKoFON71yMTNjE%3D",
+                    "fileSize": 3125430,
+                    "uriType": "Download",
+                    "expiration": "2020-11-07T05:05:22.5638593Z"
+                }
+            ],
+            "xuid": "0000000000000000",
+            "screenshotName": "",
+            "titleName": "Destiny 2",
+            "screenshotLocale": "en-US",
+            "screenshotContentAttributes": "None",
+            "deviceType": "Edmonton"
+        },
+        {
+            "screenshotId": "27279607-9c0f-43e8-a568-5f6d91a4db8f",
+            "resolutionHeight": 1080,
+            "resolutionWidth": 1920,
+            "state": "Published",
+            "datePublished": "2020-11-07T04:05:19.6464676Z",
+            "dateTaken": "2020-11-07T04:04:53Z",
+            "lastModified": "2020-11-07T04:04:53Z",
+            "userCaption": "",
+            "type": "UserGenerated",
+            "scid": "d1adc8aa-0a31-4407-90f2-7e9b54b0347c",
+            "titleId": 144389848,
+            "rating": 0.0,
+            "ratingCount": 0,
+            "views": 0,
+            "titleData": "",
+            "systemProperties": "9afe255a-f9f2-4e70-b7a9-98e0569c0a590;",
+            "savedByUser": true,
+            "achievementId": "",
+            "greatestMomentId": null,
+            "thumbnails": [
+                {
+                    "uri": "https://screenshotscontent-t3002.xboxlive.com/xuid-0000000000000000-public/27279607-9c0f-43e8-a568-5f6d91a4db8f_Thumbnail.PNG",
+                    "fileSize": 0,
+                    "thumbnailType": "Small"
+                },
+                {
+                    "uri": "https://screenshotscontent-t3002.xboxlive.com/xuid-0000000000000000-public/27279607-9c0f-43e8-a568-5f6d91a4db8f_Thumbnail.PNG",
+                    "fileSize": 0,
+                    "thumbnailType": "Large"
+                }
+            ],
+            "screenshotUris": [
+                {
+                    "uri": "https://screenshotscontent-d3002.xboxlive.com/xuid-0000000000000000-private/27279607-9c0f-43e8-a568-5f6d91a4db8f.PNG?sv=2015-12-11&sr=b&si=DefaultAccess&sig=hV5adADbTGE59cGNbsWk0sksh%2FShBB%2FzScwVY5guEY8%3D",
+                    "fileSize": 3188724,
+                    "uriType": "Download",
+                    "expiration": "2020-11-07T05:05:22.5638593Z"
+                }
+            ],
+            "xuid": "0000000000000000",
+            "screenshotName": "",
+            "titleName": "Destiny 2",
+            "screenshotLocale": "en-AU",
+            "screenshotContentAttributes": "None",
+            "deviceType": "Durango"
+        }
+    ],
+    "pagingInfo": {
+        "continuationToken": "abcde_vwxyzZAAAAA2"
+    }
+}

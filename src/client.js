@@ -6,7 +6,11 @@ var PeopleProvider = require('./providers/people.js')
 var TitlehubProvider = require('./providers/titlehub.js')
 var CatalogProvider = require('./providers/catalog.js')
 var PinsProvider = require('./providers/pins.js')
+var ScreenshotsProvider = require('./providers/screenshots.js')
+var GameclipsProvider = require('./providers/gameclips.js')
 var SmartglassProvider = require('./providers/smartglass.js')
+var AchievementsProvider = require('./providers/achievements.js')
+var MessagesProvider = require('./providers/messages.js')
 
 module.exports = function(config){
 
@@ -27,16 +31,16 @@ module.exports = function(config){
             // userpresence: UserPresenceProvider,
             catalog: CatalogProvider,
             titlehub: TitlehubProvider,
-            // achievements: AchievementsProvider,
+            achievements: AchievementsProvider,
             // gameserver: GameserverProvider,
             social: SocialProvider,
             people: PeopleProvider,
             profile: ProfileProvider,
             // inventory: InventoryProvider,
             pins: PinsProvider,
-            // messages: MessagesProvider,
-            // gameclips: GameclipsProvider,
-            // screenshots: ScreenshotsProvider,
+            messages: MessagesProvider,
+            gameclips: GameclipsProvider,
+            screenshots: ScreenshotsProvider,
             smartglass: SmartglassProvider
         },
 

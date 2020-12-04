@@ -1,0 +1,63 @@
+HTTP/1.1 200 OK
+cache-control: no-cache, no-store,
+content-type: application/json,
+last-modified: 2020-11-06T18:17:59.0293377Z,
+x-content-type-options: nosniff,
+ms-cv: xxxxxxxxxxxxxxxx/xxxxx.x,
+date: Fri, 06 Nov 2020 18:19:59 GMT,
+connection: close
+
+{
+    "screenshots": [
+        {
+            "screenshotId": "00000000-0000-0000-0000-000000000000",
+            "resolutionHeight": 1080,
+            "resolutionWidth": 1920,
+            "state": "Published",
+            "datePublished": "2017-10-12T22:10:32.2112459Z",
+            "dateTaken": "2017-10-12T22:08:03Z",
+            "lastModified": "2017-10-12T22:08:03Z",
+            "userCaption": "",
+            "type": "UserGenerated",
+            "scid": "d1adc8aa-0a31-4407-90f2-7e9b54b0347c",
+            "titleId": 144389848,
+            "rating": 0.0,
+            "ratingCount": 0,
+            "views": 0,
+            "titleData": "",
+            "systemProperties": "f18beae9-5317-4dc0-90a5-3b601cf111860;",
+            "savedByUser": true,
+            "achievementId": "",
+            "greatestMomentId": null,
+            "thumbnails": [
+                {
+                    "uri": "https://screenshotscontent-t5001.xboxlive.com/xuid-0000000000000000-public/93996a82-b384-4efe-a06b-212e3eccc73a_Thumbnail.PNG",
+                    "fileSize": 0,
+                    "thumbnailType": "Small"
+                },
+                {
+                    "uri": "https://screenshotscontent-t5001.xboxlive.com/xuid-0000000000000000-public/93996a82-b384-4efe-a06b-212e3eccc73a_Thumbnail.PNG",
+                    "fileSize": 0,
+                    "thumbnailType": "Large"
+                }
+            ],
+            "screenshotUris": [
+                {
+                    "uri": "https://screenshotscontent-d5001.xboxlive.com/xuid-0000000000000000-private/93996a82-b384-4efe-a06b-212e3eccc73a.PNG",
+                    "fileSize": 2642822,
+                    "uriType": "Download",
+                    "expiration": "2020-11-07T04:16:35.9828756Z"
+                }
+            ],
+            "xuid": "0000000000000000",
+            "screenshotName": "",
+            "titleName": "Destiny 2",
+            "screenshotLocale": "nl-NL",
+            "screenshotContentAttributes": "None",
+            "deviceType": "Durango"
+        }
+    ],
+    "pagingInfo": {
+        "continuationToken": null
+    }
+}

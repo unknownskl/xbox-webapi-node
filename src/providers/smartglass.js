@@ -1,4 +1,3 @@
-const HttpClient = require('../http.js')
 const BaseProvider = require('./base.js')
 const Debug = require('debug')('xbox-webapi-node:provider_smartglass')
 const Uuid4 = require('uuid4')
@@ -14,7 +13,7 @@ module.exports = function(client){
     provider.getConsolesList = function(){
         Debug('getConsolesList()')
 
-        return this.get('/lists/devices')
+        return this.get('/lists/devices?queryCurrentDevice=false&includeStorageDevices=true')
     }
 
     provider.getInstalledApps = function(consoleId){

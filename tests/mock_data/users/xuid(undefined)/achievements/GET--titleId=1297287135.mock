@@ -1,0 +1,90 @@
+HTTP/1.1 200 OK
+cache-control: no-cache, no-store,
+content-type: application/json,
+last-modified: 2020-11-06T18:17:59.0293377Z,
+x-content-type-options: nosniff,
+ms-cv: xxxxxxxxxxxxxxxx/xxxxx.x,
+date: Fri, 06 Nov 2020 18:19:59 GMT,
+connection: close
+
+{
+   "achievements":[
+      {
+         "id":14,
+         "titleId":1297287135,
+         "name":"Rescued Kluke",
+         "sequence":2,
+         "flags":1245188,
+         "unlockedOnline":true,
+         "unlocked":true,
+         "isSecret":true,
+         "platform":1,
+         "gamerscore":5,
+         "imageId":3,
+         "description":"You rescued Kluke without falling.",
+         "lockedDescription":"???",
+         "type":4,
+         "isRevoked":false,
+         "timeUnlocked":"2009-01-03T00:56:07.6670000Z"
+      },
+      {
+         "id":11,
+         "titleId":1297287135,
+         "name":"Pulled in the Flying Fortress",
+         "sequence":1,
+         "flags":1245188,
+         "unlockedOnline":true,
+         "unlocked":true,
+         "isSecret":true,
+         "platform":1,
+         "gamerscore":5,
+         "imageId":3,
+         "description":"You helped pull in the Flying Fortress without angering the Gorgo giants.",
+         "lockedDescription":"???",
+         "type":4,
+         "isRevoked":false,
+         "timeUnlocked":"2008-12-29T21:12:36.9200000Z"
+      },
+      {
+         "id":4,
+         "titleId":1297287135,
+         "name":"Multi-Monster Encounter",
+         "sequence":45,
+         "flags":1179660,
+         "unlockedOnline":false,
+         "unlocked":true,
+         "isSecret":false,
+         "platform":1,
+         "gamerscore":5,
+         "imageId":2,
+         "description":"You won a Multi-Monster Encounter.",
+         "lockedDescription":"Complete a Multi-Monster Encounter.",
+         "type":4,
+         "isRevoked":false,
+         "timeUnlocked":"1753-01-01T00:00:00.0000000Z"
+      },
+      {
+         "id":2,
+         "titleId":1297287135,
+         "name":"Back Attack",
+         "sequence":44,
+         "flags":1179660,
+         "unlockedOnline":false,
+         "unlocked":true,
+         "isSecret":false,
+         "platform":1,
+         "gamerscore":5,
+         "imageId":2,
+         "description":"You completed a Back Attack.",
+         "lockedDescription":"Complete a Back Attack.",
+         "type":4,
+         "isRevoked":false,
+         "timeUnlocked":"1753-01-01T00:00:00.0000000Z"
+      }
+   ],
+   "version":"0001-01-01T00:00:00.0000000Z",
+   "pagingInfo":{
+      "continuationToken":null,
+      "totalRecords":4
+   }
+}

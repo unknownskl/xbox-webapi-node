@@ -1,0 +1,66 @@
+HTTP/1.1 200 OK
+cache-control: no-cache, no-store,
+content-type: application/json,
+last-modified: 2020-11-06T18:17:59.0293377Z,
+x-content-type-options: nosniff,
+ms-cv: xxxxxxxxxxxxxxxx/xxxxx.x,
+date: Fri, 06 Nov 2020 18:19:59 GMT,
+connection: close
+
+{
+    "gameClips": [
+        {
+            "gameClipId": "00000000-0000-0000-0000-000000000000",
+            "state": "Published",
+            "datePublished": "2020-07-19T15:36:31.5830196Z",
+            "dateRecorded": "2020-07-19T14:55:50Z",
+            "lastModified": "2020-07-19T15:36:31.5830196Z",
+            "userCaption": "",
+            "type": "UserGenerated",
+            "durationInSeconds": 28,
+            "scid": "d1adc8aa-0a31-4407-90f2-7e9b54b0347c",
+            "titleId": 144389848,
+            "rating": 0.0,
+            "ratingCount": 0,
+            "views": 1,
+            "titleData": "",
+            "systemProperties": "1d5fb95a-9a9b-4ec4-a8bd-d841f1500f380;",
+            "savedByUser": true,
+            "achievementId": "",
+            "greatestMomentId": "",
+            "thumbnails": [
+                {
+                    "uri": "https://gameclipscontent-t3014.xboxlive.com/xuid-0000000000000000-public/e2b7103a-06f8-4ec0-9a6f-accedbd0ccfd_Thumbnail.PNG",
+                    "fileSize": 0,
+                    "thumbnailType": "Small"
+                },
+                {
+                    "uri": "https://gameclipscontent-t3014.xboxlive.com/xuid-0000000000000000-public/e2b7103a-06f8-4ec0-9a6f-accedbd0ccfd_Thumbnail.PNG",
+                    "fileSize": 0,
+                    "thumbnailType": "Large"
+                }
+            ],
+            "gameClipUris": [
+                {
+                    "uri": "https://gameclipscontent-d3014.xboxlive.com/xuid-0000000000000000-private/e2b7103a-06f8-4ec0-9a6f-accedbd0ccfd.MP4?sv=2015-12-11&sr=b&si=DefaultAccess&sig=k9CGiRZH7xBF2OG9NRRMbjm8yelpVI22dCYb341lC%2Bo%3D&__gda__=1604729320_55506f5ebc25de7bd138889eeaa99f9f",
+                    "fileSize": 48823885,
+                    "uriType": "Download",
+                    "expiration": "2020-11-07T06:08:40.0254821Z"
+                }
+            ],
+            "xuid": "0000000000000000",
+            "clipName": "",
+            "titleName": "Destiny 2",
+            "gameClipLocale": "en-US",
+            "clipContentAttributes": "None",
+            "deviceType": "Durango",
+            "commentCount": 0,
+            "likeCount": 0,
+            "shareCount": 0,
+            "partialViews": 0
+        }
+    ],
+    "pagingInfo": {
+        "continuationToken": null
+    }
+}
