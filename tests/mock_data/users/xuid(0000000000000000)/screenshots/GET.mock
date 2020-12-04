@@ -1,0 +1,110 @@
+HTTP/1.1 200 OK
+cache-control: no-cache, no-store,
+content-type: application/json,
+last-modified: 2020-11-06T18:17:59.0293377Z,
+x-content-type-options: nosniff,
+ms-cv: xxxxxxxxxxxxxxxx/xxxxx.x,
+date: Fri, 06 Nov 2020 18:19:59 GMT,
+connection: close
+
+{
+    "screenshots": [
+        {
+            "screenshotId": "27279607-9c0f-43e8-a568-5f6d91a4db8f",
+            "resolutionHeight": 1080,
+            "resolutionWidth": 1920,
+            "state": "Published",
+            "datePublished": "2020-11-07T04:05:19.6464676Z",
+            "dateTaken": "2020-11-07T04:04:53Z",
+            "lastModified": "2020-11-07T04:04:53Z",
+            "userCaption": "",
+            "type": "UserGenerated",
+            "scid": "d1adc8aa-0a31-4407-90f2-7e9b54b0347c",
+            "titleId": 144389848,
+            "rating": 0.0,
+            "ratingCount": 0,
+            "views": 0,
+            "titleData": "",
+            "systemProperties": "9afe255a-f9f2-4e70-b7a9-98e0569c0a590;",
+            "savedByUser": true,
+            "achievementId": "",
+            "greatestMomentId": null,
+            "thumbnails": [
+                {
+                    "uri": "https://screenshotscontent-t3002.xboxlive.com/xuid-0000000000000000-public/27279607-9c0f-43e8-a568-5f6d91a4db8f_Thumbnail.PNG",
+                    "fileSize": 0,
+                    "thumbnailType": "Small"
+                },
+                {
+                    "uri": "https://screenshotscontent-t3002.xboxlive.com/xuid-0000000000000000-public/27279607-9c0f-43e8-a568-5f6d91a4db8f_Thumbnail.PNG",
+                    "fileSize": 0,
+                    "thumbnailType": "Large"
+                }
+            ],
+            "screenshotUris": [
+                {
+                    "uri": "https://screenshotscontent-d3002.xboxlive.com/xuid-0000000000000000-private/27279607-9c0f-43e8-a568-5f6d91a4db8f.PNG?sv=2015-12-11&sr=b&si=DefaultAccess&sig=hV5adADbTGE59cGNbsWk0sksh%2FShBB%2FzScwVY5guEY8%3D",
+                    "fileSize": 3188724,
+                    "uriType": "Download",
+                    "expiration": "2020-11-07T05:16:41.6656242Z"
+                }
+            ],
+            "xuid": "0000000000000000",
+            "screenshotName": "",
+            "titleName": "Destiny 2",
+            "screenshotLocale": "en-AU",
+            "screenshotContentAttributes": "None",
+            "deviceType": "Durango"
+        },
+        {
+            "screenshotId": "6166015e-6ec2-46bc-8de8-7ca7ec254770",
+            "resolutionHeight": 1080,
+            "resolutionWidth": 1920,
+            "state": "Published",
+            "datePublished": "2020-09-29T08:58:18.2316827Z",
+            "dateTaken": "2020-09-29T08:57:54Z",
+            "lastModified": "2020-09-29T08:57:54Z",
+            "userCaption": "",
+            "type": "UserGenerated",
+            "scid": "d1adc8aa-0a31-4407-90f2-7e9b54b0347c",
+            "titleId": 964706972,
+            "rating": 0.0,
+            "ratingCount": 0,
+            "views": 1,
+            "titleData": "",
+            "systemProperties": "0935977b-e120-4bbf-bb84-6ac5dda3cd9b0;",
+            "savedByUser": true,
+            "achievementId": "",
+            "greatestMomentId": null,
+            "thumbnails": [
+                {
+                    "uri": "https://screenshotscontent-t2001.xboxlive.com/xuid-0000000000000000-public/6166015e-6ec2-46bc-8de8-7ca7ec254770_Thumbnail.PNG",
+                    "fileSize": 0,
+                    "thumbnailType": "Small"
+                },
+                {
+                    "uri": "https://screenshotscontent-t2001.xboxlive.com/xuid-0000000000000000-public/6166015e-6ec2-46bc-8de8-7ca7ec254770_Thumbnail.PNG",
+                    "fileSize": 0,
+                    "thumbnailType": "Large"
+                }
+            ],
+            "screenshotUris": [
+                {
+                    "uri": "https://screenshotscontent-d2001.xboxlive.com/xuid-0000000000000000-private/6166015e-6ec2-46bc-8de8-7ca7ec254770.PNG?sv=2015-12-11&sr=b&si=DefaultAccess&sig=W8%2FXnG3ZrOjcdHANaIbaNIwiDP%2FGjRZ%2F4AXWi3%2FEvZY%3D",
+                    "fileSize": 3537658,
+                    "uriType": "Download",
+                    "expiration": "2020-11-07T05:16:41.6656242Z"
+                }
+            ],
+            "xuid": "0000000000000000",
+            "screenshotName": "",
+            "titleName": "No Man's Sky",
+            "screenshotLocale": "en-AU",
+            "screenshotContentAttributes": "None",
+            "deviceType": "Durango"
+        }
+    ],
+    "pagingInfo": {
+        "continuationToken": null
+    }
+}

@@ -89,38 +89,16 @@ module.exports = function(clientId, secret){
                 type = 'oauth'
             }
 
+            Debug('refreshTokens('+type+')')
+
             return new Promise(function(resolve, reject) {
                 if(type == 'oauth'){
                     if(this._tokens.oauth.refresh_token){
-                        var oauth_expire_oauth = new Date(new Date(this._tokens.oauth.issued).getTime() + (this._tokens.oauth.expires_in*1000))
-                        
-                        if(new Date() > oauth_expire_oauth){
-                            // Oauth token expired, refresh token
-                            console.log('TODO: refresh token')
-
-                            this.refreshToken(this._tokens.oauth.refresh_token).then(function(token){
-                                this._tokens.oauth = token
-                                this.saveTokens()
-
-                                this.refreshTokens('user').then(function(){
-                                    resolve()
-                                }).catch(function(error){
-                                    reject(error)
-                                })
-
-                            }).catch(function(error){
-                                reject('Unable to refresh oauth access token. Reauthenticate again')
-                            })
-                        } else {
-                            // Token is still valid
-                            // console.log('oauth token is valid, continue to get user token')
-
-                            this.refreshTokens('user').then(function(){
-                                resolve()
-                            }).catch(function(error){
-                                reject(error)
-                            })
-                        }
+                        this.refreshTokens('user').then(function(){
+                            resolve()
+                        }).catch(function(error){
+                            reject(error)
+                        })
                     } else {
                         reject('No oauth token found. Run authentication flow first')
                     }
@@ -128,24 +106,35 @@ module.exports = function(clientId, secret){
                 } else if(type == 'user'){
 
                     if(this._tokens.user.Token){
-                        var oauth_expire_user = new Date(this._tokens.user.NotAfter).getTime()
+                        var user_expire_user = new Date(this._tokens.user.NotAfter).getTime()
                         
-                        if(new Date() > oauth_expire_user){
+                        if(new Date() > user_expire_user){
                             // Oauth token expired, refresh user token
-                            console.log('TODO: refresh user token')
+                            // console.log('TODO: refresh user token')
 
-                            this.getUserToken(this._tokens.oauth.access_token).then(function(token){
-                                this._tokens.user = token
+                            this.refreshToken(this._tokens.oauth.refresh_token).then(function(user_token){
+                                Debug('refreshTokens('+type+') Get token,', user_token)
+
+                                this._tokens.oauth = user_token
                                 this.saveTokens()
 
-                                this.refreshTokens('xsts').then(function(){
-                                    resolve()
-                                }).catch(function(error){
-                                    reject(error)
-                                })
+                                this.getUserToken(this._tokens.oauth.access_token).then(function(token){
+                                    this._tokens.user = token
+                                    this._tokens.xsts = {}
+                                    // this._tokens.xsts = false // Force xsts refresh
+                                    this.saveTokens()
 
-                            }).catch(function(error){
-                                reject('Unable to refresh oauth access token. Reauthenticate again')
+                                    this.refreshTokens('xsts').then(function(){
+                                        resolve()
+                                    }).catch(function(error){
+                                        reject(error)
+                                    })
+
+                                }.bind(this)).catch(function(error){
+                                    reject('Unable to refresh oauth access token. Reauthenticate again')
+                                })
+                            }.bind(this)).catch(function(error){
+                                reject('Unable to refresh user access token. Reauthenticate again')
                             })
                         } else {
                             // Token is still valid
@@ -162,6 +151,8 @@ module.exports = function(clientId, secret){
                         this.getUserToken(this._tokens.oauth.access_token).then(function(data){
                             // Got user token, continue with xsts
                             this._tokens.user = data
+                            this._tokens.xsts = {}
+                            // this._tokens.xsts = false // Force xsts refresh
                             this.saveTokens()
 
                             this.refreshTokens('xsts').then(function(){
@@ -179,28 +170,38 @@ module.exports = function(clientId, secret){
                     // console.log(this._tokens)
 
                     if(this._tokens.xsts.Token){
+                        Debug('refreshTokens('+type+') Has token')
                         var oauth_expire = new Date(this._tokens.xsts.NotAfter).getTime()
                         
                         if(new Date() > oauth_expire){
+                            Debug('refreshTokens('+type+') Token is expired, refreshing token')
                             // Oauth token expired, refresh user token
-                            console.log('TODO: refresh xsts token')
+                            // console.log('TODO: refresh xsts token')
 
-                            // reject()
+                            this._tokens.xsts = {}
+                            this.saveTokens()
 
-                            this.getXstsToken(this._tokens.user.access_token).then(function(token){
+                            this.getXstsToken(this._tokens.user.Token).then(function(token){
                                 this._tokens.xsts = token
                                 this.saveTokens()
+                                Debug('refreshTokens('+type+') Token refresh succes')
 
                                 this.refreshTokens('xsts').then(function(){
+                                    Debug('refreshTokens('+type+') Token xsts flow ok')
                                     resolve()
                                 }).catch(function(error){
+                                    Debug('refreshTokens('+type+') Token xsts flow failed')
                                     reject(error)
                                 })
 
-                            }).catch(function(error){
-                                reject('Unable to refresh oauth access token. Reauthenticate again')
-                            })
+                            }.bind(this)).catch(function(error){
+                                // @TODO: Investigate this part  of the auth flow
+                                Debug('refreshTokens('+type+') Token refresh failed:', error)
+
+                                reject('Unable to refresh xsts access token. Reauthenticate again', error)
+                            }.bind(this))
                         } else {
+                            Debug('refreshTokens('+type+') Token is valid')
                             // Token is still valid
                             // console.log('xsts token is valid')
 
@@ -214,6 +215,7 @@ module.exports = function(clientId, secret){
                             resolve()
                         }
                     } else {
+                        Debug('refreshTokens('+type+') Token not set, get token')
                         // Get user token
                         this.getXstsToken(this._tokens.user.Token).then(function(data){
                             // Got user token, continue with xsts
@@ -232,7 +234,7 @@ module.exports = function(clientId, secret){
 
                         }.bind(this)).catch(function(error){
                             reject(error)
-                        })
+                        }.bind(this))
                     }
                 }
             }.bind(this))
@@ -265,6 +267,7 @@ module.exports = function(clientId, secret){
         },
 
         refreshToken: function(refreshToken){
+            Debug('refreshToken()')
             return new Promise(function(resolve, reject) {
                 const tokenParams = {
                     "client_id": this._clientId,
@@ -282,14 +285,17 @@ module.exports = function(clientId, secret){
                     var responseData = JSON.parse(data)
                     responseData.issued = new Date().toISOString()
                     
+                    Debug('refreshToken() Resolved')
                     resolve(responseData)
                 }).catch(function(error){
+                    Debug('refreshToken() Rejected', error)
                     reject(error)
                 })
             }.bind(this))
         },
 
         getUserToken: function(accessToken){
+            Debug('getUserToken()')
             return new Promise(function(resolve, reject) {
                 const tokenParams = {
                     "RelyingParty": "http://auth.xboxlive.com",
@@ -307,14 +313,17 @@ module.exports = function(clientId, secret){
                     var responseData = JSON.parse(data)
                     // responseData.issued = new Date().toISOString()
                     
+                    Debug('getUserToken() Resolved')
                     resolve(responseData)
                 }).catch(function(error){
+                    Debug('getUserToken() Rejected', error)
                     reject(error)
                 })
             }.bind(this))
         },
 
         getXstsToken: function(userToken){
+            Debug('getXstsToken()')
             return new Promise(function(resolve, reject) {
                 const tokenParams = {
                     "RelyingParty": "http://xboxlive.com",
@@ -328,14 +337,17 @@ module.exports = function(clientId, secret){
                 const postData = JSON.stringify(tokenParams)
 
                 HttpClient().post(this._endpoints.xsts+'/xsts/authorize', {'Content-Type': 'application/json', 'x-xbl-contract-version': '1'}, postData).then(function(data){
+                    Debug('getXstsToken() Resolved')
                     resolve(JSON.parse(data))
                 }).catch(function(error){
+                    Debug('getXstsToken() Rejected')
                     reject(error)
                 })
             }.bind(this))
         },
 
         isAuthenticated: function(){
+            Debug('isAuthenticated()')
             return new Promise(function(resolve, reject) {
                 if (fs.existsSync(this._tokensFile)){
                     this.loadTokens()

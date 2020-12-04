@@ -126,7 +126,7 @@ describe('provider/smartglass', function(){
         })
     })
 
-    it('should be able to torn on the console using powerOn(consoleId)', function(done){
+    it('should be able to turn on the console using powerOn(consoleId)', function(done){
         this.provider.powerOn('FD00000000000000').then(function(result){
             assert.deepStrictEqual(result.status.errorCode, 'OK')
             assert.deepStrictEqual(result.status.errorMessage, null)
@@ -152,7 +152,7 @@ describe('provider/smartglass', function(){
         })
     })
 
-    it('should be able to torn off the console using powerOff(consoleId)', function(done){
+    it('should be able to turn off the console using powerOff(consoleId)', function(done){
         this.provider.powerOff('FD00000000000000').then(function(result){
             assert.deepStrictEqual(result.status.errorCode, 'OK')
             assert.deepStrictEqual(result.status.errorMessage, null)
