@@ -49,7 +49,7 @@ module.exports = function(config){
         },
 
         startAuthServer: function(callback, port){
-            this._authentication.startServer(callback)
+            this._authentication.startServer(callback, port)
 
             return this._authentication.generateAuthorizationUrl()
         },

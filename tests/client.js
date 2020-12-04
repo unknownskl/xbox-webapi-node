@@ -60,6 +60,26 @@ describe('client', function(){
         })
     })
 
+    it('should test the authentication webserver on port 5557', function(done){
+
+        this.client.startAuthServer(function(token){
+            assert.deepStrictEqual(token.scope, 'XboxLive.signin XboxLive.offline_access')
+            assert.deepStrictEqual(token.access_token, 'access_token_example')
+            assert.deepStrictEqual(token.refresh_token, 'refresh_token_example')
+            assert.deepStrictEqual(token.user_id, 'user_id_example')
+
+            done()
+        }, 5557)
+
+        HttpClient().get('http://localhost:5557/auth/callback?code=abc123').then(function(response){
+            assert.deepStrictEqual(true, true)
+            // console.log(response)
+        }).catch(function(error){
+            console.log('Error:', error)
+            assert.deepStrictEqual(true, false)
+        })
+    })
+
     afterEach(function() {
         delete this.client
     });
