@@ -52,9 +52,11 @@ describe('client', function(){
         })
 
         HttpClient().get('http://localhost:8080/auth/callback?code=abc123').then(function(response){
-            console.log(response)
+            assert.deepStrictEqual(true, true)
+            // console.log(response)
         }).catch(function(error){
-            console.log(error)
+            console.log('Error:', error)
+            assert.deepStrictEqual(true, false)
         })
     })
 
