@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.2.0] - 2021-07-23
+
+### Added
+
+- Added the ability to provide the user token + uhs as alternative method.
+
 ## [1.1.1] - 2020-12-04
 
 ### Fixed

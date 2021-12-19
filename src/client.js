@@ -19,12 +19,14 @@ module.exports = function(config){
 
     var clientConfig = {
         clientId: config.clientId || '',
-        clientSecret: config.clientSecret || ''
+        clientSecret: config.clientSecret || '',
+        userToken: config.userToken || '',
+        uhs: config.uhs || ''
     }
 
     return {
         _config: clientConfig,
-        _authentication: Authentication(clientConfig['clientId'], clientConfig['clientSecret']),
+        _authentication: Authentication(clientConfig['clientId'], clientConfig['clientSecret'], clientConfig['userToken'], clientConfig['uhs']),
 
         // @TODO: Implement remaining providers
         _providers: {
