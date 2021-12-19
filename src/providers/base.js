@@ -8,7 +8,7 @@ module.exports = function(client, providerName){
         _provider: providerName,
 
         _headers: {
-            'Authorization': 'XBL3.0 x='+client._authentication._user.uhs+';'+client._authentication._tokens.xsts.Token,
+            'Authorization': (client._authentication._userToken !== '' && client._authentication._uhs !== '') ? 'XBL3.0 x='+client._authentication._uhs+';'+client._authentication._userToken : 'XBL3.0 x='+client._authentication._user.uhs+';'+client._authentication._tokens.xsts.Token,
             'Accept-Language': 'en-US',
             'x-xbl-contract-version': '2',
             'x-xbl-client-name': 'XboxApp',

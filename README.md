@@ -1,5 +1,5 @@
 # Xbox-Webapi-Node
-![.github/workflows/build.yml](https://github.com/unknownskl/xbox-webapi-node/workflows/.github/workflows/build.yml/badge.svg?branch=release%2F1.1.1)
+![.github/workflows/build.yml](https://github.com/unknownskl/xbox-webapi-node/workflows/.github/workflows/build.yml/badge.svg?branch=release%2F1.2.0)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=xbox-webapi-node&metric=alert_status)](https://sonarcloud.io/component_measures?id=xbox-webapi-node&metric=alert_status)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=xbox-webapi-node&metric=bugs)](https://sonarcloud.io/component_measures?id=xbox-webapi-node&metric=bugs)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=xbox-webapi-node&metric=coverage)](https://sonarcloud.io/component_measures?id=xbox-webapi-node&metric=coverage)

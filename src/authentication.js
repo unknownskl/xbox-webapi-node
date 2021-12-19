@@ -6,11 +6,13 @@ var fs = require('fs')
 
 var express = require('express')
 
-module.exports = function(clientId, secret){
+module.exports = function(clientId, secret, userToken, uhs){
 
     return {
         _clientId: clientId,
         _clientSecret: secret,
+        _userToken: userToken,
+        _uhs: uhs,
         _scopes: ['XboxLive.signin', 'XboxLive.offline_access'],
 
         _express: false,
@@ -353,11 +355,17 @@ module.exports = function(clientId, secret){
                     this.loadTokens()
                 }
 
-                this.refreshTokens().then(function(){
+                if(this._clientId !== ''){
+                    this.refreshTokens().then(function(){
+                        resolve()
+                    }).catch(function(error){
+                        reject(error)
+                    })
+                } else if(this._userToken !== '' && this._uhs !== ''){
                     resolve()
-                }).catch(function(error){
-                    reject(error)
-                })
+                } else {
+                    reject({ error: 'No authentication supplied.' })
+                }
             }.bind(this))
         },
 
