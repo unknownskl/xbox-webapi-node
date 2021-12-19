@@ -30,7 +30,29 @@ module.exports = {
                     'ProductId': {},
                     'Title': {},
                     'Type': {},
+                    'PlatformProperties': {},
                     'Icon': { get: row => `https:${row.Icon}`}
+                }, baseDecorator.getTableOptions(params))
+
+            }).catch((error) => {
+                reject(error)
+            })
+        })
+    },
+
+    getProductId: function(provider, params){
+        return new Promise((resolve, reject) => {
+
+            if(params[2] === undefined){
+                reject({ error: 'Parameter productId is required'})
+                return
+            }
+
+            const task = provider[params[1]](...params.slice(2)).then((data) => {  
+                const single = baseDecorator.singleObjectTable(data.Products[0])
+                cli.table(single, {
+                    'key': {},
+                    'value': {},
                 }, baseDecorator.getTableOptions(params))
 
             }).catch((error) => {

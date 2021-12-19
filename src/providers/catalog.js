@@ -31,6 +31,22 @@ module.exports = function(client){
         return this.get('/v7.0/productFamilies/autosuggest?'+queryParams)
     }
 
+    provider.getProductId = function(query){
+        Debug('getProductId('+query+')')
+
+        var searchParams = {
+            "actionFilter": 'Browse',
+            "bigIds": [query],
+            "fieldsTemplate": 'details',
+            "languages": "en-us",
+            "market": 'us',
+        }
+
+        var queryParams = QueryString.stringify(searchParams)
+
+        return this.get('/v7.0/products?'+queryParams)
+    }
+
     provider.getProductFromAlternateId = function(titleId, titleType){
         Debug('getProductFromAlternateId('+titleId, titleType+')')
 

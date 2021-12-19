@@ -7,6 +7,10 @@ const SmartglassDecorator = require('./decorators/smartglass')
 const CatalogDecorator = require('./decorators/catalog')
 const TitlehubDecorator = require('./decorators/titlehub')
 const PinsDecorator = require('./decorators/pins')
+const PeopleDecorator = require('./decorators/people')
+const AchievementsDecorator = require('./decorators/achievements')
+const ScreenshotsDecorator = require('./decorators/screenshots')
+const MessagesDecorator = require('./decorators/messages')
 
 var XboxApiClient = XboxApi({
     clientId: '5e5ead27-ed60-482d-b3fc-702b28a97404'
@@ -35,6 +39,10 @@ const app = {
         'catalog': CatalogDecorator,
         'titlehub': TitlehubDecorator,
         'pins': PinsDecorator,
+        'people': PeopleDecorator,
+        'achievements': AchievementsDecorator,
+        'screenshots': ScreenshotsDecorator,
+        'messages': MessagesDecorator,
     },
 
     init: function(){
