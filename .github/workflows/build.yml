@@ -1,3 +1,4 @@
+name: Build
 on: ['push', 'pull_request']
 
 jobs:
@@ -28,6 +29,7 @@ jobs:
             
         - name: SonarCloud Scan
           uses: sonarsource/sonarcloud-github-action@master
+          if: github.actor != 'dependabot[bot]'
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
