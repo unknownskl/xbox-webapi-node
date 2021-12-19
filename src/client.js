@@ -50,6 +50,10 @@ module.exports = function(config){
             return this._authentication.isAuthenticated()
         },
 
+        getUserGamertag: function(){
+            return this._authentication._user.gamertag
+        },
+
         startAuthServer: function(callback, port){
             this._authentication.startServer(callback, port)
 
