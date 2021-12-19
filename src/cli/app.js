@@ -1,0 +1,1 @@
+console.log('Hello world from xbox-api command')
