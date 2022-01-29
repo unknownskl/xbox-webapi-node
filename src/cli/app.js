@@ -11,6 +11,7 @@ const PeopleDecorator = require('./decorators/people')
 const AchievementsDecorator = require('./decorators/achievements')
 const ScreenshotsDecorator = require('./decorators/screenshots')
 const MessagesDecorator = require('./decorators/messages')
+const UserpresenceDecorator = require('./decorators/userpresence')
 
 var XboxApiClient = XboxApi({
     clientId: '5e5ead27-ed60-482d-b3fc-702b28a97404'
@@ -43,6 +44,7 @@ const app = {
         'achievements': AchievementsDecorator,
         'screenshots': ScreenshotsDecorator,
         'messages': MessagesDecorator,
+        'userpresence': UserpresenceDecorator,
     },
 
     init: function(){

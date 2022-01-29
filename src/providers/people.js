@@ -22,5 +22,11 @@ module.exports = function(client){
         return this.get('/users/me/people/social/decoration/'+params.join(','))
     }
 
+    provider.recentPlayers = function(){
+        Debug('recentPlayers()')
+
+        return this.get('/users/me/people/recentplayers')
+    }
+
     return provider
 }
