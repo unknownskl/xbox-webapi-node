@@ -1,6 +1,11 @@
 # Changelog
 
-## [Unreleased]
+## [1.3.0] - 2022-01-29
+
+### Added
+
+- Added a CLI interface to explore the api calls. Run using `xbox-webapi`.
+- Added `UserPresence` provider
 
 ## [1.2.0] - 2021-07-23
 
