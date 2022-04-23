@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const cli = require('cli-ux').cli
 const ux = require('cli-ux').ux
 
