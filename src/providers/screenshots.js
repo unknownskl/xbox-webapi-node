@@ -13,12 +13,14 @@ module.exports = function(client){
         Debug('getUserScreenshots()')
 
         return this.get('/users/me/screenshots')
+        // return this.get('/users/me/scids/d1adc8aa-0a31-4407-90f2-7e9b54b0347c/screenshots/06e5ed92-8508-4a7f-9ba0-94fb945ec20e/views')
+        
     }
 
     provider.getCommunityScreenshotsByTitleId = function(titleId){
         Debug('getCommunityScreenshotsByTitleId()')
 
-        return this.get('/public/titles/'+titleId+'/screenshots?qualifier=created')
+        return this.get('/public/titles/'+titleId+'/screenshots?qualifier=created&maxItems=10')
     }
 
     provider.getScreenshotsByXuid = function(xuid, titleId, skipItems, maxItems){
