@@ -12,6 +12,7 @@ var SmartglassProvider = require('./providers/smartglass.js')
 var AchievementsProvider = require('./providers/achievements.js')
 var MessagesProvider = require('./providers/messages.js')
 var UserpresenceProvider = require('./providers/userpresence.js')
+var UserstatsProvider = require('./providers/userstats')
 
 module.exports = function(config){
 
@@ -45,7 +46,8 @@ module.exports = function(config){
             gameclips: GameclipsProvider,
             screenshots: ScreenshotsProvider,
             smartglass: SmartglassProvider,
-            userpresence: UserpresenceProvider
+            userpresence: UserpresenceProvider,
+            userstats: UserstatsProvider
         },
 
         isAuthenticated: function(){
