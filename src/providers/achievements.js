@@ -9,14 +9,14 @@ module.exports = function(client){
 
     provider._headers['x-xbl-contract-version'] = 2
 
-    provider.getRecentAchievements = function(continuationToken = 0){
+    provider.getTitleAchievements = function(continuationToken = 0){
         Debug('getRecentAchievements('+continuationToken+')')
 
         return this.get('/users/xuid('+this._client._authentication._user.xid +')/history/titles?continuationToken='+continuationToken)
     }
 
-    provider.getRecentAchievements360 = function(){
-        Debug('getRecentAchievements360()')
+    provider.getTitleAchievements360 = function(continuationToken = 0){
+        Debug('getRecentAchievements360('+continuationToken+')')
         this._headers['x-xbl-contract-version'] = 1
 
         return this.get('/users/xuid('+this._client._authentication._user.xid +')/history/titles')
