@@ -1,6 +1,15 @@
 # Changelog
 
-## [1.4.0] - 2022-00-00
+## [1.4.0] - 2022-08-05
+
+### Added
+
+- Userstats provider for fetching game statistics
+
+### Changed
+
+- getRecentAchievements() got renamed to getTitleAchievements()
+- getRecentAchievements360() got renamed to getTitleAchievements360()
 
 
 ## [1.3.0] - 2022-04-24
