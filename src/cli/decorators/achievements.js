@@ -3,7 +3,7 @@ const baseDecorator = require('./base')
 
 module.exports = {
 
-    getRecentAchievements: function(provider, params){
+    getTitleAchievements: function(provider, params){
         return new Promise((resolve, reject) => {
 
             const task = provider[params[1]](...params.slice(2)).then((data) => { 
@@ -17,6 +17,35 @@ module.exports = {
                     'earnedAchievements': {},
                     'currentGamerscore': {},
                     'maxGamerscore': {},
+                }, baseDecorator.getTableOptions(params))
+
+                const single = baseDecorator.singleObjectTable(data.pagingInfo)
+                cli.table(single, {
+                    'key': {},
+                    'value': {},
+                }, baseDecorator.getTableOptions(params))
+
+            }).catch((error) => {
+                reject(error)
+            })
+        })
+    },
+
+    getTitleAchievements360: function(provider, params){
+        return new Promise((resolve, reject) => {
+
+            const task = provider[params[1]](...params.slice(2)).then((data) => { 
+
+                cli.table(data.titles, {
+                    'lastPlayed': {},
+                    'titleId': {},
+                    'titleType': {},
+                    'platforms': {},
+                    'name': {},
+                    'currentAchievements': {},
+                    'totalAchievements': {},
+                    'currentGamerscore': {},
+                    'totalGamerscore': {},
                 }, baseDecorator.getTableOptions(params))
 
                 const single = baseDecorator.singleObjectTable(data.pagingInfo)

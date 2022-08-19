@@ -16,8 +16,8 @@ describe('provider/achievements', function(){
     // beforeEach(function(){
     // })
 
-    it('should be able to get recent archievements using getRecentAchievements()', function(done){
-        this.provider.getRecentAchievements().then(function(result){
+    it('should be able to get archievements using getTitleAchievements()', function(done){
+        this.provider.getTitleAchievements().then(function(result){
             assert.deepStrictEqual(result.titles.length, 32)
 
             assert.deepStrictEqual(result.titles[0].titleId, 16308048)
@@ -36,8 +36,8 @@ describe('provider/achievements', function(){
         })
     })
 
-    it('should be able to get recent 360 archievements using getRecentAchievements360()', function(done){
-        this.provider.getRecentAchievements360().then(function(result){
+    it('should be able to get 360 archievements using getTitleAchievements360()', function(done){
+        this.provider.getTitleAchievements360().then(function(result){
             assert.deepStrictEqual(result.titles.length, 32)
 
             assert.deepStrictEqual(result.titles[0].titleId, 16308048)

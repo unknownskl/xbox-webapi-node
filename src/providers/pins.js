@@ -8,10 +8,16 @@ module.exports = function(client){
 
     provider._headers['Content-Type'] = 'application/json'
 
-    provider.getPins = function(){
-        Debug('getPins()')
+    provider.getPins = function(list = 'XBLPins'){
+        Debug('getPins('+list+')')
 
-        return this.get('/users/xuid('+this._client._authentication._user.xid+')/lists/PINS/XBLPins')
+        return this.get('/users/xuid('+this._client._authentication._user.xid+')/lists/PINS/'+list)
+    }
+
+    provider.getSaveForLater = function(){
+        Debug('getSaveForLater()')
+
+        return this.get('/users/xuid('+this._client._authentication._user.xid+')/lists/PINS/SaveForLater')
     }
 
     return provider
