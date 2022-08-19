@@ -14,12 +14,12 @@ module.exports = function(client){
 
     // delete provider._headers['Authorization']
 
-    provider.searchTitle = function(query){
+    provider.searchTitle = function(query, marketLocale = 'us', languagesLocale = 'en-us'){
         Debug('searchTitle('+query+')')
 
         var searchParams = {
-            "languages": 'en-us',
-            "market": 'us',
+            "languages": languagesLocale,
+            "market": marketLocale,
             "platformdependencyname": 'windows.xbox',
             "productFamilyNames": "Games,Apps",
             "query": query,
@@ -31,15 +31,15 @@ module.exports = function(client){
         return this.get('/v7.0/productFamilies/autosuggest?'+queryParams)
     }
 
-    provider.getProductId = function(query){
+    provider.getProductId = function(query, marketLocale = 'us', languagesLocale = 'en-us'){
         Debug('getProductId('+query+')')
 
         var searchParams = {
             "actionFilter": 'Browse',
             "bigIds": [query],
             "fieldsTemplate": 'details',
-            "languages": "en-us",
-            "market": 'us',
+            "languages": languagesLocale,
+            "market": marketLocale,
         }
 
         var queryParams = QueryString.stringify(searchParams)
@@ -47,7 +47,7 @@ module.exports = function(client){
         return this.get('/v7.0/products?'+queryParams)
     }
 
-    provider.getProductFromAlternateId = function(titleId, titleType){
+    provider.getProductFromAlternateId = function(titleId, titleType, marketLocale = 'NL', languagesLocale = 'nl-NL'){
         Debug('getProductFromAlternateId('+titleId, titleType+')')
 
         var searchParams = {
@@ -56,8 +56,8 @@ module.exports = function(client){
             "fieldsTemplate": 'details',
             // "languages": 'en-US',
             // "market": 'US',
-            "languages": 'nl-NL',
-            "market": 'NL',
+            "languages": languagesLocale,
+            "market": marketLocale,
             "value": titleId,
         }
 
