@@ -47,7 +47,7 @@ module.exports = function(client){
         return this.get('/v7.0/products?'+queryParams)
     }
 
-    provider.getProductFromAlternateId = function(titleId, titleType, marketLocale = 'NL', languagesLocale = 'nl-NL'){
+    provider.getProductFromAlternateId = function(titleId, titleType, marketLocale = 'US', languagesLocale = 'en-US'){
         Debug('getProductFromAlternateId('+titleId, titleType+')')
 
         var searchParams = {

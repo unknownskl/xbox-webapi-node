@@ -1,16 +1,16 @@
 # Changelog
 
-## [1.4.0] - 2022-08-05
+## [1.4.0] - 2022-08-19
 
 ### Added
 
+- Added parameter to use a different market (Also set default market to en-us)
 - Userstats provider for fetching game statistics
 
 ### Changed
 
 - getRecentAchievements() got renamed to getTitleAchievements()
 - getRecentAchievements360() got renamed to getTitleAchievements360()
-
 
 ## [1.3.0] - 2022-04-24
 
