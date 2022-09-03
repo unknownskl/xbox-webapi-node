@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.4.1] - 2022-09-03
+
+### Added
+
+- Added continuationToken to achievements getTitle() call
+
 ## [1.4.0] - 2022-08-19
 
 ### Added
