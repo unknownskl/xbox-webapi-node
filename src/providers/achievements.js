@@ -22,17 +22,17 @@ module.exports = function(client){
         return this.get('/users/xuid('+this._client._authentication._user.xid +')/history/titles')
     }
 
-    provider.getTitleId = function(titleId){
+    provider.getTitleId = function(titleId, continuationToken = 0){
         Debug('getTitleId(titleId)')
 
-        return this.get('/users/xuid('+this._client._authentication._user.xid +')/achievements?titleId='+titleId)
+        return this.get('/users/xuid('+this._client._authentication._user.xid +')/achievements?titleId='+titleId+'&continuationToken='+continuationToken)
     }
 
-    provider.getTitleId360 = function(titleId){
+    provider.getTitleId360 = function(titleId, continuationToken = 0){
         Debug('getTitleId(titleId)')
         this._headers['x-xbl-contract-version'] = 1
 
-        return this.get('/users/xuid('+this._client._authentication._user.xid +')/achievements?titleId='+titleId)
+        return this.get('/users/xuid('+this._client._authentication._user.xid +')/achievements?titleId='+titleId+'&continuationToken='+continuationToken)
     }
 
     return provider
