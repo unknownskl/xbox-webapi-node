@@ -23,7 +23,7 @@
   "homepage": "https://github.com/unknownskl/xbox-webapi-node#readme",
   "devDependencies": {
     "eslint": "^8.5.0",
-    "mocha": "^9.1.3",
+    "mocha": "^10.6.0",
     "mockserver": "^3.1.1",
     "nyc": "^15.1.0"
   },
