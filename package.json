@@ -7,7 +7,7 @@
     "xbox-webapi": "src/cli/app.js"
   },
   "scripts": {
-    "test": "npm run lint && nyc --reporter=html --reporter=lcov --reporter=text ./node_modules/mocha/bin/mocha tests/",
+    "test": "npm run lint && nyc --reporter=html --reporter=lcov --reporter=text mocha tests/",
     "start": "npm run lint && node src/cli/app.js",
     "lint": "eslint 'src/**/*.js' --ignore-pattern node_modules/"
   },
@@ -22,10 +22,16 @@
   },
   "homepage": "https://github.com/unknownskl/xbox-webapi-node#readme",
   "devDependencies": {
+    "@types/chai": "^4",
+    "@types/debug": "^4.1.7",
+    "@types/mocha": "^10",
+    "@types/node": "^20.9.0",
+    "chai": "^4.3.6",
     "eslint": "^8.5.0",
-    "mocha": "^9.1.3",
-    "mockserver": "^3.1.1",
-    "nyc": "^15.1.0"
+    "mocha": "^10.1.0",
+    "mockserver": "^2.0.0",
+    "nyc": "^15.1.0",
+    "typescript": "^5.3.3"
   },
   "dependencies": {
     "cli-ux": "^6.0.6",

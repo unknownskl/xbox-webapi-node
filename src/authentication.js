@@ -67,7 +67,7 @@ module.exports = function(clientId, secret, userToken, uhs){
                     this.stopServer()
 
                 }.bind(this)).catch(function(error){
-                    console.log('OAUTH Error:', error)
+                    // console.log('OAUTH Error:', error)
                     res.send('Failed to login. Please check the console output')
                 })
                 
