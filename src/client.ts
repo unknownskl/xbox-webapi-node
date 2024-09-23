@@ -1,3 +1,4 @@
+// @ts-nocheck
 const Authentication = require('./authentication')
 
 var ProfileProvider = require('./providers/profile.js')

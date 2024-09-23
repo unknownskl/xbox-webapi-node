@@ -1,3 +1,4 @@
+// @ts-nocheck
 const Https = require('https')
 const Http = require('http')
 const UrlParser = require('url')

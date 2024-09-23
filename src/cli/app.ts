@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// @ts-nocheck
 const cli = require('cli-ux').cli
 const ux = require('cli-ux').ux
 

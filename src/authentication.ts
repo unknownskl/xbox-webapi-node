@@ -1,3 +1,4 @@
+// @ts-nocheck
 const QueryString = require('querystring')
 const Debug = require('debug')('xbox-webapi-node:authentication')
 

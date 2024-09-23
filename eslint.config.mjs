@@ -1,5 +1,6 @@
 export default [
     {
+        parser: "@typescript-eslint/parser",
         rules: {
             semi: "error",
             "prefer-const": "error",

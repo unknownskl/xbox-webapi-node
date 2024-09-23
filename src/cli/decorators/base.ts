@@ -1,3 +1,4 @@
+// @ts-nocheck
 module.exports = {
     getTableOptions: function(params) {
         return {

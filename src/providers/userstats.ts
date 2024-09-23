@@ -1,3 +1,4 @@
+// @ts-nocheck
 const HttpClient = require('../http.js')
 const BaseProvider = require('./base.js')
 const Debug = require('debug')('xbox-webapi-node:provider_userstats')

@@ -14,11 +14,5 @@
       "outDir": "./dist",
       "rootDir": "./src"
     },
-    "include": ["src"],
-    "electron": {
-      "esm": true
-    },
-    "electron-store": {
-      "esm": true
-    }
-  }
+    "include": ["./src"]
+}

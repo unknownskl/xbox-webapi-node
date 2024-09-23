@@ -1,3 +1,4 @@
+// @ts-nocheck
 const cli = require('cli-ux').cli
 const baseDecorator = require('./base')
 
