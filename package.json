@@ -27,7 +27,7 @@
     "@types/mocha": "^10",
     "@types/node": "^22.5.4",
     "chai": "^5.1.1",
-    "eslint": "^8.5.0",
+    "eslint": "^9.11.0",
     "mocha": "^10.1.0",
     "mockserver": "^3.1.1",
     "nyc": "^17.1.0",

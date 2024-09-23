@@ -25,7 +25,7 @@ module.exports = function(){
                     },
                 }
 
-                for(let header in headers){
+                for(const header in headers){
                     options.headers[header]  = headers[header]
                 }
 
@@ -86,7 +86,7 @@ module.exports = function(){
                     },
                 }
 
-                for(let header in headers){
+                for(const header in headers){
                     options.headers[header]  = headers[header]
                 }
 

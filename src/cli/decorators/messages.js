@@ -44,7 +44,7 @@ module.exports = {
                     'isDeleted': {},
                     'isServerUpdated': {},
                     'contentPayload': { get: row => {
-                        let content = []
+                        const content = []
                         for(const part in row.contentPayload.content.parts){
                             if(row.contentPayload.content.parts[part].contentType === 'text'){
                                 content.push(`${row.contentPayload.content.parts[part].contentType}: ${row.contentPayload.content.parts[part].text}`)
