@@ -1,16 +1,14 @@
-// @ts-nocheck
-const BaseProvider = require('./base.js')
+import BaseProvider from './base'
 const Debug = require('debug')('xbox-webapi-node:provider_people')
 
-module.exports = function(client){
+export default class PeopleProvider extends BaseProvider {
+    _endpoint = 'https://peoplehub.xboxlive.com'
+    _headers = {
+        'x-xbl-contract-version': '3',
+        'Accept-Language': 'en-US'
+    }
 
-    var provider = BaseProvider(client)
-    provider._endpoint = 'https://peoplehub.xboxlive.com'
-
-    provider._headers['x-xbl-contract-version'] = 3
-    provider._headers['Accept-Language'] = 'en-US'
-
-    provider.getFriends = function(){
+    getFriends(){
         Debug('getFriends()')
 
         var params = [
@@ -23,11 +21,9 @@ module.exports = function(client){
         return this.get('/users/me/people/social/decoration/'+params.join(','))
     }
 
-    provider.recentPlayers = function(){
+    recentPlayers(){
         Debug('recentPlayers()')
 
         return this.get('/users/me/people/recentplayers')
     }
-
-    return provider
 }

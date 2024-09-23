@@ -1,13 +1,10 @@
-// @ts-nocheck
-const BaseProvider = require('./base.js')
+import BaseProvider from './base'
 const Debug = require('debug')('xbox-webapi-node:provider_titlehub')
 
-module.exports = function(client){
-
-    var provider = BaseProvider(client)
-    provider._endpoint = 'https://titlehub.xboxlive.com'
-
-    provider.getTitleHistory = function(){
+export default class TitleHubProvider extends BaseProvider {
+    _endpoint = 'https://titlehub.xboxlive.com'
+    
+    getTitleHistory(){
         Debug('getTitleHistory()')
 
         var params = [
@@ -16,10 +13,10 @@ module.exports = function(client){
             'scid',
         ]
 
-        return this.get('/users/xuid('+this._client._authentication._user.xid+')/titles/titlehistory/decoration/'+params.join(','))
+        return this.get('/users/xuid('+this._client._authentication._user?.xid+')/titles/titlehistory/decoration/'+params.join(','))
     }
 
-    provider.getTitleId = function(titleId){
+    getTitleId(titleId:string){
         Debug('getTitleId('+titleId+')')
 
         var params = [
@@ -30,8 +27,6 @@ module.exports = function(client){
             'alternateTitleId'
         ]
 
-        return this.get('/users/xuid('+this._client._authentication._user.xid+')/titles/titleid('+titleId+')/decoration/'+params.join(','))
+        return this.get('/users/xuid('+this._client._authentication._user?.xid+')/titles/titleid('+titleId+')/decoration/'+params.join(','))
     }
-
-    return provider
 }

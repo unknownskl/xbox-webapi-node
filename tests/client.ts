@@ -1,6 +1,7 @@
-const assert = require('assert');
-const XboxWebClient = require('../src/client')
-const HttpClient = require('../src/http')
+
+import assert from 'assert'
+import XboxWebClient from '../src/client'
+import HttpClient from '../src/http'
 
 var http = require('http')
 
@@ -12,7 +13,7 @@ describe('client', function(){
 
     beforeEach(function(){
 
-        this.client = XboxWebClient()
+        this.client = new XboxWebClient()
         
         this.client._authentication._endpoints = {
             live: 'http://localhost:9001',
@@ -27,12 +28,11 @@ describe('client', function(){
     })
 
     it('should fail isAuthenticated()', function(done){
-
         this.client.isAuthenticated().then(function(){
             assert.deepStrictEqual(true, false)
             done()
         
-        }).catch(function(error){
+        }).catch((error:any) => {
             assert.deepStrictEqual(true, true)
             done()
         })
@@ -41,8 +41,7 @@ describe('client', function(){
     })
 
     it('should test the authentication webserver', function(done){
-
-        this.client.startAuthServer(function(token){
+        this.client.startAuthServer((token:any) => {
             assert.deepStrictEqual(token.scope, 'XboxLive.signin XboxLive.offline_access')
             assert.deepStrictEqual(token.access_token, 'access_token_example')
             assert.deepStrictEqual(token.refresh_token, 'refresh_token_example')
@@ -51,7 +50,7 @@ describe('client', function(){
             done()
         })
 
-        HttpClient().get('http://localhost:8080/auth/callback?code=abc123').then(function(response){
+        new HttpClient().get('http://localhost:8080/auth/callback?code=abc123').then(function(response){
             assert.deepStrictEqual(true, true)
             // console.log(response)
         }).catch(function(error){
@@ -61,8 +60,7 @@ describe('client', function(){
     })
 
     it('should test the authentication webserver on port 5557', function(done){
-
-        this.client.startAuthServer(function(token){
+        this.client.startAuthServer((token:any) => {
             assert.deepStrictEqual(token.scope, 'XboxLive.signin XboxLive.offline_access')
             assert.deepStrictEqual(token.access_token, 'access_token_example')
             assert.deepStrictEqual(token.refresh_token, 'refresh_token_example')
@@ -71,7 +69,7 @@ describe('client', function(){
             done()
         }, 5557)
 
-        HttpClient().get('http://localhost:5557/auth/callback?code=abc123').then(function(response){
+        new HttpClient().get('http://localhost:5557/auth/callback?code=abc123').then(function(response){
             assert.deepStrictEqual(true, true)
             // console.log(response)
         }).catch(function(error){

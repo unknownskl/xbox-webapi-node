@@ -12,7 +12,7 @@
       "sourceMap": true,
       "composite": true,
       "outDir": "./dist",
-      "rootDir": "./src"
+      "rootDir": "./"
     },
-    "include": ["./src"]
+    "include": ["./src", "./tests"]
 }

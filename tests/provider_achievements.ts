@@ -1,5 +1,5 @@
-const assert = require('assert');
-const XboxWebClient = require('../src/client')
+import assert from 'assert'
+import XboxWebClient from '../src/client'
 
 var http = require('http')
 
@@ -8,7 +8,7 @@ describe('provider/achievements', function(){
         var mockserver = require('mockserver')('tests/mock_data', false)
         this.serverRun = http.createServer(mockserver).listen(9001);
 
-        var client = XboxWebClient()
+        var client = new XboxWebClient()
         this.provider = client.getProvider('achievements')
         this.provider._endpoint = 'http://127.0.0.1:9001'
     })
@@ -17,7 +17,7 @@ describe('provider/achievements', function(){
     // })
 
     it('should be able to get archievements using getTitleAchievements()', function(done){
-        this.provider.getTitleAchievements().then(function(result){
+        this.provider.getTitleAchievements().then(function(result:any){
             assert.deepStrictEqual(result.titles.length, 32)
 
             assert.deepStrictEqual(result.titles[0].titleId, 16308048)
@@ -30,14 +30,14 @@ describe('provider/achievements', function(){
             assert.deepStrictEqual(result.titles[0].maxGamerscore, 0)
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })
     })
 
     it('should be able to get 360 archievements using getTitleAchievements360()', function(done){
-        this.provider.getTitleAchievements360().then(function(result){
+        this.provider.getTitleAchievements360().then(function(result:any){
             assert.deepStrictEqual(result.titles.length, 32)
 
             assert.deepStrictEqual(result.titles[0].titleId, 16308048)
@@ -50,14 +50,14 @@ describe('provider/achievements', function(){
             assert.deepStrictEqual(result.titles[0].maxGamerscore, 0)
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })
     })
 
     it('should be able to get achievements by titleid using getTitleId(titleid)', function(done){
-        this.provider.getTitleId(16308048).then(function(result){
+        this.provider.getTitleId(16308048).then(function(result:any){
             assert.deepStrictEqual(result.achievements.length, 20)
 
             assert.deepStrictEqual(result.achievements[0].id, '1')
@@ -73,14 +73,14 @@ describe('provider/achievements', function(){
             assert.deepStrictEqual(result.achievements[0].mediaAssets[0].url, 'http://images-eds.xboxlive.com/image?url=z951ykn43p4FqWbbFvR2Ec.8vbDhj8G2Xe7JngaTToDRxPSZkcllPiupTw7Zp3wiTZ3YTPIAHEVR9JAueHk_pC7vowTnc7..jAVKnB0RcyO6kZICH8f_ko_mJSdWQB7xdGZqq0usmCjN7Gdxm64ExazBJDxTJyIVFih5nd5FMmKjwVuR4t4SNk2ggJDZt0Os')
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })
     })
 
     it('should be able to get 360 achievements by titleid using getTitleId360(titleid)', function(done){
-        this.provider.getTitleId360(1297287135).then(function(result){
+        this.provider.getTitleId360(1297287135).then(function(result:any){
             assert.deepStrictEqual(result.achievements.length, 4)
 
             assert.deepStrictEqual(result.achievements[0].id, 14)
@@ -97,7 +97,7 @@ describe('provider/achievements', function(){
             assert.deepStrictEqual(result.achievements[0].timeUnlocked, '2009-01-03T00:56:07.6670000Z')
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })

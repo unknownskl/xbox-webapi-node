@@ -1,5 +1,5 @@
-const assert = require('assert');
-const XboxWebClient = require('../src/client')
+import assert from 'assert'
+import XboxWebClient from '../src/client'
 
 var http = require('http')
 
@@ -8,7 +8,7 @@ describe('provider/people', function(){
         var mockserver = require('mockserver')('tests/mock_data', false)
         this.serverRun = http.createServer(mockserver).listen(9001);
 
-        var client = XboxWebClient()
+        var client = new XboxWebClient()
         this.provider = client.getProvider('people')
         this.provider._endpoint = 'http://127.0.0.1:9001'
     })
@@ -17,7 +17,7 @@ describe('provider/people', function(){
     // })
 
     it('should be able to get list of friends using getFriends()', function(done){
-        this.provider.getFriends().then(function(result){
+        this.provider.getFriends().then(function(result:any){
             assert.deepStrictEqual(result.people.length, 2)
 
             assert.deepStrictEqual(result.people[0].xuid, '0000000000000000')
@@ -30,7 +30,7 @@ describe('provider/people', function(){
             assert.deepStrictEqual(result.people[1].gamerScore, '30360')
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })

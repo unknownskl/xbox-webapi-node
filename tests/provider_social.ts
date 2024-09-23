@@ -1,5 +1,5 @@
-const assert = require('assert');
-const XboxWebClient = require('../src/client')
+import assert from 'assert'
+import XboxWebClient from '../src/client'
 
 var http = require('http')
 
@@ -8,7 +8,7 @@ describe('provider/social', function(){
         var mockserver = require('mockserver')('tests/mock_data', false)
         this.serverRun = http.createServer(mockserver).listen(9001);
 
-        var client = XboxWebClient()
+        var client = new XboxWebClient()
         this.provider = client.getProvider('social')
         this.provider._endpoint = 'http://127.0.0.1:9001'
     })
@@ -17,7 +17,7 @@ describe('provider/social', function(){
     // })
 
     it('should be able to get a summary of your friends using getFriends()', function(done){
-        this.provider.getFriends().then(function(result){
+        this.provider.getFriends().then(function(result:any){
             assert.deepStrictEqual(result.targetFollowingCount, 70)
             assert.deepStrictEqual(result.targetFollowerCount, 60)
             assert.deepStrictEqual(result.isCallerFollowingTarget, false)
@@ -29,7 +29,7 @@ describe('provider/social', function(){
             assert.deepStrictEqual(result.watermark, '0000000000000000000')
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })

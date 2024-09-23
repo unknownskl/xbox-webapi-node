@@ -1,6 +1,6 @@
-const assert = require('assert');
-const XboxWebClient = require('../src/client')
-const Provider = require('../src/providers/smartglass')
+import assert from 'assert'
+import XboxWebClient from '../src/client'
+// const Provider = require('../src/providers/smartglass')
 
 var http = require('http')
 
@@ -9,7 +9,7 @@ describe('provider/smartglass', function(){
         var mockserver = require('mockserver')('tests/mock_data', false)
         this.serverRun = http.createServer(mockserver).listen(9001);
 
-        var client = XboxWebClient()
+        var client = new XboxWebClient()
         this.provider = client.getProvider('smartglass')
         this.provider._endpoint = 'http://127.0.0.1:9001'
     })
@@ -18,7 +18,7 @@ describe('provider/smartglass', function(){
     // })
 
     it('should be able to get a list of consoles using getConsolesList()', function(done){
-        this.provider.getConsolesList().then(function(result){
+        this.provider.getConsolesList().then(function(result:any){
             assert.deepStrictEqual(result.status.errorCode, 'OK')
             assert.deepStrictEqual(result.status.errorMessage, null)
 
@@ -32,14 +32,14 @@ describe('provider/smartglass', function(){
             assert.deepStrictEqual(result.result[0].consoleStreamingEnabled, true)
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })
     })
 
     it('should be able to get a list of apps/games using getInstalledApps()', function(done){
-        this.provider.getInstalledApps().then(function(result){
+        this.provider.getInstalledApps().then(function(result:any){
             assert.deepStrictEqual(result.status.errorCode, 'OK')
             assert.deepStrictEqual(result.status.errorMessage, null)
 
@@ -80,14 +80,14 @@ describe('provider/smartglass', function(){
             assert.deepStrictEqual(result.result[1].parentId, null)
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })
     })
 
     it('should be able to get a list of storage devices using getStorageDevices()', function(done){
-        this.provider.getStorageDevices().then(function(result){
+        this.provider.getStorageDevices().then(function(result:any){
             assert.deepStrictEqual(result.status.errorCode, 'OK')
             assert.deepStrictEqual(result.status.errorMessage, null)
 
@@ -99,14 +99,14 @@ describe('provider/smartglass', function(){
             assert.deepStrictEqual(result.result[0].totalSpaceBytes, 391915761664)
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })
     })
 
     it('should be able to get the console status using getConsoleStatus(consoleId)', function(done){
-        this.provider.getConsoleStatus('FD00000000000000').then(function(result){
+        this.provider.getConsoleStatus('FD00000000000000').then(function(result:any){
             assert.deepStrictEqual(result.status.errorCode, 'OK')
             assert.deepStrictEqual(result.status.errorMessage, null)
 
@@ -120,18 +120,18 @@ describe('provider/smartglass', function(){
             assert.deepStrictEqual(result.remoteManagementEnabled, true)
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })
     })
 
     it('should be able to turn on the console using powerOn(consoleId)', function(done){
-        this.provider.powerOn('FD00000000000000').then(function(result){
+        this.provider.powerOn('FD00000000000000').then(function(result:any){
             assert.deepStrictEqual(result.status.errorCode, 'OK')
             assert.deepStrictEqual(result.status.errorMessage, null)
 
-            // console.log(result)
+            // console.log(result:any)
 
             assert.deepStrictEqual(result.result, null)
             assert.deepStrictEqual(result.uiText, null)
@@ -146,18 +146,18 @@ describe('provider/smartglass', function(){
             assert.deepStrictEqual(result.opId, '00000000-0000-0000-0000-000000000000')
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })
     })
 
     it('should be able to turn off the console using powerOff(consoleId)', function(done){
-        this.provider.powerOff('FD00000000000000').then(function(result){
+        this.provider.powerOff('FD00000000000000').then(function(result:any){
             assert.deepStrictEqual(result.status.errorCode, 'OK')
             assert.deepStrictEqual(result.status.errorMessage, null)
 
-            // console.log(result)
+            // console.log(result:any)
 
             assert.deepStrictEqual(result.result, null)
             assert.deepStrictEqual(result.uiText, null)
@@ -172,18 +172,18 @@ describe('provider/smartglass', function(){
             assert.deepStrictEqual(result.opId, '00000000-0000-0000-0000-000000000000')
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })
     })
 
     it('should be able to reboot the console using reboot(consoleId)', function(done){
-        this.provider.reboot('FD00000000000000').then(function(result){
+        this.provider.reboot('FD00000000000000').then(function(result:any){
             assert.deepStrictEqual(result.status.errorCode, 'OK')
             assert.deepStrictEqual(result.status.errorMessage, null)
 
-            // console.log(result)
+            // console.log(result:any)
 
             assert.deepStrictEqual(result.result, null)
             assert.deepStrictEqual(result.uiText, null)
@@ -198,18 +198,18 @@ describe('provider/smartglass', function(){
             assert.deepStrictEqual(result.opId, '00000000-0000-0000-0000-000000000000')
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })
     })
 
     it('should be able to mute the tv using mute(consoleId)', function(done){
-        this.provider.mute('FD00000000000000').then(function(result){
+        this.provider.mute('FD00000000000000').then(function(result:any){
             assert.deepStrictEqual(result.status.errorCode, 'OK')
             assert.deepStrictEqual(result.status.errorMessage, null)
 
-            // console.log(result)
+            // console.log(result:any)
 
             assert.deepStrictEqual(result.result, null)
             assert.deepStrictEqual(result.uiText, null)
@@ -224,18 +224,18 @@ describe('provider/smartglass', function(){
             assert.deepStrictEqual(result.opId, '00000000-0000-0000-0000-000000000000')
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })
     })
 
     it('should be able to unmute the tv using unmute(consoleId)', function(done){
-        this.provider.unmute('FD00000000000000').then(function(result){
+        this.provider.unmute('FD00000000000000').then(function(result:any){
             assert.deepStrictEqual(result.status.errorCode, 'OK')
             assert.deepStrictEqual(result.status.errorMessage, null)
 
-            // console.log(result)
+            // console.log(result:any)
 
             assert.deepStrictEqual(result.result, null)
             assert.deepStrictEqual(result.uiText, null)
@@ -250,18 +250,18 @@ describe('provider/smartglass', function(){
             assert.deepStrictEqual(result.opId, '00000000-0000-0000-0000-000000000000')
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })
     })
 
     it('should be able to launch the dashboard using launchDashboard(consoleId)', function(done){
-        this.provider.launchDashboard('FD00000000000000').then(function(result){
+        this.provider.launchDashboard('FD00000000000000').then(function(result:any){
             assert.deepStrictEqual(result.status.errorCode, 'OK')
             assert.deepStrictEqual(result.status.errorMessage, null)
 
-            // console.log(result)
+            // console.log(result:any)
 
             assert.deepStrictEqual(result.result, null)
             assert.deepStrictEqual(result.uiText, null)
@@ -276,18 +276,18 @@ describe('provider/smartglass', function(){
             assert.deepStrictEqual(result.opId, '00000000-0000-0000-0000-000000000000')
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })
     })
 
     it('should be able to launch oneGuide using launchOneGuide(consoleId)', function(done){
-        this.provider.launchOneGuide('FD00000000000000').then(function(result){
+        this.provider.launchOneGuide('FD00000000000000').then(function(result:any){
             assert.deepStrictEqual(result.status.errorCode, 'OK')
             assert.deepStrictEqual(result.status.errorMessage, null)
 
-            // console.log(result)
+            // console.log(result:any)
 
             assert.deepStrictEqual(result.result, null)
             assert.deepStrictEqual(result.uiText, null)
@@ -302,18 +302,18 @@ describe('provider/smartglass', function(){
             assert.deepStrictEqual(result.opId, '00000000-0000-0000-0000-000000000000')
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })
     })
 
     it('should be able to launch an app using launchApp(consoleId, oneStoreId)', function(done){
-        this.provider.launchApp('FD00000000000000', '000001').then(function(result){
+        this.provider.launchApp('FD00000000000000', '000001').then(function(result:any){
             assert.deepStrictEqual(result.status.errorCode, 'OK')
             assert.deepStrictEqual(result.status.errorMessage, null)
 
-            // console.log(result)
+            // console.log(result:any)
 
             assert.deepStrictEqual(result.result, null)
             assert.deepStrictEqual(result.uiText, null)
@@ -328,18 +328,18 @@ describe('provider/smartglass', function(){
             assert.deepStrictEqual(result.opId, '00000000-0000-0000-0000-000000000000')
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })
     })
 
     it('should be able to send a button press using sendButtonPress(consoleId, button)', function(done){
-        this.provider.sendButtonPress('FD00000000000000', 'A').then(function(result){
+        this.provider.sendButtonPress('FD00000000000000', 'A').then(function(result:any){
             assert.deepStrictEqual(result.status.errorCode, 'OK')
             assert.deepStrictEqual(result.status.errorMessage, null)
 
-            // console.log(result)
+            // console.log(result:any)
 
             assert.deepStrictEqual(result.result, null)
             assert.deepStrictEqual(result.uiText, null)
@@ -354,18 +354,18 @@ describe('provider/smartglass', function(){
             assert.deepStrictEqual(result.opId, '00000000-0000-0000-0000-000000000000')
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })
     })
 
     it('should be able to open the GuideTab using openGuideTab(consoleId)', function(done){
-        this.provider.openGuideTab('FD00000000000000').then(function(result){
+        this.provider.openGuideTab('FD00000000000000').then(function(result:any){
             assert.deepStrictEqual(result.status.errorCode, 'OK')
             assert.deepStrictEqual(result.status.errorMessage, null)
 
-            // console.log(result)
+            // console.log(result:any)
 
             assert.deepStrictEqual(result.result, null)
             assert.deepStrictEqual(result.uiText, null)
@@ -380,7 +380,7 @@ describe('provider/smartglass', function(){
             assert.deepStrictEqual(result.opId, '00000000-0000-0000-0000-000000000000')
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })

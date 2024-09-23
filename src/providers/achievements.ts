@@ -1,40 +1,35 @@
-// @ts-nocheck
-const HttpClient = require('../http.js')
-const BaseProvider = require('./base.js')
+import BaseProvider from './base'
 const Debug = require('debug')('xbox-webapi-node:provider_achievements')
 
-module.exports = function(client){
+export default class AchievementsProvider extends BaseProvider {
+    _endpoint = 'https://achievements.xboxlive.com'
+    _headers = {
+        'x-xbl-contract-version': '2'
+    }
 
-    var provider = BaseProvider(client)
-    provider._endpoint = 'https://achievements.xboxlive.com'
-
-    provider._headers['x-xbl-contract-version'] = 2
-
-    provider.getTitleAchievements = function(continuationToken = 0){
+    getTitleAchievements(continuationToken = 0){
         Debug('getRecentAchievements('+continuationToken+')')
 
-        return this.get('/users/xuid('+this._client._authentication._user.xid +')/history/titles?continuationToken='+continuationToken)
+        return this.get('/users/xuid('+this._client._authentication?._user?.xid +')/history/titles?continuationToken='+continuationToken)
     }
 
-    provider.getTitleAchievements360 = function(continuationToken = 0){
+    getTitleAchievements360(continuationToken = 0){
         Debug('getRecentAchievements360('+continuationToken+')')
-        this._headers['x-xbl-contract-version'] = 1
+        this._headers['x-xbl-contract-version'] = '1'
 
-        return this.get('/users/xuid('+this._client._authentication._user.xid +')/history/titles')
+        return this.get('/users/xuid('+this._client._authentication?._user?.xid +')/history/titles')
     }
 
-    provider.getTitleId = function(titleId, continuationToken = 0){
+    getTitleId(titleId:string, continuationToken = 0){
         Debug('getTitleId(titleId)')
 
-        return this.get('/users/xuid('+this._client._authentication._user.xid +')/achievements?titleId='+titleId+'&continuationToken='+continuationToken)
+        return this.get('/users/xuid('+this._client._authentication?._user?.xid +')/achievements?titleId='+titleId+'&continuationToken='+continuationToken)
     }
 
-    provider.getTitleId360 = function(titleId, continuationToken = 0){
+    getTitleId360(titleId:string, continuationToken = 0){
         Debug('getTitleId(titleId)')
-        this._headers['x-xbl-contract-version'] = 1
+        this._headers['x-xbl-contract-version'] = '1'
 
-        return this.get('/users/xuid('+this._client._authentication._user.xid +')/achievements?titleId='+titleId+'&continuationToken='+continuationToken)
+        return this.get('/users/xuid('+this._client._authentication?._user?.xid +')/achievements?titleId='+titleId+'&continuationToken='+continuationToken)
     }
-
-    return provider
 }

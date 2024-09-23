@@ -1,5 +1,5 @@
-const assert = require('assert');
-const XboxWebClient = require('../src/client')
+import assert from 'assert'
+import XboxWebClient from '../src/client'
 
 var http = require('http')
 
@@ -8,7 +8,7 @@ describe('provider/catalog', function(){
         var mockserver = require('mockserver')('tests/mock_data', false)
         this.serverRun = http.createServer(mockserver).listen(9001);
 
-        var client = XboxWebClient()
+        var client = new XboxWebClient()
         this.provider = client.getProvider('catalog')
         this.provider._endpoint = 'http://127.0.0.1:9001'
     })
@@ -17,7 +17,7 @@ describe('provider/catalog', function(){
     // })
 
     it('should be able to search for a title using searchTitle(titleId)', function(done){
-        this.provider.searchTitle('Destiny 2').then(function(result){
+        this.provider.searchTitle('Destiny 2').then(function(result:any){
             // console.log(result)
 
             assert.deepStrictEqual(result.TotalResultCount, 10)
@@ -30,14 +30,14 @@ describe('provider/catalog', function(){
             assert.deepStrictEqual(result.Results[0].Products[0].Title, 'Destiny 2')
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })
     })
 
     it('should be able to get store data with a title using getProductFromAlternateId(titleId)', function(done){
-        this.provider.getProductFromAlternateId('371594669','XboxTitleId').then(function(result){
+        this.provider.getProductFromAlternateId('371594669','XboxTitleId').then(function(result:any){
             // console.log(result)
 
             assert.deepStrictEqual(result.BigIds[0], '9VWGNH0VBZJX')
@@ -56,7 +56,7 @@ describe('provider/catalog', function(){
             assert.deepStrictEqual(result.Products[0].LocalizedProperties[0].PublisherName, 'Microsoft')
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })

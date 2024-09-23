@@ -1,5 +1,5 @@
-const assert = require('assert');
-const XboxWebClient = require('../src/client')
+import assert from 'assert'
+import XboxWebClient from '../src/client'
 
 var http = require('http')
 
@@ -8,7 +8,7 @@ describe('provider/messages', function(){
         var mockserver = require('mockserver')('tests/mock_data', false)
         this.serverRun = http.createServer(mockserver).listen(9001);
 
-        var client = XboxWebClient()
+        var client = new XboxWebClient()
         this.provider = client.getProvider('messages')
         this.provider._endpoint = 'http://127.0.0.1:9001'
     })
@@ -17,7 +17,7 @@ describe('provider/messages', function(){
     // })
 
     it('should be able to get messages using getInbox()', function(done){
-        this.provider.getInbox().then(function(result){
+        this.provider.getInbox().then(function(result:any){
             assert.deepStrictEqual(result.primary.totalCount, 1)
 
             assert.deepStrictEqual(result.primary.conversations[0].participants[0], '0000000000000000')
@@ -28,14 +28,14 @@ describe('provider/messages', function(){
             assert.deepStrictEqual(result.primary.conversations[0].muted, false)
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })
     })
 
     it('should be able to get a conversation using getConversation()', function(done){
-        this.provider.getConversation().then(function(result){
+        this.provider.getConversation().then(function(result:any){
         
             assert.deepStrictEqual(result.timestamp, '2018-09-08T18:09:49.02Z')
             assert.deepStrictEqual(result.networkId, 'Xbox')
@@ -51,7 +51,7 @@ describe('provider/messages', function(){
             assert.deepStrictEqual(result.continuationToken, null)
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })

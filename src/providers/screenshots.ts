@@ -1,16 +1,21 @@
-// @ts-nocheck
+import BaseProvider from './base'
+
 const QueryString = require('querystring')
-const BaseProvider = require('./base.js')
 const Debug = require('debug')('xbox-webapi-node:provider_screenshots')
 
-module.exports = function(client){
+interface ScreenshotsParams {
+    skip_items: number,
+    max_items: number,
+    title_id?: string
+}
 
-    var provider = BaseProvider(client)
-    provider._endpoint = 'https://screenshotsmetadata.xboxlive.com'
+export default class ScreenshotsProvider extends BaseProvider {
+    _endpoint = 'https://screenshotsmetadata.xboxlive.com'
+    _headers = {
+        'x-xbl-contract-version': '3'
+    }
 
-    provider._headers['x-xbl-contract-version'] = '5'
-
-    provider.getUserScreenshots = function(){
+    getUserScreenshots() {
         Debug('getUserScreenshots()')
 
         return this.get('/users/me/screenshots')
@@ -18,18 +23,18 @@ module.exports = function(client){
         
     }
 
-    provider.getCommunityScreenshotsByTitleId = function(titleId){
+    getCommunityScreenshotsByTitleId(titleId:string) {
         Debug('getCommunityScreenshotsByTitleId()')
 
         return this.get('/public/titles/'+titleId+'/screenshots?qualifier=created&maxItems=10')
     }
 
-    provider.getScreenshotsByXuid = function(xuid, titleId, skipItems, maxItems){
+    getScreenshotsByXuid(xuid:string, titleId?:string, skipItems:number = 0, maxItems:number = 25) {
         Debug('getScreenshotsByXuid()')
 
-        var params = {
-            skip_items: skipItems || 0,
-            max_items: maxItems || 25,
+        var params:ScreenshotsParams = {
+            skip_items: skipItems,
+            max_items: maxItems
         }
 
         if(titleId !== undefined){
@@ -40,6 +45,4 @@ module.exports = function(client){
 
         return this.get('/users/xuid('+xuid+')/screenshots?'+queryParams)
     }
-
-    return provider
 }

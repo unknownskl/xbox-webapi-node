@@ -1,83 +1,81 @@
-// @ts-nocheck
-const BaseProvider = require('./base.js')
+import BaseProvider from './base'
 const Debug = require('debug')('xbox-webapi-node:provider_smartglass')
 const Uuid4 = require('uuid4')
 
-module.exports = function(client){
+export default class SmartglassProvider extends BaseProvider {
+    _endpoint = 'https://xccs.xboxlive.com'
+    _headers = {
+        'x-xbl-contract-version': '4',
+        'skillplatform': 'RemoteManagement'
+    }
 
-    var provider = BaseProvider(client, 'smartglass')
-    provider._endpoint = 'https://xccs.xboxlive.com'
-
-    provider._headers['x-xbl-contract-version'] = 4
-    provider._headers['skillplatform'] = 'RemoteManagement'
-
-    provider.getConsolesList = function(){
+    getConsolesList(){
         Debug('getConsolesList()')
 
         return this.get('/lists/devices?queryCurrentDevice=false&includeStorageDevices=true')
     }
 
-    provider.getInstalledApps = function(consoleId){
+    getInstalledApps(consoleId:string){
         Debug('getInstalledApps('+consoleId+')')
 
         return this.get('/lists/installedApps?deviceId='+consoleId)
     }
 
-    provider.getStorageDevices = function(consoleId){
+    getStorageDevices(consoleId:string){
         Debug('getStorageDevices('+consoleId+')')
 
         return this.get('/lists/storageDevices?deviceId='+consoleId)
     }
 
-    provider.getConsoleStatus = function(consoleId){
+    getConsoleStatus(consoleId:string){
         Debug('getConsoleStatus('+consoleId+')')
 
         return this.get('/consoles/'+consoleId)
     }
 
-    provider.powerOn = function(consoleId){
+    powerOn(consoleId:string){
         Debug('powerOn('+consoleId+')')
 
         return this._sendCommand(consoleId, 'Power', 'WakeUp')
     }
 
-    provider.powerOff = function(consoleId){
+    powerOff(consoleId:string){
         Debug('powerOff('+consoleId+')')
 
         return this._sendCommand(consoleId, 'Power', 'TurnOff')
     }
 
-    provider.reboot = function(consoleId){
+    reboot(consoleId:string){
         Debug('reboot('+consoleId+')')
 
         return this._sendCommand(consoleId, 'Power', 'Reboot')
     }
 
-    provider.mute = function(consoleId){
+    mute(consoleId:string){
         Debug('mute('+consoleId+')')
 
         return this._sendCommand(consoleId, 'Audio', 'Mute')
     }
 
-    provider.unmute = function(consoleId){
+    unmute(consoleId:string){
         Debug('unmute('+consoleId+')')
 
         return this._sendCommand(consoleId, 'Audio', 'Unmute')
     }
 
-    provider.launchDashboard = function(consoleId){
+    launchDashboard(consoleId:string){
         Debug('launchDashboard('+consoleId+')')
 
         return this._sendCommand(consoleId, 'Shell', 'GoHome')
     }
 
-    provider.launchOneGuide = function(consoleId){
+    launchOneGuide(consoleId:string){
         Debug('launchOneGuide('+consoleId+')')
 
         return this._sendCommand(consoleId, 'TV', 'ShowGuide')
     }
 
-    provider.launchApp = function(consoleId, titleId){
+    launchApp(consoleId:string, titleId:string){
         Debug('launchApp('+consoleId, titleId+')')
 
         return this._sendCommand(consoleId, 'Shell', 'ActivateApplicationWithOneStoreProductId', [{
@@ -85,7 +83,7 @@ module.exports = function(client){
         }])
     }
 
-    provider.sendButtonPress = function(consoleId, button){
+    sendButtonPress(consoleId:string, button:string){
         Debug('sendButtonPress('+consoleId, button+')')
 
         return this._sendCommand(consoleId, 'Shell', 'InjectKey', [{
@@ -93,7 +91,7 @@ module.exports = function(client){
         }])
     }
 
-    provider.openGuideTab = function(consoleId){
+    openGuideTab(consoleId:string){
         Debug('openGuideTab('+consoleId+')')
 
         return this._sendCommand(consoleId, 'Shell', 'ShowGuideTab', [{
@@ -101,7 +99,7 @@ module.exports = function(client){
         }])
     }
 
-    provider._sendCommand = function(consoleId, commandType, command, params){
+    _sendCommand(consoleId:string, commandType:string, command:string, params?:object){
         Debug('_sendCommand('+consoleId, commandType, command, params+')')
 
         if(params == undefined){
@@ -125,6 +123,4 @@ module.exports = function(client){
 
         return this.post('/commands', postData)
     }
-
-    return provider
 }

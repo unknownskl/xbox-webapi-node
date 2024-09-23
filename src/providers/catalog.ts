@@ -1,21 +1,14 @@
-// @ts-nocheck
+import BaseProvider from './base'
 const QueryString = require('querystring')
-const BaseProvider = require('./base.js')
 const Debug = require('debug')('xbox-webapi-node:provider_catalog')
 
-module.exports = function(client){
-
-    var provider = BaseProvider(client)
-    provider._endpoint = 'https://displaycatalog.mp.microsoft.com'
-
-    // provider._headers['Content-Type'] = 'application/json'
-    provider._headers = {
+export default class CatalogProvider extends BaseProvider {
+    _endpoint = 'https://displaycatalog.mp.microsoft.com'
+    _headers = {
         'MS-CV': '0'
     }
 
-    // delete provider._headers['Authorization']
-
-    provider.searchTitle = function(query, marketLocale = 'us', languagesLocale = 'en-us'){
+    searchTitle(query:string, marketLocale = 'us', languagesLocale = 'en-us'){
         Debug('searchTitle('+query+')')
 
         var searchParams = {
@@ -32,7 +25,7 @@ module.exports = function(client){
         return this.get('/v7.0/productFamilies/autosuggest?'+queryParams)
     }
 
-    provider.getProductId = function(query, marketLocale = 'us', languagesLocale = 'en-us'){
+    getProductId(query:string, marketLocale = 'us', languagesLocale = 'en-us'){
         Debug('getProductId('+query+')')
 
         var searchParams = {
@@ -48,7 +41,7 @@ module.exports = function(client){
         return this.get('/v7.0/products?'+queryParams)
     }
 
-    provider.getProductFromAlternateId = function(titleId, titleType, marketLocale = 'US', languagesLocale = 'en-US'){
+    getProductFromAlternateId(titleId:string, titleType:string, marketLocale = 'US', languagesLocale = 'en-US'){
         Debug('getProductFromAlternateId('+titleId, titleType+')')
 
         var searchParams = {
@@ -66,6 +59,4 @@ module.exports = function(client){
 
         return this.get('/v7.0/products/lookup?'+queryParams)
     }
-
-    return provider
 }

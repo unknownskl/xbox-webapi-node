@@ -1,76 +1,96 @@
-// @ts-nocheck
-const Authentication = require('./authentication')
+import Authentication from './authentication'
 
-var ProfileProvider = require('./providers/profile.js')
-var SocialProvider = require('./providers/social.js')
-var PeopleProvider = require('./providers/people.js')
-var TitlehubProvider = require('./providers/titlehub.js')
-var CatalogProvider = require('./providers/catalog.js')
-var PinsProvider = require('./providers/pins.js')
-var ScreenshotsProvider = require('./providers/screenshots.js')
-var GameclipsProvider = require('./providers/gameclips.js')
-var SmartglassProvider = require('./providers/smartglass.js')
-var AchievementsProvider = require('./providers/achievements.js')
-var MessagesProvider = require('./providers/messages.js')
-var UserpresenceProvider = require('./providers/userpresence.js')
-var UserstatsProvider = require('./providers/userstats')
+// var ProfileProvider = require('./providers/profile')
+// var SocialProvider = require('./providers/social')
+// var PeopleProvider = require('./providers/people')
+// var TitlehubProvider = require('./providers/titlehub')
+// var CatalogProvider = require('./providers/catalog')
+// var PinsProvider = require('./providers/pins')
+// var ScreenshotsProvider = require('./providers/screenshots')
+// var GameclipsProvider = require('./providers/gameclips')
+// var SmartglassProvider = require('./providers/smartglass')
+// var AchievementsProvider = require('./providers/achievements')
+// var MessagesProvider = require('./providers/messages')
+// var UserpresenceProvider = require('./providers/userpresence')
+// var UserstatsProvider = require('./providers/userstats')
 
-module.exports = function(config){
+import ProfileProvider from './providers/profile'
+import SocialProvider from './providers/social'
+import PeopleProvider from './providers/people'
+import TitlehubProvider from './providers/titlehub'
+import CatalogProvider from './providers/catalog'
+import PinsProvider from './providers/pins'
+import ScreenshotsProvider from './providers/screenshots'
+import GameclipsProvider from './providers/gameclips'
+import SmartglassProvider from './providers/smartglass'
+import AchievementsProvider from './providers/achievements'
+import MessagesProvider from './providers/messages'
+// import UserpresenceProvider from './providers/userpresence'
+// import UserstatsProvider from './providers/userstats'
 
-    if(config === undefined)
-        config = {}
+interface XboxWebClientConfig {
+    clientId?: string
+    clientSecret?: string
+    userToken?: string
+    uhs?: string
+}
 
-    var clientConfig = {
-        clientId: config.clientId || '',
-        clientSecret: config.clientSecret || '',
-        userToken: config.userToken || '',
-        uhs: config.uhs || ''
+export default class XboxWebClient {
+
+    _config: Required<XboxWebClientConfig>
+    _authentication: Authentication
+
+    // @TODO: Implement remaining providers
+    _providers = {
+        // userpresence: UserPresenceProvider,
+        catalog: CatalogProvider,
+        titlehub: TitlehubProvider,
+        achievements: AchievementsProvider,
+        // // gameserver: GameserverProvider,
+        social: SocialProvider,
+        people: PeopleProvider,
+        profile: ProfileProvider,
+        // // inventory: InventoryProvider,
+        pins: PinsProvider,
+        messages: MessagesProvider,
+        gameclips: GameclipsProvider,
+        screenshots: ScreenshotsProvider,
+        smartglass: SmartglassProvider,
+        // userpresence: UserpresenceProvider,
+        // userstats: UserstatsProvider
     }
 
-    return {
-        _config: clientConfig,
-        _authentication: Authentication(clientConfig['clientId'], clientConfig['clientSecret'], clientConfig['userToken'], clientConfig['uhs']),
+    constructor(config:XboxWebClientConfig = {}){
+    
+        this._config = {
+            clientId: config.clientId || '',
+            clientSecret: config.clientSecret || '',
+            userToken: config.userToken || '',
+            uhs: config.uhs || ''
+        }
 
-        // @TODO: Implement remaining providers
-        _providers: {
-            // userpresence: UserPresenceProvider,
-            catalog: CatalogProvider,
-            titlehub: TitlehubProvider,
-            achievements: AchievementsProvider,
-            // gameserver: GameserverProvider,
-            social: SocialProvider,
-            people: PeopleProvider,
-            profile: ProfileProvider,
-            // inventory: InventoryProvider,
-            pins: PinsProvider,
-            messages: MessagesProvider,
-            gameclips: GameclipsProvider,
-            screenshots: ScreenshotsProvider,
-            smartglass: SmartglassProvider,
-            userpresence: UserpresenceProvider,
-            userstats: UserstatsProvider
-        },
+        this._authentication = new Authentication(this._config.clientId, this._config.clientSecret, this._config.userToken, this._config.uhs)
+    }
 
-        isAuthenticated: function(){
-            return this._authentication.isAuthenticated()
-        },
+    isAuthenticated() {
+        return this._authentication.isAuthenticated()
+    }
 
-        getUserGamertag: function(){
-            return this._authentication._user.gamertag
-        },
+    getUserGamertag() {
+        return this._authentication._user?.gamertag
+    }
 
-        startAuthServer: function(callback, port){
-            this._authentication.startServer(callback, port)
+    startAuthServer(callback:any, port:number) {
+        this._authentication.startServer(callback, port)
 
-            return this._authentication.generateAuthorizationUrl()
-        },
+        return this._authentication.generateAuthorizationUrl()
+    }
 
-        getProvider: function(name){
-            if(this._providers[name] != undefined){
-                return this._providers[name](this, name)
-            } else {
-                return false
-            }
+    getProvider(name:keyof typeof XboxWebClient.prototype._providers) {
+        if(this._providers[name] !== undefined){
+            return new this._providers[name](this, name)
+        } else {
+            return false
         }
     }
 }

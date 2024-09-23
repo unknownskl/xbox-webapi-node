@@ -1,5 +1,5 @@
-const assert = require('assert');
-const XboxWebClient = require('../src/client')
+import assert from 'assert'
+import XboxWebClient from '../src/client'
 
 var http = require('http')
 
@@ -8,7 +8,7 @@ describe('provider/screenshots', function(){
         var mockserver = require('mockserver')('tests/mock_data', false)
         this.serverRun = http.createServer(mockserver).listen(9001);
 
-        var client = XboxWebClient()
+        var client = new XboxWebClient()
         this.provider = client.getProvider('screenshots')
         this.provider._endpoint = 'http://127.0.0.1:9001'
     })
@@ -17,7 +17,7 @@ describe('provider/screenshots', function(){
     // })
 
     it('should be able to get recent user screenshots using getUserScreenshots()', function(done){
-        this.provider.getUserScreenshots().then(function(result){
+        this.provider.getUserScreenshots().then(function(result:any){
             // console.log(result)
 
             assert.deepStrictEqual(result.screenshots.length, 1)
@@ -34,14 +34,14 @@ describe('provider/screenshots', function(){
             assert.deepStrictEqual(result.screenshots[0].deviceType, 'Durango')
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })
     })
 
     it('should be able to get community screenshots by title id using getCommunityScreenshotsByTitleId(titleId)', function(done){
-        this.provider.getCommunityScreenshotsByTitleId(144389848).then(function(result){
+        this.provider.getCommunityScreenshotsByTitleId(144389848).then(function(result:any){
             // console.log(result)
 
             assert.deepStrictEqual(result.screenshots.length, 3)
@@ -60,14 +60,14 @@ describe('provider/screenshots', function(){
             assert.deepStrictEqual(result.pagingInfo.continuationToken, 'abcde_vwxyzZAAAAA2')
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })
     })
 
     it('should be able to get screenshots by xuid using getScreenshotsByXuid(xuid)', function(done){
-        this.provider.getScreenshotsByXuid('0000000000000000').then(function(result){
+        this.provider.getScreenshotsByXuid('0000000000000000').then(function(result:any){
             // console.log(result)
 
             assert.deepStrictEqual(result.screenshots.length, 2)
@@ -86,14 +86,14 @@ describe('provider/screenshots', function(){
             assert.deepStrictEqual(result.pagingInfo.continuationToken, null)
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })
     })
 
     it('should be able to get screenshots by xuid and title id using getScreenshotsByXuid(xuid, titleId)', function(done){
-        this.provider.getScreenshotsByXuid('0000000000000000', '144389848').then(function(result){
+        this.provider.getScreenshotsByXuid('0000000000000000', '144389848').then(function(result:any){
             // console.log(result)
 
             assert.deepStrictEqual(result.screenshots.length, 2)
@@ -112,7 +112,7 @@ describe('provider/screenshots', function(){
             assert.deepStrictEqual(result.pagingInfo.continuationToken, null)
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })

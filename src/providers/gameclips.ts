@@ -1,33 +1,37 @@
-// @ts-nocheck
+import BaseProvider from './base'
 const QueryString = require('querystring')
-const BaseProvider = require('./base.js')
 const Debug = require('debug')('xbox-webapi-node:provider_gameclips')
 
-module.exports = function(client){
+interface GameclipsParams {
+    skip_items: number,
+    max_items: number,
+    title_id?: string
+}
 
-    var provider = BaseProvider(client)
-    provider._endpoint = 'https://gameclipsmetadata.xboxlive.com'
-
-    provider._headers['x-xbl-contract-version'] = '1'
-
-    provider.getUserGameclips = function(){
+export default class GameclipsProvider extends BaseProvider {
+    _endpoint = 'https://gameclipsmetadata.xboxlive.com'
+    _headers = {
+        'x-xbl-contract-version': '1'
+    }
+    
+    getUserGameclips(){
         Debug('getUserGameclips()')
 
         return this.get('/users/me/clips')
     }
 
-    provider.getCommunityGameclipsByTitleId = function(titleId){
+    getCommunityGameclipsByTitleId(titleId:string){
         Debug('getCommunityGameclipsByTitleId()')
 
         return this.get('/public/titles/'+titleId+'/clips/saved?qualifier=created')
     }
 
-    provider.getGameclipsByXuid = function(xuid, titleId, skipItems, maxItems){
+    getGameclipsByXuid(xuid:string, titleId?:string, skipItems:number = 0, maxItems:number = 25){
         Debug('getGameclipsByXuid()')
 
-        var params = {
-            skip_items: skipItems || 0,
-            max_items: maxItems || 25,
+        var params:GameclipsParams = {
+            skip_items: skipItems,
+            max_items: maxItems,
         }
 
         if(titleId !== undefined){
@@ -38,6 +42,4 @@ module.exports = function(client){
 
         return this.get('/users/xuid('+xuid+')/clips?'+queryParams)
     }
-
-    return provider
 }

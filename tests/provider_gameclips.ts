@@ -1,5 +1,5 @@
-const assert = require('assert');
-const XboxWebClient = require('../src/client')
+import assert from 'assert'
+import XboxWebClient from '../src/client'
 
 var http = require('http')
 
@@ -8,7 +8,7 @@ describe('provider/gameclips', function(){
         var mockserver = require('mockserver')('tests/mock_data', false)
         this.serverRun = http.createServer(mockserver).listen(9001);
 
-        var client = XboxWebClient()
+        var client = new XboxWebClient()
         this.provider = client.getProvider('gameclips')
         this.provider._endpoint = 'http://127.0.0.1:9001'
     })
@@ -17,7 +17,7 @@ describe('provider/gameclips', function(){
     // })
 
     it('should be able to get recent user gameclips using getUserGameclips()', function(done){
-        this.provider.getUserGameclips().then(function(result){
+        this.provider.getUserGameclips().then(function(result:any){
             // console.log(result)
 
             assert.deepStrictEqual(result.gameClips.length, 1)
@@ -34,14 +34,14 @@ describe('provider/gameclips', function(){
             assert.deepStrictEqual(result.gameClips[0].deviceType, 'Durango')
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })
     })
 
     it('should be able to get community gameclips by title id using getCommunityGameclipsByTitleId(titleId)', function(done){
-        this.provider.getCommunityGameclipsByTitleId(144389848).then(function(result){
+        this.provider.getCommunityGameclipsByTitleId(144389848).then(function(result:any){
             // console.log(result)
 
             assert.deepStrictEqual(result.gameClips.length, 1)
@@ -60,14 +60,14 @@ describe('provider/gameclips', function(){
             assert.deepStrictEqual(result.pagingInfo.continuationToken, 'abcde_vwxyzZAAAAA2')
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })
     })
 
     it('should be able to get gameclips by xuid using getGameclipsByXuid(xuid)', function(done){
-        this.provider.getGameclipsByXuid('0000000000000000').then(function(result){
+        this.provider.getGameclipsByXuid('0000000000000000').then(function(result:any){
             // console.log(result)
 
             assert.deepStrictEqual(result.gameClips.length, 1)
@@ -86,14 +86,14 @@ describe('provider/gameclips', function(){
             assert.deepStrictEqual(result.pagingInfo.continuationToken, null)
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })
     })
 
     it('should be able to get gameclips by xuid and title id using getGameclipsByXuid(xuid, titleId)', function(done){
-        this.provider.getGameclipsByXuid('0000000000000000', '144389848').then(function(result){
+        this.provider.getGameclipsByXuid('0000000000000000', '144389848').then(function(result:any){
             // console.log(result)
 
             assert.deepStrictEqual(result.gameClips.length, 1)
@@ -112,7 +112,7 @@ describe('provider/gameclips', function(){
             assert.deepStrictEqual(result.pagingInfo.continuationToken, null)
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })

@@ -1,17 +1,12 @@
-// @ts-nocheck
-const BaseProvider = require('./base.js')
+import BaseProvider from './base'
 const Debug = require('debug')('xbox-webapi-node:provider_social')
 
-module.exports = function(client){
+export default class SocialProvider extends BaseProvider {
+    _endpoint = 'https://social.xboxlive.com'
 
-    var provider = BaseProvider(client)
-    provider._endpoint = 'https://social.xboxlive.com'
-
-    provider.getFriends = function(){
+    getFriends(){
         Debug('getFriends()')
 
         return this.get('/users/me/summary')
     }
-
-    return provider
 }

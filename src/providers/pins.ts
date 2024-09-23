@@ -1,25 +1,22 @@
-// @ts-nocheck
-const BaseProvider = require('./base.js')
+import BaseProvider from './base'
 const Debug = require('debug')('xbox-webapi-node:provider_pins')
 
-module.exports = function(client){
+export default class PinsProvider extends BaseProvider {
+    _endpoint = 'https://eplists.xboxlive.com'
+    _headers = {
+        'x-xbl-contract-version': '3',
+        'Accept-Language': 'en-US'
+    }
 
-    var provider = BaseProvider(client)
-    provider._endpoint = 'https://eplists.xboxlive.com'
-
-    provider._headers['Content-Type'] = 'application/json'
-
-    provider.getPins = function(list = 'XBLPins'){
+    getPins(list = 'XBLPins'){
         Debug('getPins('+list+')')
 
-        return this.get('/users/xuid('+this._client._authentication._user.xid+')/lists/PINS/'+list)
+        return this.get('/users/xuid('+this._client._authentication._user?.xid+')/lists/PINS/'+list)
     }
 
-    provider.getSaveForLater = function(){
+    getSaveForLater(){
         Debug('getSaveForLater()')
 
-        return this.get('/users/xuid('+this._client._authentication._user.xid+')/lists/PINS/SaveForLater')
+        return this.get('/users/xuid('+this._client._authentication._user?.xid+')/lists/PINS/SaveForLater')
     }
-
-    return provider
 }

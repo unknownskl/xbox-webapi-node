@@ -1,5 +1,5 @@
-const assert = require('assert');
-const XboxWebClient = require('../src/client')
+import assert from 'assert'
+import XboxWebClient from '../src/client'
 
 var http = require('http')
 
@@ -8,7 +8,7 @@ describe('provider/pins', function(){
         var mockserver = require('mockserver')('tests/mock_data', false)
         this.serverRun = http.createServer(mockserver).listen(9001);
 
-        var client = XboxWebClient()
+        var client = new XboxWebClient()
         this.provider = client.getProvider('pins')
         this.provider._endpoint = 'http://127.0.0.1:9001'
     })
@@ -17,7 +17,7 @@ describe('provider/pins', function(){
     // })
 
     it('should be able to get your pinned items using getPins()', function(done){
-        this.provider.getPins().then(function(result){
+        this.provider.getPins().then(function(result:any){
             assert.deepStrictEqual(result.ImpressionId, 'Lists.00000000-0000-0000-0000-000000000000')
             assert.deepStrictEqual(result.ListItems.length, 3)
 
@@ -27,7 +27,7 @@ describe('provider/pins', function(){
             assert.deepStrictEqual(result.ListItems[0].Item.ContentType, 'DGame')
 
             done()
-        }).catch(function(error){
+        }).catch(function(error:any){
             assert.deepStrictEqual(true, error)
             done()
         })
