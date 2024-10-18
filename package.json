@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/unknownskl/xbox-webapi-node#readme",
   "devDependencies": {
-    "@types/chai": "^4",
+    "@types/chai": "^5",
     "@types/debug": "^4.1.7",
     "@types/mocha": "^10",
     "@types/node": "^22.5.4",
