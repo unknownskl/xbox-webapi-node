@@ -8,7 +8,7 @@ permissions:
 jobs:
   dependabot:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'unknownskl/xal-node'
+    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'unknownskl/xbox-webapi-node'
     steps:
       - name: Dependabot metadata
         id: metadata
