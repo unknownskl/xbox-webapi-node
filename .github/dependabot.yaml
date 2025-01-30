@@ -18,3 +18,19 @@ updates:
     target-branch: "main"
     labels:
       - "npm dependencies"
+
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    target-branch: "release/2.0.0"
+    labels:
+      - "npm dependencies"
+
+  - package-ecosystem: "npm"
+    directory: "docs/"
+    schedule:
+      interval: "weekly"
+    target-branch: "release/2.0.0"
+    labels:
+      - "npm dependencies"
