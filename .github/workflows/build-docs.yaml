@@ -5,6 +5,7 @@ on:
     branches:
       - '*'
       - 'feature/*'
+      - 'release/*'
     tags:
       - v*
   # pull_request:
