@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "fumadocs-core": "14.6.8",
-    "fumadocs-mdx": "11.2.1",
+    "fumadocs-mdx": "11.3.2",
     "fumadocs-typescript": "^3.0.3",
     "fumadocs-ui": "14.6.8",
     "next": "15.1.2",
