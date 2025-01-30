@@ -1,0 +1,39 @@
+target
+index.node
+**/node_modules
+**/.DS_Store
+npm-debug.log*
+dist/
+.xbox.tokens.json
+.xbox.tokens*.json
+
+# generated content
+.contentlayer
+.content-collections
+.source
+out/
+docs/content/docs/api/*.mdx
+!docs/content/docs/api/*.model.mdx
+.nyc_output/
+
+# test & build
+docs/coverage
+coverage/
+docs/.next/
+docs/out/
+docs/build
+*.tsbuildinfo
+
+# misc
+.DS_Store
+*.pem
+/.pnp
+.pnp.js
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# others
+.env*.local
+.vercel
+next-env.d.ts

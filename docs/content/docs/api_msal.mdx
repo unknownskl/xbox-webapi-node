@@ -1,0 +1,89 @@
+---
+title: MSAL API
+description: Xal-Node API for MSAL authentication
+---
+
+### Load the library
+
+```js
+import { Msal, TokenStore } from 'xal-node'
+
+// Setup Tokenstore
+this._tokenStore = new TokenStore()
+this._tokenStore.load('.xbox.tokens.json') // File will be saved in the current working directory when using relative paths
+
+// Setup Msal for devicecode auth
+this._msal = new Msal(this._tokenStore)
+```
+
+## Performing authentication
+
+The below method will return an object with details with an url and code which the user can use to authenticate. The user can then authenticate on their personal device.
+
+```js
+this._msal.doDeviceCodeAuth().then((deviceCodeDetails:any) => {
+    console.log('deviceCodeDetails', deviceCodeDetails)
+
+    this._msal.doPollForDeviceCodeAuth(deviceCodeDetails.device_code).then((tokens:any) => {
+
+            console.log('User token', tokens) // This token will be automatically saved in the TokenStore
+
+    }).catch((error:any) => {
+            console.log('Failed to retrieve user token', error)
+    })
+}).catch((error:any) => {
+        console.log('Failed to request a authentication session', error)
+})
+```
+
+### Refresh user token
+
+Tokens are refreshed automatically when they are expired. The code below shows an example to force refresh the user token.
+
+```js
+this._msal.refreshUserToken().then((tokens:any) => {
+    console.log('tokens', tokens)
+}).catch((err) => {
+    if(err instanceof TokenRefreshError) {
+        console.log('Failed to refresh tokens. Please authenticate again. Error details:', err)
+    } else {
+        console.error('refreshTokens Error:', err)
+    }
+})
+```
+
+### Retrieve MSAL token
+
+The MSAL token is used to send over to xCloud to login on the xCloud console with your account. This token is short lived and expires within 15 minutes.
+
+```js
+this._msal.getMsalToken().then((msalToken) => {
+    console.log('msalToken', msalToken)
+}).catch((err) => {
+    console.error(err)
+})
+```
+
+### Retrieve web token
+
+The web token is used to retrieve data using the Xbox Web API. This includes current friend lists, achievements and smartglass controls.
+
+```js
+this._msal.getWebToken().then((webToken) => {
+    console.log('webToken', webToken)
+}).catch((err) => {
+    console.error(err)
+})
+```
+
+### Retrieve Streaming tokens
+
+Use streaming tokens contains both the xHome and xCllud tokens. If the user does not have an active Gamepass subscription, the xCloud F2P token is retrieved.
+
+```js
+this._msal.getStreamingTokens().then((streamingTokens) => {
+    console.log('streamingTokens', streamingTokens)
+}).catch((err) => {
+    console.error(err)
+})
+```

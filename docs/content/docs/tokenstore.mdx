@@ -1,0 +1,56 @@
+---
+title: TokenStore
+description: Xal-Node TokenStore
+---
+
+### Purpose of the TokenStore
+
+The purpose of the Tokenstore is to handle the metadata and expiration of the Tokens. It also makes sure the tokens gets saved and loaded properly when loading and unloading the classes.
+
+## Loading and unloading data
+
+The TokenStore class does not load the data when the class has been created. You will need to handle loading and unloading the data yourself if you incorporate the TokenClass in your code.
+The Xal and MSAL libraries have been adopted to load and save the data when needed. You will not need to do this manually.
+
+## Extending the TokenStore
+
+If you want to save the token data in your own storage method then you can extend the `TokenStore` class. See the example code below:
+
+```js
+import { TokenStore } from 'xal-node'
+
+export default class AuthStore extends TokenStore {
+
+    load() {
+        // @TODO: Load data and pass JSON data as string into loadJson()
+        // const tokens = this._store.get('authentication.tokens', '{}') as string
+        // this.loadJson(tokens)
+
+        return true
+    }
+
+    save() {
+        const tokens = JSON.stringify({
+            userToken: this._userToken?.data,
+            sisuToken: this._sisuToken?.data,
+            jwtKeys: this._jwtKeys,
+        })
+
+        // this._store.set('authentication.tokens', tokens)
+        // @TODO: Save the token data in your store
+    }
+
+    clear() {
+        this._userToken = undefined
+        this._sisuToken = undefined
+        this._jwtKeys = undefined
+
+        // @TODO: Remove actual data from your store
+    }
+
+    // You can also add new functions to the TokenStore to make it easier to interact with the tokens.
+    // hasUserTokens() {
+    //     return this._userToken !== undefined && this._sisuToken !== undefined
+    // }
+}
+```

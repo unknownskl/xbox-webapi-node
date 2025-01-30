@@ -1,0 +1,58 @@
+---
+title: CLI
+description: Xal-Node CLI
+---
+
+Xal-Node also offers a CLI application so you can use xal-node to authenticate while you can consume the tokens in your scripts.
+
+<Callout title="Updates expected in the future" type="warn">
+  Updates are planned in the future to support better integration with external applications. This will include JSON output and other quality of life improvements.
+</Callout>
+
+### Install
+
+To install the CLI, use the following command:
+
+```npm install -g xal-node```
+
+Once the package is installed the application should be available using `xbox-auth`.
+
+### Available commands
+
+| Command | Description |
+|---------|-------------|
+| `xbox-auth auth` | Runs the authentication flow and provides an URL to login to. |
+| `xbox-auth show` | Shows the current status of the tokens and if they are expired or not. |
+| `xbox-auth refresh` | Refreshes the current stored tokens to new up to date tokens without running the full flow again. |
+| `xbox-auth tokens` | Fetches all tokens for use with xCloud and xHome |
+| `xbox-auth logout` | Removes the current stored tokens | 
+
+| Argument | Description | Default value |
+|----------|-------------|---------|
+| -f \<file\>, --file \<file\> | Sets the tokenstore file to store and persist the authentication tokens | .xbox.tokens.json |
+
+Once authenticted it will create a new file named `.xbox.tokens.json` which you can use to retrieve the tokens.
+
+## xbox-auth auth
+
+When running the auth command the program will return a url to authenticate with. Once authenticated you will be redirected to a new url with a custom schema protocol. Copy and paste this link back into the input field to authenticate.
+
+| Argument | Description | Default value |
+|----------|-------------|---------|
+| -a \<method\>, --auth \<method\> | Choose the authentication method when authenticating | xal |
+
+## xbox-auth show
+
+The show command will display information about the current token. This includes the User and Sisu tokens. Once both are expired it is still possible to refresh the tokens using the refresh token (which can only be done one.)
+
+## xbox-auth refresh
+
+The refresh command will use the refresh token to refresh the User and Sisu tokens. The command tries to refresh the tokens from the top most available token, till the last option is used to refresh the token.
+
+## xbox-auth tokens
+
+The tokens command will return the tokens data in JSON format. Please note that not all output is json parsable (!)
+
+## xbox-auth logout
+
+The logout command will logout the user and remove the `.xbox.tokens.json` file.

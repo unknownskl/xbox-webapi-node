@@ -1,0 +1,58 @@
+name: Build/release
+
+on:
+  push:
+    branches:
+      - '*'
+      - 'feature/*'
+    tags:
+      - v*
+  pull_request:
+    branches:
+      - main
+      
+# env:
+#   DEBUG: '*'
+
+jobs:
+  release:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+
+    steps:
+      - name: Checkout Git repository
+        uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
+          submodules: recursive
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4.2.0
+        with:
+          node-version: 22
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v4
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: |
+            -Dsonar.organization=unknownskl-github \
+            -Dsonar.projectKey=unknownskl_xal-node \
+            -Dsonar.sources=./src
+        if: matrix.os == 'ubuntu-latest' && github.event_name != 'pull_request'
+
+      - name: Install npm dependencies
+        run: npm ci
+      
+      - name: Build project
+        run: npm run build
+
+      - name: Run NodeJS Tests
+        run: npm run test
+
+      # - name: Set release version
+      #   run: python3 -c "import os; tag = os.environ['GITHUB_REF'].split('/')[-1]; f = open(os.environ['GITHUB_ENV'], 'a'); f.write('RELEASE_VERSION='+tag); f.close();"
