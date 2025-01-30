@@ -1,7 +1,0 @@
-node_modules
-coverage
-.nyc_output
-.tokens.json
-.tokens.test.json
-.tokens.json.*
-.idea
