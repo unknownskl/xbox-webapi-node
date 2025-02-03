@@ -16,7 +16,7 @@ xal.getWebToken().then((token) => {
 
     console.log(client)
 
-    client.providers.smartglass.getConsoleStatus('F4000EEB7F3EF52A').then((consoles) => {
+    client.providers.smartglass.getConsolesList().then((consoles) => {
         console.log(consoles)
         console.log(JSON.stringify(consoles))
 
