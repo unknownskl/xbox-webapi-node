@@ -1,8 +1,10 @@
-export {
-    TokenRefreshError
+export default class XboxWebApi {
+
+    
+
 }
 
-class TokenRefreshError implements Error {
+export class TokenRefreshError implements Error {
     name = 'TokenRefreshError'
     message = 'Unknown error'
 
