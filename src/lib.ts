@@ -1,4 +1,4 @@
-import SmartglassProvider from './providers/smartglass'
+import SmartglassProvider from './provider/smartglass'
 
 type XboxWebApiConfig = {
     uhs: string

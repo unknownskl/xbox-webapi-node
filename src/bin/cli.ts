@@ -16,11 +16,13 @@ xal.getWebToken().then((token) => {
 
     console.log(client)
 
-    // client.providers.smartglass.powerOff('F400000000000000').then((consoles) => {
-    //     console.log(consoles)
-    // }).catch((error) => {
-    //     console.log('Failed to retrieve consoles:', error)
-    // })
+    client.providers.smartglass.getConsoleStatus('F4000EEB7F3EF52A').then((consoles) => {
+        console.log(consoles)
+        console.log(JSON.stringify(consoles))
+
+    }).catch((error) => {
+        console.log('Failed to retrieve consoles:', error)
+    })
 
 }).catch((error) => {
     console.log('Failed to retrieve web token:', error)
