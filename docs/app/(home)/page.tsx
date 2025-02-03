@@ -12,7 +12,7 @@ export default function HomePage() {
         >
           getting started
         </Link>{' '}
-        to start using xal-node.
+        to start using xbox-webapi-node.
       </p>
     </main>
   );
