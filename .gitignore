@@ -13,7 +13,9 @@ dist/
 .source
 out/
 docs/content/docs/api/*.mdx
+docs/content/docs/api/*/*.mdx
 !docs/content/docs/api/*.model.mdx
+!docs/content/docs/api/*/*.model.mdx
 .nyc_output/
 
 # test & build
