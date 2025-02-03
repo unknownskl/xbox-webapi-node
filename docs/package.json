@@ -9,7 +9,7 @@
     "postinstall": "fumadocs-mdx"
   },
   "dependencies": {
-    "fumadocs-core": "14.6.8",
+    "fumadocs-core": "15.0.2",
     "fumadocs-mdx": "11.2.1",
     "fumadocs-typescript": "^3.0.2",
     "fumadocs-ui": "14.6.8",
