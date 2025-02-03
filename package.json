@@ -8,13 +8,11 @@
   },
   "scripts": {
     "build": "rm -rf dist/ && tsc && chmod +x dist/bin/cli.js",
-    "test": "npm run build && nyc --reporter=html --reporter=lcov --reporter=text mocha tests/",
+    "test": "npm run build && nyc --require ts-node/register --reporter=html --reporter=lcov --reporter=text mocha tests/**.ts",
     "start": "npm run build && node dist/bin/cli.js"
   },
   "author": "UnknownSKL <info@jimkroon.nl>",
   "license": "MIT",
-  "dependencies": {
-  },
   "devDependencies": {
     "@types/chai": "^5",
     "@types/mocha": "^10",
@@ -22,6 +20,7 @@
     "chai": "^5.1.1",
     "mocha": "^11.1.0",
     "nyc": "^17.1.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "repository": {
