@@ -9,6 +9,7 @@ module.exports = function(client){
 
     provider._headers['x-xbl-contract-version'] = 4
     provider._headers['skillplatform'] = 'RemoteManagement'
+    provider._headers['Content-Type'] = 'application/json'
 
     provider.getConsolesList = function(){
         Debug('getConsolesList()')
