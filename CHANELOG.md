@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.4.2] - 2024-02-05
+
+- Fixed 403 error response on smartglass calls. #192 (Credits @alexwarddev1230)
+
 ## [1.4.1] - 2022-09-03
 
 ### Added
