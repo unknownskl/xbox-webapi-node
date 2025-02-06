@@ -29,45 +29,6 @@ class Cli {
             this._xal = new Xal(this._tokenStore)
         }
 
-        // Add commands
-        // .command(
-        //     'greet [name]',
-        //     'Greet a person',
-        //     (yargs) => {
-        //         yargs.positional('name', {
-        //             type: 'string',
-        //             default: 'World',
-        //             describe: 'name to greet'
-        //         });
-        //     },
-        //     (argv) => {
-        //         console.log(`Hello, ${argv.name}!`);
-        //     }
-        // )
-
-        // .command(
-        //     'auth [type2]',
-        //     'Authenticate using authentication method',
-        //     (yargs) => {
-        //         yargs
-        //         // .positional('type2', {
-        //         //     type: 'string',
-        //         //     default: 'xal',
-        //         //     describe: 'authentication method to use'
-        //         // })
-        //         .options({
-        //             'type': {
-        //                 description: 'Provide some details about the author of this program',
-        //                 required: true,
-        //                 alias: 'a',
-        //             }
-        //         })
-        //     },
-        //     (argv) => {
-        //         console.log(`Hello, ${argv.type}!`);
-        //     }
-        // );
-
         // Load providers and commands
         this._yargs = this._populateCommands(this._yargs)
 
@@ -97,22 +58,6 @@ class Cli {
             type: 'number',
             description: 'Skip items',
         })
-
-        // // Add commands
-        // .command(
-        //     'greet [name]',
-        //     'Greet a person',
-        //     (yargs) => {
-        //         yargs.positional('name', {
-        //             type: 'string',
-        //             default: 'World',
-        //             describe: 'name to greet'
-        //         });
-        //     },
-        //     (argv) => {
-        //         console.log(`Hello, ${argv.name}!`);
-        //     }
-        // )
     }
 
     run() {
@@ -122,11 +67,6 @@ class Cli {
     _getFunctionArgs(func) {
         const args = func.toString().match(/\(([^)]*)\)/);
         const args2 = args ? args[1].split(',').map(arg => arg.trim().split(' ')[0]).filter(arg => arg) : [];
-
-        // filter continuationToken
-        // return args2.filter((arg) => {
-        //     return arg !== 'continuationToken'
-        // })
         return args2
     }
 
@@ -171,9 +111,6 @@ class Cli {
                                 }
                             },
                             (argv) => {
-                                if(argv.verbose === true)
-                                    console.log(`Hello, Running command: ${provider}::${commands[command]}::${argv.args}`);
-
                                 this._xal.getWebToken().then((token) => {
 
                                     const api = new XboxWebApi({
@@ -183,6 +120,7 @@ class Cli {
 
                                     const args = <any>[];
                                     for(const arg in functionArgs){
+                                        console.log('arg:', functionArgs[arg])
                                         args.push(argv[functionArgs[arg]])
                                     }
 
@@ -201,6 +139,9 @@ class Cli {
                                         args.push('skipItems = '+ argv.skipItems)
                                     }
 
+                                    if(argv.verbose === true)
+                                        console.log(`Running command: ${provider}::${commands[command]}(${args})`);
+    
                                     api.providers[provider][commands[command]](...args).then((result) => {
 
                                         // Render output
@@ -255,65 +196,3 @@ class Cli {
 
 const cli = new Cli();
 cli.run()
-
-// Define commands and options
-// const argv = yargs
-//   .scriptName("mycli")
-//   .usage('$0 <cmd> [args]')
-//   .version(ownPackage.version)
-//   .command(
-//     'greet [name]',
-//     'Greet a person',
-//     (yargs) => {
-//       yargs.positional('name', {
-//         type: 'string',
-//         default: 'World',
-//         describe: 'name to greet'
-//       });
-//     },
-//     (argv) => {
-//       console.log(`Hello, ${argv.name}!`);
-//     }
-//   )
-//   .option('verbose', {
-//     alias: 'v',
-//     type: 'boolean',
-//     description: 'Run with verbose logging'
-//   })
-//   .demandCommand(1, 'You need to specify a command. Use --help to see available commands.')
-//   .help()
-//   .argv;
-
-// Example usage:
-// mycli greet --name Alice
-// mycli greet --verbose
-
-
-// import XboxWebApi from '../lib'
-// import { Xal, TokenStore } from 'xal-node'
-// import { hideBin } from 'yargs/helpers'
-
-
-// const tokenStore = new TokenStore()
-// const xal = new Xal(tokenStore)
-// tokenStore.load('./.xbox.tokens.json')
-
-// xal.getWebToken().then((token) => {
-//     const client = new XboxWebApi({
-//         uhs: token.data.DisplayClaims.xui[0].uhs,
-//         token: token.data.Token,
-//         // market: 'nl-nl'
-//     })
-
-//     client.providers.smartglass.getConsolesList().then((consoles) => {
-//         console.log(consoles)
-//         console.log(JSON.stringify(consoles))
-
-//     }).catch((error) => {
-//         console.log('Failed to retrieve consoles:', error)
-//     })
-
-// }).catch((error) => {
-//     console.log('Failed to retrieve web token:', error)
-// })
-

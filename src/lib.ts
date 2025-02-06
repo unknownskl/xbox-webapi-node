@@ -3,6 +3,8 @@ import MessagesProvider from './provider/messages'
 import AchievementsProvider from './provider/achievements'
 import UserpresenceProvider from './provider/userpresence'
 
+// import Smartglass from './models/smartglass'
+
 type XboxWebApiConfig = {
     uhs: string
     token: string
@@ -27,6 +29,10 @@ export default class XboxWebApi {
         'userpresence': new UserpresenceProvider(this),
         'smartglass': new SmartglassProvider(this),
     }
+
+    // models = {
+    //     'smartglass': new Smartglass(this)
+    // }
 
     getAuthorizationHeader(){
         return 'XBL3.0 x='+this._config.uhs+';'+this._config.token

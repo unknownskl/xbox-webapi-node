@@ -9,7 +9,7 @@ export default class MessagesProvider extends BaseProvider {
         return (await this.get('/network/Xbox/users/me/inbox'))
     }
 
-    async getConversation(xuid:string, maxItems = 100, continuationToken = null): Promise<ConversationResponse> {
-        return (await this.get('/network/Xbox/users/me/conversations/users/xuid('+xuid+')?maxItems='+maxItems + (continuationToken ? '&continuationToken='+continuationToken : '')))
+    async getConversation(xuid:string, continuationToken = undefined, maxItems = undefined, skipItems = undefined): Promise<ConversationResponse> {
+        return (await this.get(this.applyPagination('/network/Xbox/users/me/conversations/users/xuid('+xuid+')', maxItems, skipItems, continuationToken)))
     }
 }

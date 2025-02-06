@@ -12,7 +12,7 @@ export default class UserpresenceProvider extends BaseProvider {
         return (await this.get('/users/me?level=all'))
     }
 
-    async getCurrentUser2(): Promise<UserResponse[]> {
+    async getFriends(): Promise<UserResponse[]> {
         return (await this.get('/users/me/groups/People?level=all'))
     }
 

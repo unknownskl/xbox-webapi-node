@@ -33,10 +33,14 @@ export default class BaseProvider {
             urlItems.push('continuationToken='+continuationToken)
         }
 
-        if(path.indexOf('?') > -1 && urlItems.length > 0){
-            return path + '&' + urlItems.join('&')
+        if(urlItems.length > 0){
+            if(path.indexOf('?') > -1){
+                return path + '&' + urlItems.join('&')
+            } else {
+                return path + '?' + urlItems.join('&')
+            }
         } else {
-            return path + '?' + urlItems.join('&')
+            return path
         }
     }
 
@@ -52,6 +56,18 @@ export default class BaseProvider {
         return response.data
     }
 
+    async delete(path, data, headers?){
+        const _headers = {
+            ...this._defaultHeaders,
+            ...this._headers,
+            ...headers,
+            'Authorization': this.getApi().getAuthorizationHeader()
+        }
+
+        const response = await new Http().deleteRequest(this._endpoint, path, _headers)
+        return response.data
+    }
+
     async post(path, data, headers?){
         const _headers = {
             ...this._defaultHeaders,
@@ -61,6 +77,18 @@ export default class BaseProvider {
         }
 
         const response = await new Http().postRequest(this._endpoint, path, _headers, data)
+        return response.data
+    }
+
+    async put(path, data, headers?){
+        const _headers = {
+            ...this._defaultHeaders,
+            ...this._headers,
+            ...headers,
+            'Authorization': this.getApi().getAuthorizationHeader()
+        }
+
+        const response = await new Http().putRequest(this._endpoint, path, _headers, data)
         return response.data
     }
 }

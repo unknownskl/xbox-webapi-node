@@ -17,6 +17,54 @@ export default class Http {
                 port: 443,
                 headers: hostHeaders
             }
+            const req = https.request(options, (res) => {
+                let responseData = ''
+                
+                res.on('data', (data) => {
+                    responseData += data
+                })
+
+                res.on('close', () => {
+                    if(res.statusCode == 200 || res.statusCode == 204){
+                        if(responseData.toString() === ''){
+                            resolve(new HttpResponse({}, res.headers))
+                        } else {
+                            resolve(new HttpResponse(JSON.parse(responseData.toString()), res.headers))
+                        }
+                    } else {
+                        reject(new Error('Error fetching '+host+path+'. Details:'+ JSON.stringify({
+                            statuscode: res.statusCode,
+                            headers: res.headers,
+                            body: responseData.toString(),
+                            message: 'Error fetching '+host+path
+                        }, null, 2)))
+                    }
+                })
+            })
+            
+            req.on('error', (error) => {
+                reject(new Error('Unhandled error:'+ JSON.stringify(error)))
+            })
+
+            req.end()
+
+        })
+    }
+
+    deleteRequest(host, path, headers) {
+        return new Promise<HttpResponse>((resolve, reject) => {
+
+            const hostHeaders = {
+                ...headers,
+            }
+
+            const options = {
+                method: 'DELETE',
+                hostname: host,
+                path: path,
+                port: 443,
+                headers: hostHeaders
+            }
 
             const req = https.request(options, (res) => {
                 let responseData = ''
@@ -71,7 +119,59 @@ export default class Http {
                 headers: hostHeaders
             }
 
-            console.log('post request:', options)
+            const req = https.request(options, (res) => {
+                let responseData = ''
+                
+                res.on('data', (data) => {
+                    responseData += data
+                })
+
+                res.on('close', () => {
+                    if(res.statusCode == 200 || res.statusCode == 202){
+                        if(responseData.toString() === ''){
+                            resolve(new HttpResponse({}, res.headers))
+                        } else {
+                            resolve(new HttpResponse(JSON.parse(responseData.toString()), res.headers))
+                        }
+                    } else {
+                        reject(new Error('Error fetching '+host+path+'. Details:'+ JSON.stringify({
+                            statuscode: res.statusCode,
+                            headers: res.headers,
+                            body: responseData.toString(),
+                            message: 'Error fetching '+host+path
+                        }, null, 2)))
+                    }
+                })
+            })
+            
+            req.on('error', (error) => {
+                reject(new Error('Unhandled error:'+ JSON.stringify(error)))
+            })
+
+            req.write(data)
+            req.end()
+
+        })
+    }
+
+    putRequest(host, path, headers, data) {
+        return new Promise<HttpResponse>((resolve, reject) => {
+
+            const hostHeaders = {
+                ...headers,
+            }
+
+            if(typeof data === 'object'){
+                data = JSON.stringify(data)
+            }
+
+            const options = {
+                method: 'PUT',
+                hostname: host,
+                path: path,
+                port: 443,
+                headers: hostHeaders
+            }
 
             const req = https.request(options, (res) => {
                 let responseData = ''
