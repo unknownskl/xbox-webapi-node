@@ -5,7 +5,7 @@ import BaseProvider from './base'
 export default class UserpresenceProvider extends BaseProvider {
     _endpoint = 'userpresence.xboxlive.com'
     _headers = {
-        'X-XBL-Contract-Version': '3'
+        'x-xbl-contract-version': '3'
     }
 
     async getCurrentUser(): Promise<UserResponse> {
