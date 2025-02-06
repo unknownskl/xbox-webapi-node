@@ -8,7 +8,7 @@ export default class AchievementsProvider extends BaseProvider {
         'X-XBL-Contract-Version': '2'
     }
     
-    async getTitleAchievements(xuid:string): Promise<AchievementsResponse> {
-        return (await this.get('/users/xuid('+xuid+')/history/titles'))
+    async getTitleAchievements(xuid:string, continuationToken = 0, maxItems = undefined, skipItems = undefined): Promise<AchievementsResponse> {
+        return (await this.get(this.applyPagination('/users/xuid('+xuid+')/history/titles', maxItems, skipItems, continuationToken)))
     }
 }

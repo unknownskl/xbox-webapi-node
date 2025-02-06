@@ -20,6 +20,26 @@ export default class BaseProvider {
         return this._api
     }
 
+    applyPagination(path, maxItems, skipItems, continuationToken){
+        const urlItems:string[] = []
+
+        if(maxItems !== undefined){
+            urlItems.push('maxItems='+maxItems)
+        }
+        if(skipItems !== undefined){
+            urlItems.push('skipItems='+skipItems)
+        }
+        if(continuationToken !== undefined){
+            urlItems.push('continuationToken='+continuationToken)
+        }
+
+        if(path.indexOf('?') > -1 && urlItems.length > 0){
+            return path + '&' + urlItems.join('&')
+        } else {
+            return path + '?' + urlItems.join('&')
+        }
+    }
+
     async get(path, headers?){
         const _headers = {
             ...this._defaultHeaders,

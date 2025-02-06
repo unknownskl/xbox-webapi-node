@@ -84,6 +84,20 @@ class Cli {
             default: 'table'
         }).choices('output', ['table', 'json', 'jsonp'])
 
+        yargs.option('continuationToken', {
+            alias: 'c',
+            type: 'string',
+            description: 'Continuation token',
+        }).option('maxItems', {
+            alias: 'n',
+            type: 'string',
+            description: 'Max items',
+        }).option('skipItems', {
+            alias: 's',
+            type: 'string',
+            description: 'Skip items',
+        })
+
         // // Add commands
         // .command(
         //     'greet [name]',
@@ -107,7 +121,13 @@ class Cli {
 
     _getFunctionArgs(func) {
         const args = func.toString().match(/\(([^)]*)\)/);
-        return args ? args[1].split(',').map(arg => arg.trim()).filter(arg => arg) : [];
+        const args2 = args ? args[1].split(',').map(arg => arg.trim().split(' ')[0]).filter(arg => arg) : [];
+
+        // filter continuationToken
+        // return args2.filter((arg) => {
+        //     return arg !== 'continuationToken'
+        // })
+        return args2
     }
 
     _populateCommands(yargs: yargs) {
@@ -130,9 +150,14 @@ class Cli {
                     // Setup commands in providers
                     for(const command in commands){
                         const functionArgs = this._getFunctionArgs(dummyApi.providers[provider][commands[command]])
-                        // console.log('function args:', functionArgs, dummyApi.providers[provider][commands[command]].toString())
 
-                        const commandStr = commands[command] + '' + (functionArgs.length > 0 ? ' [' + functionArgs.join('] [') + ']' : '')
+                        const functionArgsFiltered = functionArgs.filter((arg) => {
+                            return arg !== 'continuationToken' &&
+                                arg !== 'maxItems' &&
+                                arg !== 'skipItems'
+                        })
+
+                        const commandStr = commands[command] + '' + (functionArgsFiltered.length > 0 ? ' [' + functionArgsFiltered.join('] [') + ']' : '')
                         const descriptionStr = ''
 
                         yargs.command(
@@ -159,6 +184,21 @@ class Cli {
                                     const args = <any>[];
                                     for(const arg in functionArgs){
                                         args.push(argv[functionArgs[arg]])
+                                    }
+
+                                    // Push continuation token
+                                    if(argv.continuationToken){
+                                        args.push(argv.continuationToken)
+                                    }
+
+                                    // Push max items
+                                    if(argv.maxItems){
+                                        args.push(argv.maxItems)
+                                    }
+
+                                    // Push skip items
+                                    if(argv.skipItems){
+                                        args.push(argv.skipItems)
                                     }
 
                                     api.providers[provider][commands[command]](...args).then((result) => {
