@@ -86,15 +86,15 @@ class Cli {
 
         yargs.option('continuationToken', {
             alias: 'c',
-            type: 'string',
+            type: 'number',
             description: 'Continuation token',
         }).option('maxItems', {
             alias: 'n',
-            type: 'string',
+            type: 'number',
             description: 'Max items',
         }).option('skipItems', {
             alias: 's',
-            type: 'string',
+            type: 'number',
             description: 'Skip items',
         })
 
@@ -188,17 +188,17 @@ class Cli {
 
                                     // Push continuation token
                                     if(argv.continuationToken){
-                                        args.push(argv.continuationToken)
+                                        args.push('continuationToken = '+ argv.continuationToken)
                                     }
 
                                     // Push max items
                                     if(argv.maxItems){
-                                        args.push(argv.maxItems)
+                                        args.push('maxItems = '+ argv.maxItems)
                                     }
 
                                     // Push skip items
                                     if(argv.skipItems){
-                                        args.push(argv.skipItems)
+                                        args.push('skipItems = '+ argv.skipItems)
                                     }
 
                                     api.providers[provider][commands[command]](...args).then((result) => {
