@@ -29,11 +29,11 @@ export default class SmartglassProvider extends BaseProvider {
 
 
 
-    async powerOn(consoleId:string) {
+    async powerOn(consoleId?:string) {
         return this._sendCommand(consoleId, 'Power', 'WakeUp')
     }
 
-    async powerOff(consoleId:string) {
+    async powerOff(consoleId?:string) {
         return this._sendCommand(consoleId, 'Power', 'TurnOff')
     }
 

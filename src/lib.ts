@@ -1,4 +1,5 @@
 import SmartglassProvider from './provider/smartglass'
+import MessagesProvider from './provider/messages'
 
 type XboxWebApiConfig = {
     uhs: string
@@ -19,7 +20,8 @@ export default class XboxWebApi {
     }
 
     providers = {
-        'smartglass': new SmartglassProvider(this)
+        'smartglass': new SmartglassProvider(this),
+        'messages': new MessagesProvider(this)
     }
 
     getAuthorizationHeader(){
