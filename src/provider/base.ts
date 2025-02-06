@@ -10,12 +10,9 @@ export default class BaseProvider {
     constructor(api:XboxWebApi){
         this._api = api
         this._defaultHeaders = {
-            // 'Authorization': this.getApi().getAuthorizationHeader(),
             'Accept-Language': 'en-US',
+            'Accept': 'application/json',
             'x-xbl-contract-version': '2',
-            'x-xbl-client-name': 'XboxApp',
-            'x-xbl-client-type': 'UWA',
-            'x-xbl-client-version': '39.39.22001.0'
         }
     }
 

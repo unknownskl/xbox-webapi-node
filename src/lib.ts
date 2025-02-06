@@ -1,5 +1,7 @@
 import SmartglassProvider from './provider/smartglass'
 import MessagesProvider from './provider/messages'
+import AchievementsProvider from './provider/achievements'
+import UserpresenceProvider from './provider/userpresence'
 
 type XboxWebApiConfig = {
     uhs: string
@@ -20,8 +22,10 @@ export default class XboxWebApi {
     }
 
     providers = {
+        'achievements': new AchievementsProvider(this),
+        'messages': new MessagesProvider(this),
+        'userpresence': new UserpresenceProvider(this),
         'smartglass': new SmartglassProvider(this),
-        'messages': new MessagesProvider(this)
     }
 
     getAuthorizationHeader(){
