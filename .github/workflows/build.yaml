@@ -42,7 +42,7 @@ jobs:
         with:
           args: |
             -Dsonar.organization=unknownskl-github \
-            -Dsonar.projectKey=unknownskl_xal-node \
+            -Dsonar.projectKey=unknownskl_xbox-webapi-node \
             -Dsonar.sources=./src
         if: matrix.os == 'ubuntu-latest' && github.event_name != 'pull_request'
 
