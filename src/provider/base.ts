@@ -4,6 +4,7 @@ import Http from '../lib/http'
 export default class BaseProvider {
     private _api: XboxWebApi;
     private _defaultHeaders
+    private _disableAuthHeader = false
     _endpoint = 'xboxlive.com'
     _headers
 
@@ -18,6 +19,12 @@ export default class BaseProvider {
 
     getApi(){
         return this._api
+    }
+
+    resetDefaultHeaders(){
+        this._defaultHeaders = {}
+        this._disableAuthHeader = true
+        return true
     }
 
     applyPagination(path, maxItems, skipItems, continuationToken){
@@ -49,7 +56,7 @@ export default class BaseProvider {
             ...this._defaultHeaders,
             ...this._headers,
             ...headers,
-            'Authorization': this.getApi().getAuthorizationHeader()
+            ...(this._disableAuthHeader === true) ? {} : { 'Authorization': this.getApi().getAuthorizationHeader() }
         }
 
         const response = await new Http().getRequest(this._endpoint, path, _headers)
@@ -61,7 +68,7 @@ export default class BaseProvider {
             ...this._defaultHeaders,
             ...this._headers,
             ...headers,
-            'Authorization': this.getApi().getAuthorizationHeader()
+            ...(this._disableAuthHeader === true) ? {} : { 'Authorization': this.getApi().getAuthorizationHeader() }
         }
 
         const response = await new Http().deleteRequest(this._endpoint, path, _headers)
@@ -73,7 +80,7 @@ export default class BaseProvider {
             ...this._defaultHeaders,
             ...this._headers,
             ...headers,
-            'Authorization': this.getApi().getAuthorizationHeader()
+            ...(this._disableAuthHeader === true) ? {} : { 'Authorization': this.getApi().getAuthorizationHeader() }
         }
 
         const response = await new Http().postRequest(this._endpoint, path, _headers, data)
@@ -85,7 +92,7 @@ export default class BaseProvider {
             ...this._defaultHeaders,
             ...this._headers,
             ...headers,
-            'Authorization': this.getApi().getAuthorizationHeader()
+            ...(this._disableAuthHeader === true) ? {} : { 'Authorization': this.getApi().getAuthorizationHeader() }
         }
 
         const response = await new Http().putRequest(this._endpoint, path, _headers, data)

@@ -57,6 +57,16 @@ class Cli {
             alias: 's',
             type: 'number',
             description: 'Skip items',
+        }).option('market', {
+            alias: 'm',
+            type: 'string',
+            description: 'Market',
+            default: 'US'
+        }).option('language', {
+            alias: 'l',
+            type: 'string',
+            description: 'Language',
+            default: 'en-US'
         })
     }
 
@@ -120,23 +130,7 @@ class Cli {
 
                                     const args = <any>[];
                                     for(const arg in functionArgs){
-                                        console.log('arg:', functionArgs[arg])
                                         args.push(argv[functionArgs[arg]])
-                                    }
-
-                                    // Push continuation token
-                                    if(argv.continuationToken){
-                                        args.push('continuationToken = '+ argv.continuationToken)
-                                    }
-
-                                    // Push max items
-                                    if(argv.maxItems){
-                                        args.push('maxItems = '+ argv.maxItems)
-                                    }
-
-                                    // Push skip items
-                                    if(argv.skipItems){
-                                        args.push('skipItems = '+ argv.skipItems)
                                     }
 
                                     if(argv.verbose === true)
