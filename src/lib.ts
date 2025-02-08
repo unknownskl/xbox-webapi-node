@@ -3,6 +3,7 @@ import MessagesProvider from './provider/messages'
 import AchievementsProvider from './provider/achievements'
 import UserpresenceProvider from './provider/userpresence'
 import CatalogProvider from './provider/catalog'
+import GameclipsProvider from './provider/gameclips'
 
 // import Smartglass from './models/smartglass'
 
@@ -29,7 +30,8 @@ export default class XboxWebApi {
         'messages': new MessagesProvider(this),
         'userpresence': new UserpresenceProvider(this),
         'smartglass': new SmartglassProvider(this),
-        'catalog': new CatalogProvider(this)
+        'catalog': new CatalogProvider(this),
+        'gameclips': new GameclipsProvider(this),
     }
 
     // models = {
