@@ -17,30 +17,8 @@ export default class Http {
                 port: 443,
                 headers: hostHeaders
             }
-            const req = https.request(options, (res) => {
-                let responseData = ''
-                
-                res.on('data', (data) => {
-                    responseData += data
-                })
 
-                res.on('close', () => {
-                    if(res.statusCode == 200 || res.statusCode == 204){
-                        if(responseData.toString() === ''){
-                            resolve(new HttpResponse({}, res.headers))
-                        } else {
-                            resolve(new HttpResponse(JSON.parse(responseData.toString()), res.headers))
-                        }
-                    } else {
-                        reject(new Error('Error fetching '+host+path+'. Details:'+ JSON.stringify({
-                            statuscode: res.statusCode,
-                            headers: res.headers,
-                            body: responseData.toString(),
-                            message: 'Error fetching '+host+path
-                        }, null, 2)))
-                    }
-                })
-            })
+            const req = this.createRequest(options, resolve, reject)
             
             req.on('error', (error) => {
                 reject(new Error('Unhandled error:'+ JSON.stringify(error)))
@@ -74,30 +52,7 @@ export default class Http {
                 headers: hostHeaders
             }
 
-            const req = https.request(options, (res) => {
-                let responseData = ''
-                
-                res.on('data', (data) => {
-                    responseData += data
-                })
-
-                res.on('close', () => {
-                    if(res.statusCode == 200 || res.statusCode == 202){
-                        if(responseData.toString() === ''){
-                            resolve(new HttpResponse({}, res.headers))
-                        } else {
-                            resolve(new HttpResponse(JSON.parse(responseData.toString()), res.headers))
-                        }
-                    } else {
-                        reject(new Error('Error fetching '+host+path+'. Details:'+ JSON.stringify({
-                            statuscode: res.statusCode,
-                            headers: res.headers,
-                            body: responseData.toString(),
-                            message: 'Error fetching '+host+path
-                        }, null, 2)))
-                    }
-                })
-            })
+            const req = this.createRequest(options, resolve, reject)
             
             req.on('error', (error) => {
                 reject(new Error('Unhandled error:'+ JSON.stringify(error)))
@@ -111,6 +66,33 @@ export default class Http {
 
     putRequest(host:string, path:string, headers:any, data:any) {
         return this.postRequest(host, path, headers, data, 'PUT')
+    }
+
+    createRequest(options:any, resolve:any, reject:any){
+        return https.request(options, (res) => {
+            let responseData = ''
+            
+            res.on('data', (data) => {
+                responseData += data
+            })
+
+            res.on('close', () => {
+                if(res.statusCode == 200 || res.statusCode == 204){
+                    if(responseData.toString() === ''){
+                        resolve(new HttpResponse({}, res.headers))
+                    } else {
+                        resolve(new HttpResponse(JSON.parse(responseData.toString()), res.headers))
+                    }
+                } else {
+                    reject(new Error('Error fetching '+options.host+options.path+'. Details:'+ JSON.stringify({
+                        statuscode: res.statusCode,
+                        headers: res.headers,
+                        body: responseData.toString(),
+                        message: 'Error fetching '+options.host+options.path
+                    }, null, 2)))
+                }
+            })
+        })
     }
 }
 
