@@ -177,7 +177,7 @@ class Cli {
             if(commands[command] === 'constructor')
                 continue;
 
-            if(commands[command].substring(0, 1) === '_')
+            if(commands[command].startsWith('_'))
                 continue;
 
             // console.log('command:', commands[command])
