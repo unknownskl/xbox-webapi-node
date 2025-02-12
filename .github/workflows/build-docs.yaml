@@ -8,9 +8,10 @@ on:
       - 'release/*'
     tags:
       - v*
-  # pull_request:
-  #   branches:
-  #     - main
+  pull_request:
+    branches:
+      - main
+      - release/2.0.0
 
 permissions:
   id-token: write
