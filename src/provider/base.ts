@@ -2,7 +2,7 @@ import XboxWebApi from '../lib'
 import Http from '../lib/http'
 
 export default class BaseProvider {
-    private _api: XboxWebApi;
+    private readonly _api: XboxWebApi;
     private _defaultHeaders
     private _disableAuthHeader = false
     _endpoint = 'xboxlive.com'

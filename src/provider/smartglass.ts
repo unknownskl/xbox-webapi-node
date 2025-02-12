@@ -46,10 +46,10 @@ export default class SmartglassProvider extends BaseProvider {
             params = []
         }
 
-        var session_id = Uuid4()
+        const session_id = Uuid4()
         // var session_id = '2c1f6eae-30f1-4b03-81bf-ff11f4e02079'
 
-        var postParams = {
+        const postParams = {
             "destination": "Xbox",
             "type": commandType,
             "command": command,
@@ -59,7 +59,7 @@ export default class SmartglassProvider extends BaseProvider {
             "linkedXboxId": consoleId,
         }
 
-        var postData = JSON.stringify(postParams)
+        const postData = JSON.stringify(postParams)
 
         return this.post('/commands', postData)
     }
