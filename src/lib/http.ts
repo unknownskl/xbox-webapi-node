@@ -3,7 +3,7 @@ import https from 'https'
 
 export default class Http {
 
-    getRequest(host, path, headers) {
+    getRequest(host:string, path:string, headers:any, method = 'GET') {
         return new Promise<HttpResponse>((resolve, reject) => {
 
             const hostHeaders = {
@@ -11,7 +11,7 @@ export default class Http {
             }
 
             const options = {
-                method: 'GET',
+                method: method,
                 hostname: host,
                 path: path,
                 port: 443,
@@ -51,56 +51,11 @@ export default class Http {
         })
     }
 
-    deleteRequest(host, path, headers) {
-        return new Promise<HttpResponse>((resolve, reject) => {
-
-            const hostHeaders = {
-                ...headers,
-            }
-
-            const options = {
-                method: 'DELETE',
-                hostname: host,
-                path: path,
-                port: 443,
-                headers: hostHeaders
-            }
-
-            const req = https.request(options, (res) => {
-                let responseData = ''
-                
-                res.on('data', (data) => {
-                    responseData += data
-                })
-
-                res.on('close', () => {
-                    if(res.statusCode == 200 || res.statusCode == 204){
-                        if(responseData.toString() === ''){
-                            resolve(new HttpResponse({}, res.headers))
-                        } else {
-                            resolve(new HttpResponse(JSON.parse(responseData.toString()), res.headers))
-                        }
-                    } else {
-                        reject(new Error('Error fetching '+host+path+'. Details:'+ JSON.stringify({
-                            statuscode: res.statusCode,
-                            headers: res.headers,
-                            body: responseData.toString(),
-                            message: 'Error fetching '+host+path
-                        }, null, 2)))
-                    }
-                })
-            })
-            
-            req.on('error', (error) => {
-                reject(new Error('Unhandled error:'+ JSON.stringify(error)))
-            })
-
-            req.end()
-
-        })
+    deleteRequest(host:string, path:string, headers:any) {
+        return this.getRequest(host, path, headers, 'DELETE')
     }
 
-    postRequest(host, path, headers, data) {
+    postRequest(host:string, path:string, headers:any, data:any, method = 'POST') {
         return new Promise<HttpResponse>((resolve, reject) => {
 
             const hostHeaders = {
@@ -112,7 +67,7 @@ export default class Http {
             }
 
             const options = {
-                method: 'POST',
+                method: method,
                 hostname: host,
                 path: path,
                 port: 443,
@@ -154,58 +109,8 @@ export default class Http {
         })
     }
 
-    putRequest(host, path, headers, data) {
-        return new Promise<HttpResponse>((resolve, reject) => {
-
-            const hostHeaders = {
-                ...headers,
-            }
-
-            if(typeof data === 'object'){
-                data = JSON.stringify(data)
-            }
-
-            const options = {
-                method: 'PUT',
-                hostname: host,
-                path: path,
-                port: 443,
-                headers: hostHeaders
-            }
-
-            const req = https.request(options, (res) => {
-                let responseData = ''
-                
-                res.on('data', (data) => {
-                    responseData += data
-                })
-
-                res.on('close', () => {
-                    if(res.statusCode == 200 || res.statusCode == 202){
-                        if(responseData.toString() === ''){
-                            resolve(new HttpResponse({}, res.headers))
-                        } else {
-                            resolve(new HttpResponse(JSON.parse(responseData.toString()), res.headers))
-                        }
-                    } else {
-                        reject(new Error('Error fetching '+host+path+'. Details:'+ JSON.stringify({
-                            statuscode: res.statusCode,
-                            headers: res.headers,
-                            body: responseData.toString(),
-                            message: 'Error fetching '+host+path
-                        }, null, 2)))
-                    }
-                })
-            })
-            
-            req.on('error', (error) => {
-                reject(new Error('Unhandled error:'+ JSON.stringify(error)))
-            })
-
-            req.write(data)
-            req.end()
-
-        })
+    putRequest(host:string, path:string, headers:any, data:any) {
+        return this.postRequest(host, path, headers, data, 'PUT')
     }
 }
 
