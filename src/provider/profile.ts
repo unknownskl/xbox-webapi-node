@@ -1,0 +1,18 @@
+import { ProfileResponse } from '../types/profile'
+
+import BaseProvider from './base'
+
+export default class ProfileProvider extends BaseProvider {
+    _endpoint = 'profile.xboxlive.com'
+    _headers = {
+        'x-xbl-contract-version': 3
+    }
+
+    async getUserProfile(xuid:string): Promise<ProfileResponse> {
+        return (await this.get('/users/xuid('+xuid+')/profile/settings?settings=GameDisplayName,GameDisplayPicRaw,Gamerscore,Gamertag'))
+    }
+
+    async getByGamertag(gamertag:string): Promise<ProfileResponse> {
+        return (await this.get('/users/gt('+gamertag+')/profile/settings?settings=GameDisplayName,GameDisplayPicRaw,Gamerscore,Gamertag'))
+    }
+}
