@@ -6,6 +6,7 @@ import CatalogProvider from './provider/catalog'
 import GameclipsProvider from './provider/gameclips'
 import ScreenshotsProvider from './provider/screenshots'
 import PeopleProvider from './provider/people'
+import PinsProvider from './provider/pins'
 
 type XboxWebApiConfig = {
     uhs: string
@@ -34,6 +35,7 @@ export default class XboxWebApi {
         'gameclips': new GameclipsProvider(this),
         'screenshots': new ScreenshotsProvider(this),
         'people': new PeopleProvider(this),
+        'pins': new PinsProvider(this),
     }
 
     getAuthorizationHeader(){
