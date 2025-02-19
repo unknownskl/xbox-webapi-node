@@ -10,6 +10,7 @@ import PinsProvider from './provider/pins'
 import ProfileProvider from './provider/profile'
 import SocialProvider from './provider/social'
 import TitlehubProvider from './provider/titlehub'
+import UsersearchProvider from './provider/usersearch'
 
 type XboxWebApiConfig = {
     uhs: string
@@ -42,6 +43,7 @@ export default class XboxWebApi {
         'profile': new ProfileProvider(this),
         'social': new SocialProvider(this),
         'titlehub': new TitlehubProvider(this),
+        'usersearch': new UsersearchProvider(this),
     }
 
     getAuthorizationHeader(){
