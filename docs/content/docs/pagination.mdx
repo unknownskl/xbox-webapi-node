@@ -1,0 +1,21 @@
+---
+title: Pagination
+description: Pagination system
+---
+
+The library offers an easy way to paginate through api calls. For example the achievements provider uses the continuationToken to navigate through multiple lists.
+
+To help the user to navigate this we can simply make a api call using the example code below:
+
+```ts
+const achievements = await api.providers.achievements.getAchievements(xuid) // Retrieve achievements of the user
+console.log(achievements.data.titles) // Print out the first list of achievements
+
+const achievements2 = await achievements.next() // Load second list of achievements.
+console.log(achievements2.data.titles) // Print out the second list of achievements
+
+const achievements3 = await achievements2.next() // Load third list of achievements.
+console.log(achievements2.data.titles) // Print out the third list of achievements
+```
+
+All the methods which response contains a continuationToken will support this way of navigating. (Including the `rest` provider)

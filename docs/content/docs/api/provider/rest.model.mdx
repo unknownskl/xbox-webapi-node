@@ -1,0 +1,21 @@
+---
+title: RestProvider
+description: RestProvider Class
+---
+
+## Example code 
+
+```ts
+// Retrieve achievements of a user
+const result = await api.providers.rest.getRequest('https://achievements.xboxlive.com/users/xuid(<xuid>)/history/titles')
+
+// The response has a continuationToken. We can call .next() to retrieve the next page
+const result2 = await result.next()
+
+// Print out page 2 of the achievements api call
+console.log(result2)
+```
+
+---type-table---
+../../../../../src/provider/rest.ts
+---end---
