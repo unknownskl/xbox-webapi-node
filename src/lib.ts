@@ -13,6 +13,7 @@ import TitlehubProvider from './provider/titlehub'
 import UsersearchProvider from './provider/usersearch'
 import UserstatsProvider from './provider/userstats'
 import XnotifyProvider from './provider/xnotify'
+import RestProvider from './provider/rest'
 
 type XboxWebApiConfig = {
     uhs: string
@@ -48,6 +49,7 @@ export default class XboxWebApi {
         'usersearch': new UsersearchProvider(this),
         'userstats': new UserstatsProvider(this),
         'xnotify': new XnotifyProvider(this),
+        'rest': new RestProvider(this),
     }
 
     getAuthorizationHeader(){

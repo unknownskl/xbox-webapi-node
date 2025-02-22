@@ -85,11 +85,11 @@ export default class Http {
                         resolve(new HttpResponse(JSON.parse(responseData.toString()), res.headers, options))
                     }
                 } else {
-                    reject(new Error('Error fetching '+options.host+options.path+'. Details:'+ JSON.stringify({
+                    reject(new Error('Error fetching '+options.hostname+options.path+'. Details: '+ JSON.stringify({
                         statuscode: res.statusCode,
                         headers: res.headers,
                         body: responseData.toString(),
-                        message: 'Error fetching '+options.host+options.path
+                        message: 'Error fetching '+options.hostname+options.path
                     }, null, 2)))
                 }
             })
