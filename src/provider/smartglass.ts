@@ -1,5 +1,5 @@
 import { HttpResponse } from '../lib/http'
-import { Console, ConsoleStatus, InstalledApp, StorageDevice } from '../types/smartglass'
+import { SmartglassResponse, Console, ConsoleStatus, App, StorageDevice } from '../types/smartglass'
 
 import BaseProvider from './base'
 import Uuid4 from 'uuid4'
@@ -11,16 +11,16 @@ export default class SmartglassProvider extends BaseProvider {
         'skillplatform': 'RemoteManagement'
     }
 
-    async getConsolesList(): Promise<Console[]> {
-        return (await this.get('/lists/devices?queryCurrentDevice=false&includeStorageDevices=true')).data.result
+    async getConsolesList(): Promise<HttpResponse<SmartglassResponse<Console>>> {
+        return (await this.get('/lists/devices?queryCurrentDevice=false&includeStorageDevices=true'))
     }
 
-    async getInstalledApps(consoleId:string): Promise<InstalledApp[]> {
-        return (await this.get('/lists/installedApps?deviceId='+consoleId)).data.result
+    async getInstalledApps(consoleId:string): Promise<HttpResponse<SmartglassResponse<App>>> {
+        return (await this.get('/lists/installedApps?deviceId='+consoleId))
     }
 
-    async getStorageDevices(consoleId:string): Promise<StorageDevice[]> {
-        return (await this.get('/lists/storageDevices?deviceId='+consoleId)).data.result
+    async getStorageDevices(consoleId:string): Promise<HttpResponse<SmartglassResponse<StorageDevice>>> {
+        return (await this.get('/lists/storageDevices?deviceId='+consoleId))
     }
 
     async getConsoleStatus(consoleId:string): Promise<HttpResponse<ConsoleStatus>> {

@@ -1,3 +1,9 @@
+export interface SmartglassResponse<T = Console | App | StorageDevice> {
+    status:      Status;
+    result:      T[];
+    agentUserId: null;
+}
+
 export interface Console {
     id:                                   string;
     name:                                 string;
@@ -13,38 +19,7 @@ export interface Console {
     storageDevices:                       StorageDevice[];
 }
 
-export interface StorageDevice {
-    storageDeviceId:   string;
-    storageDeviceName: string;
-    isDefault:         boolean;
-    freeSpaceBytes:    number;
-    totalSpaceBytes:   number;
-    isGen9Compatible:  null;
-}
-
-export interface ConsoleStatus {
-    status:                               Status;
-    id:                                   string;
-    name:                                 string;
-    locale:                               string;
-    region:                               string;
-    consoleType:                          string;
-    powerState:                           string;
-    playbackState:                        string;
-    loginState:                           null;
-    focusAppAumid:                        string;
-    isTvConfigured:                       boolean;
-    digitalAssistantRemoteControlEnabled: boolean;
-    consoleStreamingEnabled:              boolean;
-    remoteManagementEnabled:              boolean;
-}
-
-export interface Status {
-    errorCode:    string;
-    errorMessage: null;
-}
-
-export interface InstalledApp {
+export interface App {
     oneStoreProductId: null | string;
     titleId:           number;
     aumid:             null | string;
@@ -63,12 +38,6 @@ export interface InstalledApp {
     parentId:          string | null;
 }
 
-export enum ContentType {
-    App = "App",
-    Dlc = "Dlc",
-    Game = "Game",
-}
-
 export interface StorageDevice {
     storageDeviceId:   string;
     storageDeviceName: string;
@@ -76,4 +45,32 @@ export interface StorageDevice {
     freeSpaceBytes:    number;
     totalSpaceBytes:   number;
     isGen9Compatible:  null;
+}
+
+export interface Status {
+    errorCode:    string;
+    errorMessage: null;
+}
+
+export enum ContentType {
+    App = "App",
+    Dlc = "Dlc",
+    Game = "Game",
+}
+
+export interface ConsoleStatus {
+    status:                               Status;
+    id:                                   string;
+    name:                                 string;
+    locale:                               string;
+    region:                               string;
+    consoleType:                          string;
+    powerState:                           string;
+    playbackState:                        string;
+    loginState:                           null;
+    focusAppAumid:                        string;
+    isTvConfigured:                       boolean;
+    digitalAssistantRemoteControlEnabled: boolean;
+    consoleStreamingEnabled:              boolean;
+    remoteManagementEnabled:              boolean;
 }

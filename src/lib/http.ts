@@ -121,7 +121,7 @@ export class HttpResponse<T = any> {
     }
 
     async next(){
-        const parsedUrl = new URL(this.options.path, 'http://dummy-base')
+        const parsedUrl = new URL(this.options.path, 'https://dummy-base')
         const maxItems = parsedUrl.searchParams.get('maxItems') ?? undefined
         const skipItems = parsedUrl.searchParams.get('skipItems') ?? undefined
         
@@ -138,7 +138,7 @@ export class HttpResponse<T = any> {
 }
 
 export function applyPagination(path:string, maxItems, skipItems, continuationToken:undefined|string){
-    const parsedUrl = new URL(path, 'http://dummy-base')
+    const parsedUrl = new URL(path, 'https://dummy-base')
 
     if(maxItems !== undefined)
         parsedUrl.searchParams.set('maxItems', maxItems)
