@@ -10,7 +10,7 @@
     "build": "rm -rf dist/ && tsc && chmod +x dist/bin/cli.js",
     "test": "npm run build && nyc --require ts-node/register --reporter=html --reporter=lcov --reporter=text mocha tests/**.ts",
     "start": "npm run build && node dist/bin/cli.js",
-    "auth": "xbox-auth auth"
+    "auth": "xbox-auth auth --auth msal"
   },
   "author": "UnknownSKL <info@jimkroon.nl>",
   "license": "MIT",
