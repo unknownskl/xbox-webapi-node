@@ -1,3 +1,4 @@
+import { HttpResponse } from '../lib/http'
 import { UserResponse } from '../types/userpresence'
 
 import BaseProvider from './base'
@@ -8,15 +9,15 @@ export default class UserpresenceProvider extends BaseProvider {
         'x-xbl-contract-version': '3'
     }
 
-    async getCurrentUser(): Promise<UserResponse> {
+    async getCurrentUser(): Promise<HttpResponse<UserResponse>> {
         return (await this.get('/users/me?level=all'))
     }
 
-    async getFriends(): Promise<UserResponse[]> {
+    async getFriends(): Promise<HttpResponse<UserResponse[]>> {
         return (await this.get('/users/me/groups/People?level=all'))
     }
 
-    async getUser(xuid:string): Promise<UserResponse> {
+    async getUser(xuid:string): Promise<HttpResponse<UserResponse>> {
         return (await this.get('/users/xuid('+xuid+')?level=all'))
     }
 }

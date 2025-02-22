@@ -2,6 +2,7 @@ import QueryString from 'node:querystring'
 import { CatalogSearchResponse } from '../types/catalog'
 
 import BaseProvider from './base'
+import { HttpResponse } from '../lib/http'
 
 export default class CatalogProvider extends BaseProvider {
     _endpoint = 'displaycatalog.mp.microsoft.com'
@@ -9,7 +10,7 @@ export default class CatalogProvider extends BaseProvider {
         'MS-CV': '1.0',
     }
     
-    async searchTitle(query:string, market = 'us', language = 'en-us', continuationToken = undefined, maxItems = undefined, skipItems = undefined): Promise<CatalogSearchResponse> {
+    async searchTitle(query:string, market = 'us', language = 'en-us', continuationToken:undefined|string = undefined, maxItems = undefined, skipItems = undefined): Promise<HttpResponse<CatalogSearchResponse>> {
         const searchParams = {
             "languages": language,
             "market": market,
@@ -25,7 +26,7 @@ export default class CatalogProvider extends BaseProvider {
         return (await this.get(this.applyPagination('/v7.0/productFamilies/autosuggest?'+queryParams, maxItems, skipItems, continuationToken)))
     }
     
-    async getProductId(query:string, market = 'us', language = 'en-us', continuationToken = undefined, maxItems = undefined, skipItems = undefined): Promise<CatalogSearchResponse> {
+    async getProductId(query:string, market = 'us', language = 'en-us', continuationToken:undefined|string = undefined, maxItems = undefined, skipItems = undefined): Promise<HttpResponse<CatalogSearchResponse>> {
         const searchParams = {
             "actionFilter": 'Browse',
             "bigIds": [query],
@@ -40,7 +41,7 @@ export default class CatalogProvider extends BaseProvider {
         return (await this.get(this.applyPagination('/v7.0/productFamilies/autosuggest?'+queryParams, maxItems, skipItems, continuationToken)))
     }
 
-    async getProductFromAlternateId(titleId:string, titleType:string, market = 'us', language = 'en-us', continuationToken = undefined, maxItems = undefined, skipItems = undefined): Promise<CatalogSearchResponse> {
+    async getProductFromAlternateId(titleId:string, titleType:string, market = 'us', language = 'en-us', continuationToken:undefined|string = undefined, maxItems = undefined, skipItems = undefined): Promise<HttpResponse<CatalogSearchResponse>> {
         const searchParams = {
             "top": 25,
             "alternateId": titleType,

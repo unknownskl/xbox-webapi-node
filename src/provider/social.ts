@@ -1,3 +1,4 @@
+import { HttpResponse } from '../lib/http'
 import { SummaryResponse } from '../types/social'
 
 import BaseProvider from './base'
@@ -5,15 +6,15 @@ import BaseProvider from './base'
 export default class SocialProvider extends BaseProvider {
     _endpoint = 'social.xboxlive.com'
 
-    async getSummary(): Promise<SummaryResponse> {
+    async getSummary(): Promise<HttpResponse<SummaryResponse>> {
         return (await this.get('/users/me/summary'))
     }
 
-    async getSummaryByXuid(xuid:string): Promise<SummaryResponse> {
+    async getSummaryByXuid(xuid:string): Promise<HttpResponse<SummaryResponse>> {
         return (await this.get('/users/xuid('+xuid+')/summary'))
     }
 
-    async getSummaryByGamertag(gamertag:string): Promise<SummaryResponse> {
+    async getSummaryByGamertag(gamertag:string): Promise<HttpResponse<SummaryResponse>> {
         return (await this.get('/users/gt('+gamertag+')/summary'))
     }
 }

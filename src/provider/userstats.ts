@@ -1,3 +1,4 @@
+import { HttpResponse } from '../lib/http'
 import { UserstatResponse } from '../types/userstats'
 
 import BaseProvider from './base'
@@ -8,7 +9,7 @@ export default class UserstatsProvider extends BaseProvider {
         'x-xbl-contract-version': '2'
     }
 
-    async getUserTitleStats(xuid:string, titleId:string): Promise<UserstatResponse> {
+    async getUserTitleStats(xuid:string, titleId:string): Promise<HttpResponse<UserstatResponse>> {
         return (await this.post('/batch', 
             {
                 "arrangebyfield":"xuid",

@@ -1,5 +1,5 @@
 import XboxWebApi from '../lib'
-import Http from '../lib/http'
+import Http, { applyPagination } from '../lib/http'
 
 export default class BaseProvider {
     private readonly _api: XboxWebApi;
@@ -27,29 +27,7 @@ export default class BaseProvider {
         return true
     }
 
-    applyPagination(path, maxItems, skipItems, continuationToken){
-        const urlItems:string[] = []
-
-        if(maxItems !== undefined){
-            urlItems.push('maxItems='+maxItems)
-        }
-        if(skipItems !== undefined){
-            urlItems.push('skipItems='+skipItems)
-        }
-        if(continuationToken !== undefined){
-            urlItems.push('continuationToken='+continuationToken)
-        }
-
-        if(urlItems.length > 0){
-            if(path.indexOf('?') > -1){
-                return path + '&' + urlItems.join('&')
-            } else {
-                return path + '?' + urlItems.join('&')
-            }
-        } else {
-            return path
-        }
-    }
+    applyPagination = applyPagination
 
     async get(path, headers?){
         const _headers = {
@@ -60,7 +38,7 @@ export default class BaseProvider {
         }
 
         const response = await new Http().getRequest(this._endpoint, path, _headers)
-        return response.data
+        return response
     }
 
     async delete(path, data, headers?){
@@ -72,7 +50,7 @@ export default class BaseProvider {
         }
 
         const response = await new Http().deleteRequest(this._endpoint, path, _headers)
-        return response.data
+        return response
     }
 
     async post(path, data, headers?){
@@ -84,7 +62,7 @@ export default class BaseProvider {
         }
 
         const response = await new Http().postRequest(this._endpoint, path, _headers, data)
-        return response.data
+        return response
     }
 
     async put(path, data, headers?){
@@ -96,6 +74,6 @@ export default class BaseProvider {
         }
 
         const response = await new Http().putRequest(this._endpoint, path, _headers, data)
-        return response.data
+        return response
     }
 }

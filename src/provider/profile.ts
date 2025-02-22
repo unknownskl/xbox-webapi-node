@@ -1,3 +1,4 @@
+import { HttpResponse } from '../lib/http'
 import { ProfileResponse } from '../types/profile'
 
 import BaseProvider from './base'
@@ -8,11 +9,11 @@ export default class ProfileProvider extends BaseProvider {
         'x-xbl-contract-version': 3
     }
 
-    async getUserProfile(xuid:string): Promise<ProfileResponse> {
+    async getUserProfile(xuid:string): Promise<HttpResponse<ProfileResponse>> {
         return (await this.get('/users/xuid('+xuid+')/profile/settings?settings=GameDisplayName,GameDisplayPicRaw,Gamerscore,Gamertag'))
     }
 
-    async getByGamertag(gamertag:string): Promise<ProfileResponse> {
+    async getByGamertag(gamertag:string): Promise<HttpResponse<ProfileResponse>> {
         return (await this.get('/users/gt('+gamertag+')/profile/settings?settings=GameDisplayName,GameDisplayPicRaw,Gamerscore,Gamertag'))
     }
 }

@@ -21,7 +21,8 @@ Once the package is installed the application should be available using `xbox-we
 
 Example output:
 
-```xbox-webapi <cmd> [args]
+```shell
+xbox-webapi <cmd> [args]
 
 Commands:
   xbox-webapi achievements [command]  achievements provider
@@ -30,17 +31,35 @@ Commands:
   xbox-webapi smartglass [command]    smartglass provider
   xbox-webapi catalog [command]       catalog provider
   xbox-webapi gameclips [command]     gameclips provider
+  xbox-webapi screenshots [command]   screenshots provider
+  xbox-webapi people [command]        people provider
+  xbox-webapi pins [command]          pins provider
+  xbox-webapi profile [command]       profile provider
+  xbox-webapi social [command]        social provider
+  xbox-webapi titlehub [command]      titlehub provider
+  xbox-webapi usersearch [command]    usersearch provider
+  xbox-webapi userstats [command]     userstats provider
+  xbox-webapi xnotify [command]       xnotify provider
 
 Options:
-      --help               Show help                                                                 [boolean]
-      --version            Show version number                                                       [boolean]
-  -v, --verbose            Run with verbose logging                                                  [boolean]
-  -o, --output             Output              [string] [choices: "table", "json", "jsonp"] [default: "table"]
-  -c, --continuationToken  Continuation token                                                         [number]
-  -n, --maxItems           Max items                                                                  [number]
-  -s, --skipItems          Skip items                                                                 [number]
-  -m, --market             Market                                                     [string] [default: "US"]
-  -l, --language           Language                                                [string] [default: "en-US"]
+      --help               Show help                                         [boolean]
+      --version            Show version number                               [boolean]
+  -v, --verbose            Run with verbose logging                          [boolean]
+  -o, --output             Output
+                       [string] [choices: "table", "json", "jsonp"] [default: "table"]
+  -c, --continuationToken  Continuation token                                 [number]
+  -n, --maxItems           Max items                                          [number]
+  -s, --skipItems          Skip items                                         [number]
+  -m, --market             Market                             [string] [default: "US"]
+  -l, --language           Language                        [string] [default: "en-US"]
 
 You need to specify a command. Use --help to see available commands.
 ```
+
+### Render output
+
+The default output of the cli is using `console.table`. This will try to render the data, however in most cases this is useless.
+
+You can supply the `-o json` argument to change the output to json.
+
+You can also use `-o jsonp` to output pretty printed json.

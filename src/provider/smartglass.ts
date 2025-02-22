@@ -1,3 +1,4 @@
+import { HttpResponse } from '../lib/http'
 import { Console, ConsoleStatus, InstalledApp, StorageDevice } from '../types/smartglass'
 
 import BaseProvider from './base'
@@ -11,18 +12,18 @@ export default class SmartglassProvider extends BaseProvider {
     }
 
     async getConsolesList(): Promise<Console[]> {
-        return (await this.get('/lists/devices?queryCurrentDevice=false&includeStorageDevices=true')).result
+        return (await this.get('/lists/devices?queryCurrentDevice=false&includeStorageDevices=true')).data.result
     }
 
     async getInstalledApps(consoleId:string): Promise<InstalledApp[]> {
-        return (await this.get('/lists/installedApps?deviceId='+consoleId)).result
+        return (await this.get('/lists/installedApps?deviceId='+consoleId)).data.result
     }
 
     async getStorageDevices(consoleId:string): Promise<StorageDevice[]> {
-        return (await this.get('/lists/storageDevices?deviceId='+consoleId)).result
+        return (await this.get('/lists/storageDevices?deviceId='+consoleId)).data.result
     }
 
-    async getConsoleStatus(consoleId:string): Promise<ConsoleStatus> {
+    async getConsoleStatus(consoleId:string): Promise<HttpResponse<ConsoleStatus>> {
         return (await this.get('/consoles/'+consoleId))
     }
 
