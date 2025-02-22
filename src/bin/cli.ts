@@ -140,13 +140,13 @@ class Cli {
 
                                         // Render output
                                         if(argv.output === 'json'){
-                                            console.log(JSON.stringify(result))
+                                            console.log(JSON.stringify(result.data))
                                             
                                         } else if(argv.output === 'jsonp'){
-                                            console.log(JSON.stringify(result, null, 2))
+                                            console.log(JSON.stringify(result.data, null, 2))
                                             
                                         } else {
-                                            console.table(result)
+                                            console.table(result.data)
                                         }
 
                                     }).catch((error) => {
