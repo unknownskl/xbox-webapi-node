@@ -14,6 +14,7 @@ export default class BaseProvider {
             'Accept-Language': 'en-US',
             'Accept': 'application/json',
             'x-xbl-contract-version': '2',
+            'Content-Type': 'application/json'
         }
     }
 

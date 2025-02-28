@@ -13,6 +13,7 @@ import TitlehubProvider from './provider/titlehub'
 import UsersearchProvider from './provider/usersearch'
 import UserstatsProvider from './provider/userstats'
 import XnotifyProvider from './provider/xnotify'
+import GamepassProvider from './provider/gamepass'
 import RestProvider from './provider/rest'
 
 type XboxWebApiConfig = {
@@ -30,7 +31,6 @@ export default class XboxWebApi {
             market: 'en-us',
             ...config
         }
-        
     }
 
     providers = {
@@ -40,6 +40,7 @@ export default class XboxWebApi {
         'smartglass': new SmartglassProvider(this),
         'catalog': new CatalogProvider(this),
         'gameclips': new GameclipsProvider(this),
+        'gamepass': new GamepassProvider(this),
         'screenshots': new ScreenshotsProvider(this),
         'people': new PeopleProvider(this),
         'pins': new PinsProvider(this),

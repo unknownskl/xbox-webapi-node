@@ -10,6 +10,7 @@
     "build": "rm -rf dist/ && tsc && chmod +x dist/bin/cli.js",
     "test": "npm run build && nyc --require ts-node/register --reporter=html --reporter=lcov --reporter=text mocha tests/**.ts",
     "start": "npm run build && node dist/bin/cli.js",
+    "start:test": "npm run build && node dist/bin/test.js",
     "auth": "xbox-auth auth --auth msal"
   },
   "author": "UnknownSKL <info@jimkroon.nl>",
