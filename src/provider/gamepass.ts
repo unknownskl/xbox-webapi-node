@@ -25,7 +25,7 @@ export default class GamepassProvider extends BaseProvider {
 
     async getProducts(products:string[], market = 'us', language = 'en-us', continuationToken:undefined|string = undefined, maxItems = undefined, skipItems = undefined): Promise<HttpResponse<ProductsResponse>> {
         const searchParams = {
-            "hydration": 'MobileLowAmber0', // Slow fetch: RemoteHighSapphire0, Fast fetch: MobileLowAmber0
+            "hydration": 'MobileLowAmber0',
             "market": market,
             "language": language,
         }
@@ -41,7 +41,7 @@ export default class GamepassProvider extends BaseProvider {
         }
 
         const searchParams = {
-            "hydration": 'RemoteHighSapphire0', // Slow fetch: RemoteHighSapphire0, Fast fetch: MobileLowAmber0
+            "hydration": 'RemoteHighSapphire0',
             "market": market,
             "language": language,
         }
@@ -51,5 +51,3 @@ export default class GamepassProvider extends BaseProvider {
         }))
     }
 }
-
-// 393f05bf-e596-4ef6-9487-6d4fa0eab987
