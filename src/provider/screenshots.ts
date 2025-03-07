@@ -1,21 +1,21 @@
 import { HttpResponse } from '../lib/http'
 import BaseProvider from './base'
+import { ScreenshotsResponse } from '../types/screenshots'
 
 export default class ScreenshotsProvider extends BaseProvider {
-    _endpoint = 'screenshotsmetadata.xboxlive.com'
+    _endpoint = 'mediahub.xboxlive.com'
+
     _headers = {
-        'x-xbl-contract-version': '5'
+        'x-xbl-contract-version': '3'
     }
 
-    async getScreenshots(continuationToken:undefined|string = undefined, maxItems = undefined, skipItems = undefined): Promise<HttpResponse<any>> {
-        return (await this.get(this.applyPagination('/users/me/screenshots', maxItems, skipItems, continuationToken)))
-    }
-
-    async getScreenshotsByTitleId(titleId:string, continuationToken:undefined|string = undefined, maxItems = 10, skipItems = undefined): Promise<HttpResponse<any>> {
-        return (await this.get(this.applyPagination('/public/titles/'+titleId+'/screenshots?qualifier=created', maxItems, skipItems, continuationToken)))
-    }
-
-    async getScreenshotsByXuid(xuid:string, continuationToken:undefined|string = undefined, maxItems = undefined, skipItems = undefined): Promise<HttpResponse<any>> {
-        return (await this.get(this.applyPagination('/users/xuid('+xuid+')/screenshots', maxItems, skipItems, continuationToken)))
+    async getScreenshots(xuid:string, continuationToken:undefined|string = undefined, maxItems = undefined, skipItems = undefined): Promise<HttpResponse<ScreenshotsResponse>> {
+        return (await this.post(this.applyPagination('/screenshots/search', maxItems, skipItems, continuationToken),
+            {
+                query: "OwnerXuid eq "+xuid,
+                max: maxItems,
+                skip: skipItems
+            }
+        ))
     }
 }

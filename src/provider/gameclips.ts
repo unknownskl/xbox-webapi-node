@@ -4,17 +4,19 @@ import { GameclipsResponse } from '../types/gameclips'
 import BaseProvider from './base'
 
 export default class GameclipsProvider extends BaseProvider {
-    _endpoint = 'gameclipsmetadata.xboxlive.com'
+    _endpoint = 'mediahub.xboxlive.com'
 
-    async getGameclips(continuationToken:undefined|string = undefined, maxItems = undefined, skipItems = undefined): Promise<HttpResponse<GameclipsResponse>> {
-        return (await this.get(this.applyPagination('/users/me/clips', maxItems, skipItems, continuationToken)))
+    _headers = {
+        'x-xbl-contract-version': '3'
     }
 
-    async getGameclipsByTitleId(titleId:string, continuationToken:undefined|string = undefined, maxItems = undefined, skipItems = undefined): Promise<HttpResponse<GameclipsResponse>> {
-        return (await this.get(this.applyPagination('/public/titles/'+titleId+'/clips/saved?qualifier=created', maxItems, skipItems, continuationToken)))
-    }
-
-    async getGameclipsByXuid(xuid:string, continuationToken:undefined|string = undefined, maxItems = undefined, skipItems = undefined): Promise<HttpResponse<GameclipsResponse>> {
-        return (await this.get(this.applyPagination('/users/xuid('+xuid+')/clips', maxItems, skipItems, continuationToken)))
+    async getGameclips(xuid:string, continuationToken:undefined|string = undefined, maxItems = undefined, skipItems = undefined): Promise<HttpResponse<GameclipsResponse>> {
+        return (await this.post(this.applyPagination('/gameclips/search', maxItems, skipItems, continuationToken),
+            {
+                query: "OwnerXuid eq "+xuid,
+                max: maxItems,
+                skip: skipItems
+            }
+        ))
     }
 }
