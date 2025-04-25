@@ -1,8 +1,8 @@
 {
   "name": "xbox-webapi",
-  "version": "2.0.0-beta1",
+  "version": "2.0.0-beta2",
   "description": "Xbox Web API client in Node.JS that supports Smartglass commands to control the Xbox",
-  "main": "src/client.js",
+  "main": "dist/lib.js",
   "bin": {
     "xbox-webapi": "dist/bin/cli.js"
   },
